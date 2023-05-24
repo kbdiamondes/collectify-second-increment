@@ -1,6 +1,10 @@
 package com.capstone.kuhako.models;
 
+import com.capstone.kuhako.models.ResellerModule.SendCollectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -24,13 +28,16 @@ public class Client {
     @Column
     private String email;
 
+    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    private Set<SendCollectors> sendCollectors;
+
     public Client() {
         }
     public int getClient_id() {
         return client_id;
         }
-    public Client(int client_id, String username, String password, String fullName, String address, String email) {
-            this.client_id = client_id;
+    public Client(String username, String password, String fullName, String address, String email) {
             this.username = username;
             this.password = password;
             this.fullName = fullName;
@@ -62,7 +69,7 @@ public class Client {
         return fullName;
         }
 
-        public void setFullName(String fullName) {
+    public void setFullName(String fullName) {
             this.fullName = fullName;
         }
 
@@ -84,4 +91,4 @@ public class Client {
 
 
 
-    }
+}

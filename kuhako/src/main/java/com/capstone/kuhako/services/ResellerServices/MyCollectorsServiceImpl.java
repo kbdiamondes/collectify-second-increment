@@ -8,16 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyCollectorsServiceImpl {
+public class MyCollectorsServiceImpl implements MyCollectorsService {
     @Autowired
     private MyCollectorsRepository myCollectorsRepository;
 
+    // Create My Collectors
     public void createMyCollectors(MyCollectors myCollectors){
-        MyCollectors newMyCollectors = new MyCollectors();
-        newMyCollectors.setCollectionStatus(myCollectors.getCollectionStatus());
-        newMyCollectors.setAvailabilityStatus(myCollectors.getAvailabilityStatus());
-        newMyCollectors.setRequiredCollectibles(myCollectors.getRequiredCollectibles());
-        myCollectorsRepository.save(newMyCollectors);
+        myCollectorsRepository.save(myCollectors);
     }
     public Iterable<MyCollectors> getMyCollectors(){
         return myCollectorsRepository.findAll();
@@ -31,7 +28,6 @@ public class MyCollectorsServiceImpl {
     public ResponseEntity updateMyCollectors(Long id, MyCollectors myCollectors){
         MyCollectors myCollectorsForUpdate = myCollectorsRepository.findById(id).get();
         myCollectorsForUpdate.setCollectionStatus(myCollectors.getCollectionStatus());
-        myCollectorsForUpdate.setAvailabilityStatus(myCollectors.getAvailabilityStatus());
         myCollectorsForUpdate.setRequiredCollectibles(myCollectors.getRequiredCollectibles());
         myCollectorsRepository.save(myCollectorsForUpdate);
         return new ResponseEntity("MyCollectors updated successfully", HttpStatus.OK);

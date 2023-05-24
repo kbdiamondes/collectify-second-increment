@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-public class ClientControllers {
+public class ClientController {
+
     @Autowired
     ClientService clientService;
 

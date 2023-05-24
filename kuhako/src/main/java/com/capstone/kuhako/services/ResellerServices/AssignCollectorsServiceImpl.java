@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AssignCollectorsServiceImpl {
+public class AssignCollectorsServiceImpl implements AssignCollectorsService{
     @Autowired
     private AssignCollectorsRepository assignCollectorsRepository;
 
@@ -17,7 +17,7 @@ public class AssignCollectorsServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         AssignCollectors newAssignCollectors = new AssignCollectors();
-        newAssignCollectors.setCollectors(assignCollectors.getCollectors());
+        newAssignCollectors.setCollector(assignCollectors.getCollector());
         assignCollectorsRepository.save(newAssignCollectors);
     }
     public Iterable<AssignCollectors> getAssignCollectors(){
@@ -34,7 +34,7 @@ public class AssignCollectorsServiceImpl {
     public ResponseEntity updateAssignCollectors(Long id, AssignCollectors assignCollectors){
         AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).get();
 
-        assignCollectorsForUpdate.setCollectors(assignCollectors.getCollectors());
+        assignCollectorsForUpdate.setCollector(assignCollectors.getCollector());
 
         assignCollectorsRepository.save(assignCollectorsForUpdate);
 

@@ -8,21 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ResellerServiceImpl {
+public class ResellerServiceImpl implements ResellerService {
     @Autowired
     private ResellerRepository resellerRepository;
     // Find reseller  by reseller name
     // Create reseller
-    public void createUser(Reseller reseller ){
+    public void createReseller(Reseller reseller ){
         resellerRepository.save(reseller );
     }
+
     // Get all reseller
     public Iterable<Reseller> getUsername(){
         return resellerRepository.findAll();
     }
 
     // Delete reseller
-    public ResponseEntity deleteUser(int id){
+    public ResponseEntity deleteReseller(int id){
         resellerRepository.deleteById(id);
         return new ResponseEntity<>("User Deleted successfully", HttpStatus.OK);
     }

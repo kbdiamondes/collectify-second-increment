@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CollectorServiceImpl {
+public class CollectorServiceImpl implements CollectorService{
     @Autowired
     private CollectorRepository collectorRepository;
 

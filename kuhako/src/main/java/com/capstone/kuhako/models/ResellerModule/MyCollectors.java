@@ -1,5 +1,9 @@
 package com.capstone.kuhako.models.ResellerModule;
 
+import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.models.Reseller;
+
 import javax.persistence.*;
 
 
@@ -12,26 +16,30 @@ public class MyCollectors {
     @Column(name = "mycollectors_id")
     private int myCollectorsId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    @JsonIgnore
-//    private User user;
-
     @Column(name = "collection_status")
     private String collectionStatus;
-
-    @Column(name = "availability_status")
-    private String availabilityStatus;
 
     @Column(name = "required_collectibles")
     private double requiredCollectibles;
 
+    @ManyToOne
+    @JoinColumn(name="reseller_id", nullable = false)
+    private Reseller reseller;
+
+    @ManyToOne
+    @JoinColumn(name="collector_id", nullable = false)
+    private Collector collector;
+
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable = false)
+    private Client client;
+
+
     public MyCollectors() {
     }
 
-    public MyCollectors(String collectionStatus, String availabilityStatus, Double requiredCollectibles) {
+    public MyCollectors(String collectionStatus, Double requiredCollectibles) {
         this.collectionStatus = collectionStatus;
-        this.availabilityStatus = availabilityStatus;
         this.requiredCollectibles = requiredCollectibles;
     }
 
@@ -45,14 +53,6 @@ public class MyCollectors {
 
     public void setCollectionStatus(String collectionStatus) {
         this.collectionStatus = collectionStatus;
-    }
-
-    public String getAvailabilityStatus() {
-        return availabilityStatus;
-    }
-
-    public void setAvailabilityStatus(String availabilityStatus) {
-        this.availabilityStatus = availabilityStatus;
     }
 
     public double getRequiredCollectibles() {

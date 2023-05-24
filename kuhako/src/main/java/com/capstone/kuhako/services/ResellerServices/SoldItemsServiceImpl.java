@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SoldItemsServiceImpl {
+public class SoldItemsServiceImpl implements SoldItemsService{
     @Autowired
     private SoldItemsRepository soldItemsRepository;
 

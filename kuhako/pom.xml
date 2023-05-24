@@ -46,31 +46,31 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- "Spring Security" is a powerful and highly customizable authentication and access-control framework. -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>5.2.0.RELEASE</version>
-		</dependency>
+<!--		&lt;!&ndash; "Spring Security" is a powerful and highly customizable authentication and access-control framework. &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-core</artifactId>-->
+<!--			<version>5.2.0.RELEASE</version>-->
+<!--		</dependency>-->
 
-		<!-- "Spring Security Web" is used to prevent unauthorized users from accessing specific endpoints. -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; "Spring Security Web" is used to prevent unauthorized users from accessing specific endpoints. &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-web</artifactId>-->
+<!--		</dependency>-->
 
-		<!-- "spring-boot-starter-security" aggregates Spring Security related dependencies together. -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<!--		&lt;!&ndash; "spring-boot-starter-security" aggregates Spring Security related dependencies together. &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 
-		<!-- JSON Web Token -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
+<!--		&lt;!&ndash; JSON Web Token &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>io.jsonwebtoken</groupId>-->
+<!--			<artifactId>jjwt</artifactId>-->
+<!--			<version>0.9.1</version>-->
+<!--		</dependency>-->
 
 	</dependencies>
 

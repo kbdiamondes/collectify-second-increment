@@ -1,6 +1,10 @@
 package com.capstone.kuhako.models;
 
+import com.capstone.kuhako.models.ResellerModule.SendCollectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "collector")
@@ -23,6 +27,10 @@ public class Collector {
 
     @Column
     private String email;
+
+    @OneToMany(mappedBy = "collector")
+    @JsonIgnore
+    private Set<SendCollectors> sendCollectors;
 
     public Collector() {
     }

@@ -8,24 +8,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SendCollectorsServiceImpl {
+public class SendCollectorsServiceImpl implements SendCollectorsService{
+
     @Autowired
     private SendCollectorsRepository sendCollectorsRepository;
-    public void createSendCollectors(SendCollectors sendCollectors){
 
-        SendCollectors newSendCollectors = new SendCollectors();
-        newSendCollectors.setReseller(sendCollectors.getReseller());
-        newSendCollectors.setPaymentDues(sendCollectors.getPaymentDues());
-        sendCollectorsRepository.save(newSendCollectors);
+    public void createSendCollectors(SendCollectors sendCollectors){
+        sendCollectorsRepository.save(sendCollectors);
+
     }
     public Iterable<SendCollectors> getSendCollectors(){
         return sendCollectorsRepository.findAll();
     }
 
+
     public ResponseEntity deleteSendCollectors(Long id){
         sendCollectorsRepository.deleteById(id);
         return new ResponseEntity<>("SendCollectors Deleted successfully", HttpStatus.OK);
-
     }
 
     public ResponseEntity updateSendCollectors(Long id, SendCollectors sendCollectors){

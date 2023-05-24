@@ -1,5 +1,7 @@
 package com.capstone.kuhako.models.ResellerModule;
 
+import com.capstone.kuhako.models.Reseller;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,10 @@ public class SoldItems {
 
     @Column
     private int stockQuantity;
+
+    @ManyToOne
+    @JoinColumn(name="reseller_id", nullable = false)
+    private Reseller reseller;
 
     public SoldItems() {
     }
