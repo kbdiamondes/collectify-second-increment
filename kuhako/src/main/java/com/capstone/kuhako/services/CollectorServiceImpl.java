@@ -1,0 +1,39 @@
+package com.capstone.kuhako.services;
+
+import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.CollectorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CollectorServiceImpl {
+    @Autowired
+    private CollectorRepository collectorRepository;
+
+    // Create a Collector
+    public void createCollector(Collector collector){
+        collectorRepository.save(collector);
+    }
+    // Get all Collector
+    public Iterable<Collector> getUsername(){
+        return collectorRepository.findAll();
+    }
+    // Delete Collector
+
+    public ResponseEntity deleteCollector(int id){
+        collectorRepository.deleteById(id);
+        return new ResponseEntity<>("Collector Deleted successfully", HttpStatus.OK);
+    }
+    public ResponseEntity updateCollector(int id, Collector collector){
+        // Find the user to update
+        Collector collectorForUpdate = collectorRepository.findById(id).get();
+        // Updating the username and password
+        collectorForUpdate .setFullName(collector.getFullName());
+        collectorForUpdate .setAddress(collector.getAddress());
+        // Saving and Updating a user
+        collectorRepository.save(collectorForUpdate );
+        return new ResponseEntity<>("Collector updated Successfully",HttpStatus.OK);
+    }
+}
