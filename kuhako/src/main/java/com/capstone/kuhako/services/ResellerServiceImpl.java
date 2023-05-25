@@ -13,8 +13,8 @@ public class ResellerServiceImpl implements ResellerService {
     private ResellerRepository resellerRepository;
     // Find reseller  by reseller name
     // Create reseller
-    public void createReseller(Reseller reseller ){
-        resellerRepository.save(reseller );
+    public void createReseller(Reseller reseller){
+        resellerRepository.save(reseller);
     }
 
     // Get all reseller
@@ -29,12 +29,12 @@ public class ResellerServiceImpl implements ResellerService {
     }
 
     // Update a reseller
-    public ResponseEntity updateReseller(Long id , Reseller reseller ){
+    public ResponseEntity updateReseller(Long id , Reseller reseller){
         // Find the reseller  to update
         Reseller resellerForUpdate = resellerRepository.findById(id).get();
         // Updating the reseller name and password
-        resellerForUpdate.setFullName(reseller .getFullName());
-        resellerForUpdate.setAddress(reseller .getAddress());
+        resellerForUpdate.setFullName(reseller.getFullName());
+        resellerForUpdate.setAddress(reseller.getAddress());
         // Saving and Updating a reseller
         resellerRepository.save(resellerForUpdate);
         return new ResponseEntity<>("User updated Successfully",HttpStatus.OK);

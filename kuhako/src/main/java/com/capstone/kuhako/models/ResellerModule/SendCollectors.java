@@ -1,5 +1,7 @@
 package com.capstone.kuhako.models.ResellerModule;
 
+import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.Reseller;
 
 import javax.persistence.*;
@@ -17,44 +19,37 @@ import javax.persistence.*;
         @JoinColumn(name="reseller_id", nullable = false)
         private Reseller reseller;
 
-        /*@ManyToOne
+        @ManyToOne
         @JoinColumn(name="collector_id", nullable = false)
         private Collector collector;
 
         @ManyToOne
         @JoinColumn(name="client_id", nullable = false)
         private Client client;
-*/
-        @Column
-        private int collectorsid;
-        @Column
-        private int clientsid;
-
 
         public SendCollectors() {
         }
-
-        public SendCollectors(Long sendCollector_id, double paymentDues, int collectorsid, int clientsid) {
-            this.sendCollector_id = sendCollector_id;
+        public SendCollectors(double paymentDues, Reseller reseller, Collector collector, Client client) {
             this.paymentDues = paymentDues;
-            this.collectorsid = collectorsid;
-            this.clientsid = clientsid;
+            this.reseller = reseller;
+            this.collector = collector;
+            this.client = client;
         }
 
-        public int getCollectorsid() {
-            return collectorsid;
+        public Collector getCollector() {
+            return collector;
         }
 
-        public void setCollectorsid(int collectorsid) {
-            this.collectorsid = collectorsid;
+        public void setCollector(Collector collector) {
+            this.collector = collector;
         }
 
-        public int getClientsid() {
-            return clientsid;
+        public Client getClient() {
+            return client;
         }
 
-        public void setClientsid(int clientsid) {
-            this.clientsid = clientsid;
+        public void setClient(Client client) {
+            this.client = client;
         }
 
         public void setSendCollector_id(long sendCollector_id) {

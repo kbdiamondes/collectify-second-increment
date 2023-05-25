@@ -34,8 +34,7 @@ public class Reseller {
 
     public Reseller() {
     }
-    public Reseller(Long reseller_id, String username, String password, String fullName, String address, String email) {
-        this.reseller_id = reseller_id;
+    public Reseller(String username, String password, String fullName, String address, String email) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
