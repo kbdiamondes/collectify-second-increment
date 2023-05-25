@@ -14,10 +14,10 @@ public class MyCollectors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mycollectors_id")
-    private int myCollectorsId;
+    private Long myCollectorsId;
 
     @Column(name = "collection_status")
-    private String collectionStatus;
+    private Boolean collectionStatus;
 
     @Column(name = "required_collectibles")
     private double requiredCollectibles;
@@ -38,21 +38,23 @@ public class MyCollectors {
     public MyCollectors() {
     }
 
-    public MyCollectors(String collectionStatus, Double requiredCollectibles) {
-        super();
+    public MyCollectors(Boolean collectionStatus, double requiredCollectibles, Reseller reseller, Collector collector, Client client) {
         this.collectionStatus = collectionStatus;
         this.requiredCollectibles = requiredCollectibles;
+        this.reseller = reseller;
+        this.collector = collector;
+        this.client = client;
     }
 
-    public int getMyCollectorsId() {
+    public Long getMyCollectorsId() {
         return myCollectorsId;
     }
 
-    public String getCollectionStatus() {
+    public Boolean getCollectionStatus() {
         return collectionStatus;
     }
 
-    public void setCollectionStatus(String collectionStatus) {
+    public void setCollectionStatus(Boolean collectionStatus) {
         this.collectionStatus = collectionStatus;
     }
 
@@ -64,18 +66,27 @@ public class MyCollectors {
         this.requiredCollectibles = requiredCollectibles;
     }
 
-//    public String getUserFullName() {
-//        if (user != null) {
-//            return user.getFullName();
-//        }
-//        return null;
-//    }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public Reseller getReseller() {
+        return reseller;
+    }
+
+    public void setReseller(Reseller reseller) {
+        this.reseller = reseller;
+    }
+
+    public Collector getCollector() {
+        return collector;
+    }
+
+    public void setCollector(Collector collector) {
+        this.collector = collector;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }

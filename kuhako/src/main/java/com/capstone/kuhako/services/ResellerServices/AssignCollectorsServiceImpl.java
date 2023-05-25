@@ -14,12 +14,9 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
 
 
     public void createAssignCollectors(AssignCollectors assignCollectors){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-
-        AssignCollectors newAssignCollectors = new AssignCollectors();
-        newAssignCollectors.setCollector(assignCollectors.getCollector());
-        assignCollectorsRepository.save(newAssignCollectors);
+        assignCollectorsRepository.save(assignCollectors);
     }
+
     public Iterable<AssignCollectors> getAssignCollectors(){
         return assignCollectorsRepository.findAll();
     }
@@ -27,8 +24,6 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
     public ResponseEntity deleteAssignCollectors(int id){
         assignCollectorsRepository.deleteById(id);
         return new ResponseEntity<>("AssignCollectors Deleted successfully", HttpStatus.OK);
-
-
     }
 
     public ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors){

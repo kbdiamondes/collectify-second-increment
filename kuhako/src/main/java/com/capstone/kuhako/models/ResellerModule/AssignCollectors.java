@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class AssignCollectors {
     @Id
     @GeneratedValue
-    private int assignCollectors_id;
+    private Long assignCollectors_id;
 
     @ManyToOne
     @JoinColumn(name="reseller_id", nullable = false)
@@ -20,22 +20,20 @@ public class AssignCollectors {
     @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
+    @Column
+    private boolean availabilityStatus;
+
     public AssignCollectors() {
     }
 
-    public AssignCollectors(int assignCollectors_id, Reseller reseller, Collector collector) {
-        super();
-        this.assignCollectors_id = assignCollectors_id;
+    public AssignCollectors(Reseller reseller, Collector collector, boolean availabilityStatus) {
         this.reseller = reseller;
         this.collector = collector;
+        this.availabilityStatus = availabilityStatus;
     }
 
-    public int getAssignCollectors_id() {
+    public Long getAssignCollectors_id() {
         return assignCollectors_id;
-    }
-
-    public void setAssignCollectors_id(int assignCollectors_id) {
-        this.assignCollectors_id = assignCollectors_id;
     }
 
     public Reseller getReseller() {
@@ -52,5 +50,13 @@ public class AssignCollectors {
 
     public void setCollector(Collector collector) {
         this.collector = collector;
+    }
+
+    public boolean isAvailabilityStatus() {
+        return availabilityStatus;
+    }
+
+    public void setAvailabilityStatus(boolean availabilityStatus) {
+        this.availabilityStatus = availabilityStatus;
     }
 }

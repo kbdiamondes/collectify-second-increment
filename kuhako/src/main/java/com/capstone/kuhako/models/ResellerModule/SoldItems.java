@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class SoldItems {
     @Id
     @GeneratedValue
-    private int soldItems_id;
+    private Long soldItems_id;
 
     @Column
     private String itemName;
@@ -23,13 +23,13 @@ public class SoldItems {
 
     public SoldItems() {
     }
-    public SoldItems(String itemName, int stockQuantity) {
-        super();
+    public SoldItems(String itemName, int stockQuantity, Reseller reseller) {
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
+        this.reseller = reseller;
     }
 
-    public int getSoldItemsID() {
+    public Long getSoldItemsID() {
         return soldItems_id;
     }
 
@@ -47,5 +47,13 @@ public class SoldItems {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public Reseller getReseller() {
+        return reseller;
+    }
+
+    public void setReseller(Reseller reseller) {
+        this.reseller = reseller;
     }
 }
