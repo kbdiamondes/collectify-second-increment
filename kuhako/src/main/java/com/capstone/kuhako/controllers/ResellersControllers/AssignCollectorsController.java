@@ -25,12 +25,12 @@ public class AssignCollectorsController {
     }
 
     @RequestMapping(value = "/assignCollectors/{assignCollectorsid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteAssignCollectors(@PathVariable Long assignCollectorsid) {
+    public ResponseEntity<Object> deleteAssignCollectors(@PathVariable int assignCollectorsid) {
         return assignCollectorsService.deleteAssignCollectors(assignCollectorsid);
     }
 
     @RequestMapping(value="/assignCollectors/{assignCollectorsid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateAssignCollectors(@PathVariable Long assignCollectorsid, @RequestBody AssignCollectors assignCollectors) {
+    public ResponseEntity<Object> updateAssignCollectors(@PathVariable int assignCollectorsid, @RequestBody AssignCollectors assignCollectors) {
         return assignCollectorsService.updateAssignCollectors(assignCollectorsid, assignCollectors);
     }
 }

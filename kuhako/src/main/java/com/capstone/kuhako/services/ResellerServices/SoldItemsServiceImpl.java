@@ -14,29 +14,25 @@ public class SoldItemsServiceImpl implements SoldItemsService{
 
     public void createSoldItems(SoldItems soldItems){
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-
-        SoldItems newSoldItems = new SoldItems();
-        newSoldItems.setItemName(soldItems.getItemName());
-        newSoldItems.setStockQuantity(soldItems.getStockQuantity());
-        soldItemsRepository.save(newSoldItems);
+        soldItemsRepository.save(soldItems);
     }
     public Iterable<SoldItems> getSoldItems(){
         return soldItemsRepository.findAll();
     }
 
-    public ResponseEntity deleteSoldItems(Long id){
+
+
+    public ResponseEntity deleteSoldItems(int id){
         soldItemsRepository.deleteById(id);
         return new ResponseEntity<>("SoldItems Deleted successfully", HttpStatus.OK);
 
 
     }
 
-    public ResponseEntity updateSoldItems(Long id, SoldItems soldItems){
+    public ResponseEntity updateSoldItems(int id, SoldItems soldItems){
         SoldItems soldItemsForUpdate = soldItemsRepository.findById(id).get();
-
         soldItemsForUpdate.setItemName(soldItems.getItemName());
         soldItemsForUpdate.setStockQuantity(soldItems.getStockQuantity());
-
         soldItemsRepository.save(soldItemsForUpdate);
 
         return new ResponseEntity("SoldItems updated successfully", HttpStatus.OK);

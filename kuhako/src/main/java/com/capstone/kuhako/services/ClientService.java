@@ -11,7 +11,7 @@ public interface ClientService {
     // Get Client
     Iterable<Client> getUsername();
     // Delete Client
-    ResponseEntity deleteClient(int id);
+    ResponseEntity deleteClient(Long id);
     // Update a Client
-    ResponseEntity updateClient(int id, Client Client);
+    ResponseEntity updateClient(Long id, Client Client);
 }

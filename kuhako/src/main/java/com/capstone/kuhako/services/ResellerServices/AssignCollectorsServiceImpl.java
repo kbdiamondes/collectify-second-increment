@@ -24,14 +24,14 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
         return assignCollectorsRepository.findAll();
     }
 
-    public ResponseEntity deleteAssignCollectors(Long id){
+    public ResponseEntity deleteAssignCollectors(int id){
         assignCollectorsRepository.deleteById(id);
         return new ResponseEntity<>("AssignCollectors Deleted successfully", HttpStatus.OK);
 
 
     }
 
-    public ResponseEntity updateAssignCollectors(Long id, AssignCollectors assignCollectors){
+    public ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors){
         AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).get();
 
         assignCollectorsForUpdate.setCollector(assignCollectors.getCollector());

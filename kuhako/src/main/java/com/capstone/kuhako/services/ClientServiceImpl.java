@@ -24,13 +24,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // Delete Course
-    public ResponseEntity deleteClient(int id){
+    public ResponseEntity deleteClient(Long id){
         clientRepository.deleteById(id);
         return new ResponseEntity<>("Client Deleted successful" +
                 "ly", HttpStatus.OK);
     }
     // Update a Client
-    public ResponseEntity updateClient(int id, Client client){
+    public ResponseEntity updateClient(Long id, Client client){
         // Find the post to update
         Client clientForUpdate = clientRepository.findById(id).get();
         // Updating the tittle and content

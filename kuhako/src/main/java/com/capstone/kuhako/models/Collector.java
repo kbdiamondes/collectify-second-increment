@@ -11,7 +11,7 @@ import java.util.Set;
 public class Collector {
     @Id
     @GeneratedValue
-    private int collector_id;
+    private Long collector_id;
 
     @Column
     private String username;
@@ -28,13 +28,13 @@ public class Collector {
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "collector")
+ /*   @OneToMany(mappedBy = "collector")
     @JsonIgnore
-    private Set<SendCollectors> sendCollectors;
+    private Set<SendCollectors> sendCollectors;*/
 
     public Collector() {
     }
-    public Collector(int collector_id, String username, String password, String fullName, String address, String email) {
+    public Collector(Long collector_id, String username, String password, String fullName, String address, String email) {
         this.collector_id = collector_id;
         this.username = username;
         this.password = password;
@@ -43,7 +43,7 @@ public class Collector {
         this.email = email;
     }
 
-    public void setCollector_id(int collector_id) {
+    public void setCollector_id(Long collector_id) {
         this.collector_id = collector_id;
     }
 
@@ -87,4 +87,15 @@ public class Collector {
         this.email = email;
     }
 
+    public Long getCollector_id() {
+        return collector_id;
+    }
+
+ /*   public Set<SendCollectors> getSendCollectors() {
+        return sendCollectors;
+    }
+
+    public void setSendCollectors(Set<SendCollectors> sendCollectors) {
+        this.sendCollectors = sendCollectors;
+    }*/
 }

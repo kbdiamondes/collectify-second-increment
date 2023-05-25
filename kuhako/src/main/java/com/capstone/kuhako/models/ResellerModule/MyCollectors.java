@@ -39,6 +39,7 @@ public class MyCollectors {
     }
 
     public MyCollectors(String collectionStatus, Double requiredCollectibles) {
+        super();
         this.collectionStatus = collectionStatus;
         this.requiredCollectibles = requiredCollectibles;
     }

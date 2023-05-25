@@ -27,12 +27,12 @@ public class ClientController {
     }
     // Delete a U
     @RequestMapping (value = "/client/{clientid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteClient(@PathVariable int clientid){
+    public ResponseEntity<Object> deleteClient(@PathVariable Long clientid){
         return clientService.deleteClient(clientid);
     }
     // Update a post
     @RequestMapping (value = "/client/{clientid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateClient(@PathVariable int clientid, @RequestBody Client client){
+    public ResponseEntity<Object> updateClient(@PathVariable Long clientid, @RequestBody Client client){
         return clientService.updateClient(clientid,client);
     }
 }

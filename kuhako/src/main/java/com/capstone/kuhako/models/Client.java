@@ -11,7 +11,7 @@ import java.util.Set;
 public class Client {
     @Id
     @GeneratedValue
-    private int client_id;
+    private Long client_id;
 
     @Column
     private String username;
@@ -28,13 +28,13 @@ public class Client {
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "client")
+   /* @OneToMany(mappedBy = "client")
     @JsonIgnore
-    private Set<SendCollectors> sendCollectors;
+    private Set<SendCollectors> sendCollectors;*/
 
     public Client() {
         }
-    public int getClient_id() {
+    public Long getClient_id() {
         return client_id;
         }
     public Client(String username, String password, String fullName, String address, String email) {
@@ -45,7 +45,7 @@ public class Client {
             this.email = email;
         }
 
-    public void setClient_id(int client_id) {
+    public void setClient_id(Long client_id) {
         this.client_id = client_id;
         }
 
@@ -90,5 +90,11 @@ public class Client {
         }
 
 
+   /* public Set<SendCollectors> getSendCollectors() {
+        return sendCollectors;
+    }
 
+    public void setSendCollectors(Set<SendCollectors> sendCollectors) {
+        this.sendCollectors = sendCollectors;
+    }*/
 }

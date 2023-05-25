@@ -16,16 +16,18 @@ public class MyCollectorsServiceImpl implements MyCollectorsService {
     public void createMyCollectors(MyCollectors myCollectors){
         myCollectorsRepository.save(myCollectors);
     }
+    // Get all Collector
     public Iterable<MyCollectors> getMyCollectors(){
         return myCollectorsRepository.findAll();
     }
-    public ResponseEntity deleteMyCollectors(Long id){
+    // delete Collectors
+    public ResponseEntity deleteMyCollectors(int id){
         myCollectorsRepository.deleteById(id);
         return new ResponseEntity<>("MyCollectors Deleted successfully", HttpStatus.OK);
 
 
     }
-    public ResponseEntity updateMyCollectors(Long id, MyCollectors myCollectors){
+    public ResponseEntity updateMyCollectors(int id, MyCollectors myCollectors){
         MyCollectors myCollectorsForUpdate = myCollectorsRepository.findById(id).get();
         myCollectorsForUpdate.setCollectionStatus(myCollectors.getCollectionStatus());
         myCollectorsForUpdate.setRequiredCollectibles(myCollectors.getRequiredCollectibles());

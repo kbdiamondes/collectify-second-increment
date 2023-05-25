@@ -1,7 +1,5 @@
 package com.capstone.kuhako.models.ResellerModule;
 
-import com.capstone.kuhako.models.Client;
-import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.Reseller;
 
 import javax.persistence.*;
@@ -10,42 +8,60 @@ import javax.persistence.*;
     public class SendCollectors {
         @Id
         @GeneratedValue
-        private int sendCollector_id;
+        private Long sendCollector_id;
 
         @Column
         private double paymentDues;
-
-        @Column(name = "availability_status")
-        private String availabilityStatus;
 
         @ManyToOne
         @JoinColumn(name="reseller_id", nullable = false)
         private Reseller reseller;
 
-        @ManyToOne
+        /*@ManyToOne
         @JoinColumn(name="collector_id", nullable = false)
         private Collector collector;
 
         @ManyToOne
         @JoinColumn(name="client_id", nullable = false)
         private Client client;
+*/
+        @Column
+        private int collectorsid;
+        @Column
+        private int clientsid;
+
 
         public SendCollectors() {
         }
 
-        public SendCollectors(int sendCollector_id, double paymentDues, Reseller reseller, Collector collector, Client client) {
+        public SendCollectors(Long sendCollector_id, double paymentDues, int collectorsid, int clientsid) {
             this.sendCollector_id = sendCollector_id;
             this.paymentDues = paymentDues;
-            this.reseller = reseller;
-            this.collector = collector;
-            this.client = client;
+            this.collectorsid = collectorsid;
+            this.clientsid = clientsid;
         }
 
-        public void setSendCollector_id(int sendCollector_id) {
+        public int getCollectorsid() {
+            return collectorsid;
+        }
+
+        public void setCollectorsid(int collectorsid) {
+            this.collectorsid = collectorsid;
+        }
+
+        public int getClientsid() {
+            return clientsid;
+        }
+
+        public void setClientsid(int clientsid) {
+            this.clientsid = clientsid;
+        }
+
+        public void setSendCollector_id(long sendCollector_id) {
             this.sendCollector_id = sendCollector_id;
         }
 
-        public Collector getCollector() {
+    /*    public Collector getCollector() {
             return collector;
         }
 
@@ -59,9 +75,9 @@ import javax.persistence.*;
 
         public void setClient(Client client) {
             this.client = client;
-        }
+        }*/
 
-        public int getSendCollector_id() {
+        public Long getSendCollector_id() {
             return sendCollector_id;
         }
 

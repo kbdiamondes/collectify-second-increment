@@ -27,12 +27,12 @@ public class ResellerController {
     }
     // Delete a U
     @RequestMapping (value = "/reseller/{resellerid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteClient(@PathVariable int resellerid){
+    public ResponseEntity<Object> deleteClient(@PathVariable Long resellerid){
         return resellerService.deleteReseller(resellerid);
     }
     // Update a post
     @RequestMapping (value = "/resel/{resellerid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateCollector(@PathVariable int resellerid, @RequestBody Reseller reseller){
+    public ResponseEntity<Object> updateCollector(@PathVariable Long resellerid, @RequestBody Reseller reseller){
         return resellerService.updateReseller(resellerid,reseller);
     }
 }

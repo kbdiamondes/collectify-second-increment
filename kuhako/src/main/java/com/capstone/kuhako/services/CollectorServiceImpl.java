@@ -22,11 +22,11 @@ public class CollectorServiceImpl implements CollectorService{
     }
     // Delete Collector
 
-    public ResponseEntity deleteCollector(int id){
+    public ResponseEntity deleteCollector(Long id){
         collectorRepository.deleteById(id);
         return new ResponseEntity<>("Collector Deleted successfully", HttpStatus.OK);
     }
-    public ResponseEntity updateCollector(int id, Collector collector){
+    public ResponseEntity updateCollector(Long id, Collector collector){
         // Find the user to update
         Collector collectorForUpdate = collectorRepository.findById(id).get();
         // Updating the username and password

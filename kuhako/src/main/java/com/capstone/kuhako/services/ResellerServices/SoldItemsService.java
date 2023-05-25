@@ -8,8 +8,8 @@ public interface SoldItemsService {
 
     Iterable<SoldItems> getSoldItems();
 
-    ResponseEntity deleteSoldItems(Long id);
+    ResponseEntity deleteSoldItems(int id);
 
-    ResponseEntity updateSoldItems(Long id, SoldItems soldItems);
+    ResponseEntity updateSoldItems(int id, SoldItems soldItems);
 }
 

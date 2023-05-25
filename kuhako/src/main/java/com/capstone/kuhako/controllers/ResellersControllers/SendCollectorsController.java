@@ -1,5 +1,6 @@
 package com.capstone.kuhako.controllers.ResellersControllers;
 
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.models.ResellerModule.SendCollectors;
 import com.capstone.kuhako.services.ResellerServices.SendCollectorsService;
 import org.springframework.beans.factory.annotation.Autowired;

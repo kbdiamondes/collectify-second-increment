@@ -16,7 +16,6 @@ public interface UserService {
     // Update a user
     ResponseEntity updateUser(Long id, User user);
 
-
     // Optional - defines if the method may/may not return an object of the User Class
     Optional<User> findByUsername(String username);
 

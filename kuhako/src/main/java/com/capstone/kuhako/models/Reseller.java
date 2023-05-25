@@ -10,8 +10,8 @@ import java.util.Set;
 @Table(name = "reseller")
 public class Reseller {
     @Id
-    @GeneratedValue
-    private int reseller_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long reseller_id;
 
     @Column
     private String username;
@@ -34,7 +34,7 @@ public class Reseller {
 
     public Reseller() {
     }
-    public Reseller(int client_id, String username, String password, String fullName, String address, String email) {
+    public Reseller(Long reseller_id, String username, String password, String fullName, String address, String email) {
         this.reseller_id = reseller_id;
         this.username = username;
         this.password = password;
@@ -42,7 +42,8 @@ public class Reseller {
         this.address = address;
         this.email = email;
     }
-    public void setReseller_id(int reseller_id) {
+
+    public void setReseller_id(Long reseller_id) {
         this.reseller_id = reseller_id;
     }
 
@@ -86,4 +87,15 @@ public class Reseller {
         this.email = email;
     }
 
+    public Long getReseller_id() {
+        return reseller_id;
+    }
+
+    public Set<SendCollectors> getSendCollectors() {
+        return sendCollectors;
+    }
+
+    public void setSendCollectors(Set<SendCollectors> sendCollectors) {
+        this.sendCollectors = sendCollectors;
+    }
 }

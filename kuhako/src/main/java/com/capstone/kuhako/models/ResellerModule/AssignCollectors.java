@@ -24,6 +24,7 @@ public class AssignCollectors {
     }
 
     public AssignCollectors(int assignCollectors_id, Reseller reseller, Collector collector) {
+        super();
         this.assignCollectors_id = assignCollectors_id;
         this.reseller = reseller;
         this.collector = collector;

@@ -12,8 +12,8 @@ public interface CollectorService {
     Iterable<Collector> getUsername();
 
     // Delete Client
-    ResponseEntity deleteCollector(int id);
+    ResponseEntity deleteCollector(Long id);
 
     // Update a Client
-    ResponseEntity updateCollector(int id, Collector collector);
+    ResponseEntity updateCollector(Long id, Collector collector);
 }

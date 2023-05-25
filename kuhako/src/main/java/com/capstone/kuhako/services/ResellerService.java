@@ -9,7 +9,7 @@ public interface ResellerService {
     // Get Client
     Iterable<Reseller> getUsername();
     // Delete Client
-    ResponseEntity deleteReseller(int id);
+    ResponseEntity deleteReseller(Long id);
     // Update a Client
-    ResponseEntity updateReseller(int id, Reseller reseller);
+    ResponseEntity updateReseller(Long id, Reseller reseller);
 }

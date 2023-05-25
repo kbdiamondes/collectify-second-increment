@@ -8,7 +8,7 @@ public interface AssignCollectorsService{
 
     Iterable<AssignCollectors> getAssignCollectors();
 
-    ResponseEntity deleteAssignCollectors(Long id);
+    ResponseEntity deleteAssignCollectors(int id);
 
-    ResponseEntity updateAssignCollectors(Long id, AssignCollectors assignCollectors);
+    ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors);
 }

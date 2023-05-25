@@ -27,12 +27,12 @@ public class CollectorController {
     }
     // Delete a U
     @RequestMapping (value = "/collector/{collectorid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteClient(@PathVariable int collectorid){
+    public ResponseEntity<Object> deleteClient(@PathVariable Long collectorid){
         return collectorService.deleteCollector(collectorid);
     }
     // Update a post
     @RequestMapping (value = "/collector/{collectorid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateCollector(@PathVariable int collectorid, @RequestBody Collector collector){
+    public ResponseEntity<Object> updateCollector(@PathVariable Long collectorid, @RequestBody Collector collector){
         return collectorService.updateCollector(collectorid,collector);
     }
 }

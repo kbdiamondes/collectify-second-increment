@@ -8,7 +8,7 @@ public interface MyCollectorsService {
 
     Iterable<MyCollectors> getMyCollectors();
 
-    ResponseEntity deleteMyCollectors(Long id);
+    ResponseEntity deleteMyCollectors(int id);
 
-    ResponseEntity updateMyCollectors(Long id, MyCollectors myCollectors);
+    ResponseEntity updateMyCollectors(int id, MyCollectors myCollectors);
 }

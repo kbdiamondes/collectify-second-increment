@@ -26,12 +26,12 @@ import org.springframework.web.bind.annotation.*;
         }
 
         @RequestMapping(value = "/soldItems/{soldItemsid}", method = RequestMethod.DELETE)
-        public ResponseEntity<Object> deleteSoldItems(@PathVariable Long soldItemsid) {
+        public ResponseEntity<Object> deleteSoldItems(@PathVariable int soldItemsid) {
             return soldItemsService.deleteSoldItems(soldItemsid);
         }
 
         @RequestMapping(value="/soldItems/{soldItemsid}", method = RequestMethod.PUT)
-        public ResponseEntity<Object> updateSoldItems(@PathVariable Long soldItemsid, @RequestBody SoldItems soldItems) {
+        public ResponseEntity<Object> updateSoldItems(@PathVariable int soldItemsid, @RequestBody SoldItems soldItems) {
             return soldItemsService.updateSoldItems(soldItemsid, soldItems);
         }
     }

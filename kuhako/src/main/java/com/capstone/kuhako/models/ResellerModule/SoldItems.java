@@ -24,6 +24,7 @@ public class SoldItems {
     public SoldItems() {
     }
     public SoldItems(String itemName, int stockQuantity) {
+        super();
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
     }
