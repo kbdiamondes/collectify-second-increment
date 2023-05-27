@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
         @RequestMapping(value="/sendCollectors", method = RequestMethod.POST)
         public ResponseEntity<Object> createSendCollectors(@RequestBody SendCollectors sendCollectors) {
             sendCollectorsService.createSendCollectors(sendCollectors);
-            return new ResponseEntity<>("SendCollectors created successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("Collector assigned successfully", HttpStatus.CREATED);
         }
 
         @RequestMapping(value="/sendCollectors", method = RequestMethod.GET)
