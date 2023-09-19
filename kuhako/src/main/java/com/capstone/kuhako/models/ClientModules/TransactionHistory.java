@@ -12,7 +12,8 @@ public class TransactionHistory {
     @GeneratedValue
     private int transactionHistory_id;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
     @Column
@@ -20,6 +21,8 @@ public class TransactionHistory {
 
     @Column
     private double amountSent;
+
+
 
     public TransactionHistory() {
     }

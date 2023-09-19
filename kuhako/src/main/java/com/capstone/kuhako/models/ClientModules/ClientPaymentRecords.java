@@ -1,15 +1,18 @@
 package com.capstone.kuhako.models.ClientModules;
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.CollectorModules.CollectPayments;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 public class ClientPaymentRecords {
     @Id
     @GeneratedValue
     private int clientPaymentRecords_id;
+
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable = false)
+    private Client client;
 
     @Column
     private PayDues payDues;

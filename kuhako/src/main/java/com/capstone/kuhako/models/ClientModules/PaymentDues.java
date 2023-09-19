@@ -1,5 +1,7 @@
 package com.capstone.kuhako.models.ClientModules;
 
+import com.capstone.kuhako.models.Client;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,9 @@ public class PaymentDues {
     @GeneratedValue
     private int paymentDues_id;
 
+    @ManyToOne
+    @JoinColumn(name="client_id", nullable = false)
+    private Client client;
     @Column
     private String itemName;
 
