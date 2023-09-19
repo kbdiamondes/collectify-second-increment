@@ -39,6 +39,7 @@ public class ClientServiceImpl implements ClientService {
         // Find the post to update
         Client clientForUpdate = clientRepository.findById(id).get();
         // Updating the tittle and content
+        clientForUpdate.setPassword(client.getPassword());
         clientForUpdate.setFullName(client.getFullName());
         clientForUpdate.setAddress(client.getAddress());
         // Saving and Updating a post
