@@ -22,9 +22,19 @@ public class ClientPaymentRecords {
 
     public ClientPaymentRecords() {
     }
-    public ClientPaymentRecords(PayDues payDues, CollectPayments collectPayments) {
+
+    public ClientPaymentRecords(Client client, PayDues payDues, CollectPayments collectPayments) {
+        this.client = client;
         this.payDues = payDues;
         this.collectPayments = collectPayments;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getClientPaymentRecords_id() {

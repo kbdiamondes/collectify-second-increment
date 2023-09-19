@@ -13,19 +13,21 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
     private AssignCollectorsRepository assignCollectorsRepository;
 
 
+    // create Assign Collectors
     public void createAssignCollectors(AssignCollectors assignCollectors){
         assignCollectorsRepository.save(assignCollectors);
     }
-
+    // get all Assign Collectors
     public Iterable<AssignCollectors> getAssignCollectors(){
         return assignCollectorsRepository.findAll();
     }
 
+    // delete Assign Collectors
     public ResponseEntity deleteAssignCollectors(int id){
         assignCollectorsRepository.deleteById(id);
         return new ResponseEntity<>("AssignCollectors Deleted successfully", HttpStatus.OK);
     }
-
+    // update Assign Collectorss
     public ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors){
         AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).get();
 

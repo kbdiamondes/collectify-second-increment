@@ -26,10 +26,20 @@ public class PaymentDues {
     public PaymentDues() {
     }
 
-    public PaymentDues(String itemName, double requiredCollectible, boolean dueStatus) {
+
+    public PaymentDues(Client client, String itemName, double requiredCollectible, boolean dueStatus) {
+        this.client = client;
         this.itemName = itemName;
         this.requiredCollectible = requiredCollectible;
         this.dueStatus = dueStatus;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getPaymentDues_id() {

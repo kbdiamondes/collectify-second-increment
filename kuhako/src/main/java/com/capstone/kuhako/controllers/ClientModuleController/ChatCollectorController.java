@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 public class ChatCollectorController {
-    @Autowired
-    ChatCollectorService chatCollectorService;
 
+    @Autowired
+    private ChatCollectorService chatCollectorService;
     @RequestMapping(value="/chatCollector", method = RequestMethod.POST)
     public ResponseEntity<Object> createChatCollector(@RequestBody ChatCollector chatCollector) {
         chatCollectorService.createChatCollector(chatCollector);
@@ -29,7 +29,6 @@ public class ChatCollectorController {
     public ResponseEntity<Object> deleteChatCollector(@PathVariable Long chatCollectorid) {
         return chatCollectorService.deleteChatCollector(chatCollectorid);
     }
-
     @RequestMapping(value="/chatCollector/{chatCollectorid}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateChatCollector(@PathVariable Long chatCollectorid, @RequestBody ChatCollector chatCollector) {
         return chatCollectorService.updateChatCollector(chatCollectorid, chatCollector);

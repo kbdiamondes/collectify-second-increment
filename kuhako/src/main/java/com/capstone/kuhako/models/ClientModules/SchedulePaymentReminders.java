@@ -16,7 +16,8 @@ public class SchedulePaymentReminders {
     @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
-    @Column
+    @OneToOne
+    @JoinColumn(name="paymentDues_id", nullable = false)
     private PaymentDues paymentDues;
 
     @Column
@@ -33,12 +34,22 @@ public class SchedulePaymentReminders {
 
     public SchedulePaymentReminders() {
     }
-    public SchedulePaymentReminders(PaymentDues paymentDues, Date collectionDate, long productTypeID, String reminderTitle, Date reminderDate) {
+
+    public SchedulePaymentReminders(Client client, PaymentDues paymentDues, Date collectionDate, long productTypeID, String reminderTitle, Date reminderDate) {
+        this.client = client;
         this.paymentDues = paymentDues;
         this.collectionDate = collectionDate;
         this.productTypeID = productTypeID;
         this.reminderTitle = reminderTitle;
         this.reminderDate = reminderDate;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getSchedulePaymentReminders_id() {

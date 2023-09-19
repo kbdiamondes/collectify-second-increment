@@ -31,12 +31,22 @@ public class PaymentMethodSelection {
 
     public PaymentMethodSelection() {
     }
-    public PaymentMethodSelection(String purchaseMethod, String itemName, String itemPrice, String itemSpecs, double installmentAmount) {
+
+    public PaymentMethodSelection(Client client, String purchaseMethod, String itemName, String itemPrice, String itemSpecs, double installmentAmount) {
+        this.client = client;
         this.purchaseMethod = purchaseMethod;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemSpecs = itemSpecs;
         this.installmentAmount = installmentAmount;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getPaymentMethodSelection_id() {

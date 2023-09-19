@@ -15,7 +15,11 @@ public class PayDues {
     @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
-    @Column
+   /* @Column
+    private PaymentDues paymentDues;*/
+
+    @OneToOne
+    @JoinColumn(name="paymentDues_id", nullable = false)
     private PaymentDues paymentDues;
 
     @Column
@@ -32,12 +36,26 @@ public class PayDues {
 
     public PayDues() {
     }
-    public PayDues(PaymentDues paymentDues, double itemPrice, String referenceNumber, String paymentType, String transactionProof) {
+
+    public PayDues(Client client, PaymentDues paymentDues, double itemPrice, String referenceNumber, String paymentType, String transactionProof) {
+        this.client = client;
         this.paymentDues = paymentDues;
         this.itemPrice = itemPrice;
         this.referenceNumber = referenceNumber;
         this.paymentType = paymentType;
         this.transactionProof = transactionProof;
+    }
+
+    public void setPayDues_id(int payDues_id) {
+        this.payDues_id = payDues_id;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getPayDues_id() {

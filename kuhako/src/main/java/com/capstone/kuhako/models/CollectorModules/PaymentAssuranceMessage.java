@@ -1,6 +1,7 @@
 package com.capstone.kuhako.models.CollectorModules;
 
 import com.capstone.kuhako.models.ClientModules.ChatCollector;
+import com.capstone.kuhako.models.ClientModules.PayDues;
 import com.capstone.kuhako.models.Collector;
 
 import javax.persistence.*;
@@ -19,8 +20,12 @@ public class PaymentAssuranceMessage {
     @Column
     private String collectorMessage;
 
-    @Column
+
+    @OneToOne
+    @JoinColumn(name="chatCollector_id", nullable = false)
     private ChatCollector chatCollector;
+   /* @Column
+    private ChatCollector chatCollector;*/
 
     public PaymentAssuranceMessage() {
     }

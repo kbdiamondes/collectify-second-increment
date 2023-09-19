@@ -16,19 +16,31 @@ public class collectorCollectionRecords {
     @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
-    @Column
+   /* @Column
+    private PayDues payDues;*/
+
+    @OneToOne
+    @JoinColumn(name="payDues_id", nullable = false)
     private PayDues payDues;
 
-    @Column
+    /*@Column
+    private CollectPayments collectPayments;*/
+
+    @OneToOne
+    @JoinColumn(name="collectPayments_id", nullable = false)
     private CollectPayments collectPayments;
+
+
 
     public collectorCollectionRecords() {
     }
+
     public collectorCollectionRecords(Collector collector, PayDues payDues, CollectPayments collectPayments) {
         this.collector = collector;
         this.payDues = payDues;
         this.collectPayments = collectPayments;
     }
+
 
     public int getCollectorCollectionRecords_id() {
         return collectorCollectionRecords_id;
