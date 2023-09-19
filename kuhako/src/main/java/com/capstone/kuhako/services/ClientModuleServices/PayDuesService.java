@@ -4,11 +4,11 @@ import com.capstone.kuhako.models.ClientModules.PayDues;
 import org.springframework.http.ResponseEntity;
 
 public interface PayDuesService {
-    void createPayDueService(PayDues payDues);
+    void createPayDues(PayDues payDues);
 
-    Iterable<PayDues> getPayDueService();
+    Iterable<PayDues> getPayDues();
 
-    ResponseEntity deletePayDueService(Long id);
+    ResponseEntity deletePayDues(Long id);
 
-    ResponseEntity updatePayDueService(Long id, PayDues payDues);
+    ResponseEntity updatePayDues(Long id, PayDues payDues);
 }
