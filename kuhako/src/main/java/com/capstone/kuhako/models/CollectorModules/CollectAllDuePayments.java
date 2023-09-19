@@ -1,6 +1,6 @@
 package com.capstone.kuhako.models.CollectorModules;
 
-import com.capstone.kuhako.models.User;
+import com.capstone.kuhako.models.Collector;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,7 +13,7 @@ public class CollectAllDuePayments {
     private int collectAllDuePayments_id;
 
     @Column
-    private User user;
+    private Collector collector;
 
     @Column
     private Date collectionDate;
@@ -29,8 +29,8 @@ public class CollectAllDuePayments {
 
     public CollectAllDuePayments() {
     }
-    public CollectAllDuePayments(User user, Date collectionDate, Double requiredCollectibles, Double itemCollectible, String transactionProof) {
-        this.user = user;
+    public CollectAllDuePayments(Collector collector, Date collectionDate, Double requiredCollectibles, Double itemCollectible, String transactionProof) {
+        this.collector = collector;
         this.collectionDate = collectionDate;
         this.requiredCollectibles = requiredCollectibles;
         this.itemCollectible = itemCollectible;
@@ -41,12 +41,12 @@ public class CollectAllDuePayments {
         return collectAllDuePayments_id;
     }
 
-    public User getUser() {
-        return user;
+    public Collector getCollector() {
+        return collector;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCollector(Collector collector) {
+        this.collector = collector;
     }
 
     public Date getCollectionDate() {

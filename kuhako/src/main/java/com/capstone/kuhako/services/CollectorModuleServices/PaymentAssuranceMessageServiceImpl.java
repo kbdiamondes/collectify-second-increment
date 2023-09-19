@@ -14,13 +14,13 @@ public class PaymentAssuranceMessageServiceImpl {
     private PaymentAssuranceMessageRepository paymentAssuranceMessageRepository;
 
 //    @Autowired
-//    UserRepository userRepository;
+//    CollectorRepository collectorRepository;
 
 //    @Autowired
 //    JwtToken jwtToken;
 
     public void createPaymentAssuranceMessage(PaymentAssuranceMessage paymentAssuranceMessage){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+//        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         PaymentAssuranceMessage newPaymentAssuranceMessage = new PaymentAssuranceMessage();
         newPaymentAssuranceMessage.setCollectorMessage(paymentAssuranceMessage.getCollectorMessage());
@@ -36,10 +36,10 @@ public class PaymentAssuranceMessageServiceImpl {
         return new ResponseEntity<>("PaymentAssuranceMessage Deleted successfully", HttpStatus.OK);
 
 //        PaymentAssuranceMessage paymentAssuranceMessageForDeleting = paymentAssuranceMessageRepository.findById(id).get();
-//        String paymentAssuranceMessageName = paymentAssuranceMessageForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
+//        String paymentAssuranceMessageName = paymentAssuranceMessageForDeleting.getCollector().getCollectorname();
+//        String authenticatedCollectorname = jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if (authenticatedUsername.equals(paymentAssuranceMessageName)){
+//        if (authenticatedCollectorname.equals(paymentAssuranceMessageName)){
 //            paymentAssuranceMessageRepository.deleteById(id);
 //            return new ResponseEntity<>("PaymentAssuranceMessage Delete Successfully", HttpStatus.OK);
 //        }
@@ -59,10 +59,10 @@ public class PaymentAssuranceMessageServiceImpl {
         return new ResponseEntity("PaymentAssuranceMessage updated successfully", HttpStatus.OK);
 
 //        PaymentAssuranceMessage paymentAssuranceMessageForUpdating = paymentAssuranceMessageRepository.findById(id).get();
-//        String paymentAssuranceMessageName = paymentAssuranceMessageForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
+//        String paymentAssuranceMessageName = paymentAssuranceMessageForUpdating.getCollector().getCollectorname();
+//        String authenticatedCollectorName= jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if(authenticatedUserName.equals(paymentAssuranceMessageName)){
+//        if(authenticatedCollectorName.equals(paymentAssuranceMessageName)){
 //            paymentAssuranceMessageForUpdating.setName(paymentAssuranceMessage.getName());
 //            paymentAssuranceMessageForUpdating.setDescription(paymentAssuranceMessage.getDescription());
 //            paymentAssuranceMessageForUpdating.setPrice(paymentAssuranceMessage.getPrice());

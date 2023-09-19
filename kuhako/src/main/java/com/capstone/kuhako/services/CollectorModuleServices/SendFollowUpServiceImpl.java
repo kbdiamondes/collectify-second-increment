@@ -14,16 +14,16 @@ public class SendFollowUpServiceImpl {
     private SendFollowUpRepository sendFollowUpRepository;
 
 //    @Autowired
-//    UserRepository userRepository;
+//    CollectorRepository collectorRepository;
 
 //    @Autowired
 //    JwtToken jwtToken;
 
     public void createSendFollowUp(SendFollowUp sendFollowUp){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+//        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         SendFollowUp newSendFollowUp = new SendFollowUp();
-        newSendFollowUp.setUser(sendFollowUp.getUser());
+        newSendFollowUp.setCollector(sendFollowUp.getCollector());
         newSendFollowUp.setPaymentStatus(sendFollowUp.getPaymentStatus());
         newSendFollowUp.setReminderMessage(sendFollowUp.getReminderMessage());
         sendFollowUpRepository.save(newSendFollowUp);
@@ -37,10 +37,10 @@ public class SendFollowUpServiceImpl {
         return new ResponseEntity<>("SendFollowUp Deleted successfully", HttpStatus.OK);
 
 //        SendFollowUp sendFollowUpForDeleting = sendFollowUpRepository.findById(id).get();
-//        String sendFollowUpName = sendFollowUpForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
+//        String sendFollowUpName = sendFollowUpForDeleting.getCollector().getCollectorname();
+//        String authenticatedCollectorname = jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if (authenticatedUsername.equals(sendFollowUpName)){
+//        if (authenticatedCollectorname.equals(sendFollowUpName)){
 //            sendFollowUpRepository.deleteById(id);
 //            return new ResponseEntity<>("SendFollowUp Delete Successfully", HttpStatus.OK);
 //        }
@@ -52,7 +52,7 @@ public class SendFollowUpServiceImpl {
     public ResponseEntity updateSendFollowUp(Long id, SendFollowUp sendFollowUp){
         SendFollowUp sendFollowUpForUpdate = sendFollowUpRepository.findById(id).get();
 
-        sendFollowUpForUpdate.setUser(sendFollowUp.getUser());
+        sendFollowUpForUpdate.setCollector(sendFollowUp.getCollector());
         sendFollowUpForUpdate.setPaymentStatus(sendFollowUp.getPaymentStatus());
         sendFollowUpForUpdate.setReminderMessage(sendFollowUp.getReminderMessage());
 
@@ -61,10 +61,10 @@ public class SendFollowUpServiceImpl {
         return new ResponseEntity("SendFollowUp updated successfully", HttpStatus.OK);
 
 //        SendFollowUp sendFollowUpForUpdating = sendFollowUpRepository.findById(id).get();
-//        String sendFollowUpName = sendFollowUpForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
+//        String sendFollowUpName = sendFollowUpForUpdating.getCollector().getCollectorname();
+//        String authenticatedCollectorName= jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if(authenticatedUserName.equals(sendFollowUpName)){
+//        if(authenticatedCollectorName.equals(sendFollowUpName)){
 //            sendFollowUpForUpdating.setName(sendFollowUp.getName());
 //            sendFollowUpForUpdating.setDescription(sendFollowUp.getDescription());
 //            sendFollowUpForUpdating.setPrice(sendFollowUp.getPrice());

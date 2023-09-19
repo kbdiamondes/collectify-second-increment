@@ -14,16 +14,16 @@ public class CollectAllDuePaymentsServiceImpl {
     private CollectAllDuePaymentsRepository collectAllDuePaymentsRepository;
 
 //    @Autowired
-//    UserRepository userRepository;
+//    CollectorRepository collectorRepository;
 
 //    @Autowired
 //    JwtToken jwtToken;
 
     public void createCollectAllDuePayments(CollectAllDuePayments collectAllDuePayments){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+//        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         CollectAllDuePayments newCollectAllDuePayments = new CollectAllDuePayments();
-        newCollectAllDuePayments.setUser(collectAllDuePayments.getUser());
+        newCollectAllDuePayments.setCollector(collectAllDuePayments.getCollector());
         newCollectAllDuePayments.setCollectionDate(collectAllDuePayments.getCollectionDate());
         newCollectAllDuePayments.setRequiredCollectibles(collectAllDuePayments.getRequiredCollectibles());
         newCollectAllDuePayments.setItemCollectible(collectAllDuePayments.getItemCollectible());
@@ -39,10 +39,10 @@ public class CollectAllDuePaymentsServiceImpl {
         return new ResponseEntity<>("CollectAllDuePayments Deleted successfully", HttpStatus.OK);
 
 //        CollectAllDuePayments collectAllDuePaymentsForDeleting = collectAllDuePaymentsRepository.findById(id).get();
-//        String collectAllDuePaymentsName = collectAllDuePaymentsForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
+//        String collectAllDuePaymentsName = collectAllDuePaymentsForDeleting.getCollector().getCollectorname();
+//        String authenticatedCollectorname = jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if (authenticatedUsername.equals(collectAllDuePaymentsName)){
+//        if (authenticatedCollectorname.equals(collectAllDuePaymentsName)){
 //            collectAllDuePaymentsRepository.deleteById(id);
 //            return new ResponseEntity<>("CollectAllDuePayments Delete Successfully", HttpStatus.OK);
 //        }
@@ -54,7 +54,7 @@ public class CollectAllDuePaymentsServiceImpl {
     public ResponseEntity updateCollectAllDuePayments(Long id, CollectAllDuePayments collectAllDuePayments){
         CollectAllDuePayments collectAllDuePaymentsForUpdate = collectAllDuePaymentsRepository.findById(id).get();
 
-        collectAllDuePaymentsForUpdate.setUser(collectAllDuePayments.getUser());
+        collectAllDuePaymentsForUpdate.setCollector(collectAllDuePayments.getCollector());
         collectAllDuePaymentsForUpdate.setCollectionDate(collectAllDuePayments.getCollectionDate());
         collectAllDuePaymentsForUpdate.setRequiredCollectibles(collectAllDuePayments.getRequiredCollectibles());
         collectAllDuePaymentsForUpdate.setItemCollectible(collectAllDuePayments.getItemCollectible());
@@ -65,10 +65,10 @@ public class CollectAllDuePaymentsServiceImpl {
         return new ResponseEntity("CollectAllDuePayments updated successfully", HttpStatus.OK);
 
 //        CollectAllDuePayments collectAllDuePaymentsForUpdating = collectAllDuePaymentsRepository.findById(id).get();
-//        String collectAllDuePaymentsName = collectAllDuePaymentsForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
+//        String collectAllDuePaymentsName = collectAllDuePaymentsForUpdating.getCollector().getCollectorname();
+//        String authenticatedCollectorName= jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if(authenticatedUserName.equals(collectAllDuePaymentsName)){
+//        if(authenticatedCollectorName.equals(collectAllDuePaymentsName)){
 //            collectAllDuePaymentsForUpdating.setName(collectAllDuePayments.getName());
 //            collectAllDuePaymentsForUpdating.setDescription(collectAllDuePayments.getDescription());
 //            collectAllDuePaymentsForUpdating.setPrice(collectAllDuePayments.getPrice());

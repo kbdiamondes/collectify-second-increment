@@ -13,16 +13,16 @@ public class FollowUpServiceImpl {
     private FollowUpRepository followUpRepository;
 
 //    @Autowired
-//    UserRepository userRepository;
+//    CollectorRepository collectorRepository;
 
 //    @Autowired
 //    JwtToken jwtToken;
 
     public void createFollowUp(FollowUp followUp){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+//        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         FollowUp newFollowUp = new FollowUp();
-        newFollowUp.setUser(followUp.getUser());
+        newFollowUp.setCollector(followUp.getCollector());
         newFollowUp.setPaymentStatus(followUp.getPaymentStatus());
         followUpRepository.save(newFollowUp);
     }
@@ -35,10 +35,10 @@ public class FollowUpServiceImpl {
         return new ResponseEntity<>("FollowUp Deleted successfully", HttpStatus.OK);
 
 //        FollowUp followUpForDeleting = followUpRepository.findById(id).get();
-//        String followUpName = followUpForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
+//        String followUpName = followUpForDeleting.getCollector().getCollectorname();
+//        String authenticatedCollectorname = jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if (authenticatedUsername.equals(followUpName)){
+//        if (authenticatedCollectorname.equals(followUpName)){
 //            followUpRepository.deleteById(id);
 //            return new ResponseEntity<>("FollowUp Delete Successfully", HttpStatus.OK);
 //        }
@@ -50,7 +50,7 @@ public class FollowUpServiceImpl {
     public ResponseEntity updateFollowUp(Long id, FollowUp followUp){
         FollowUp followUpForUpdate = followUpRepository.findById(id).get();
 
-        followUpForUpdate.setUser(followUp.getUser());
+        followUpForUpdate.setCollector(followUp.getCollector());
         followUpForUpdate.setPaymentStatus(followUp.getPaymentStatus());
 
         followUpRepository.save(followUpForUpdate);
@@ -58,10 +58,10 @@ public class FollowUpServiceImpl {
         return new ResponseEntity("FollowUp updated successfully", HttpStatus.OK);
 
 //        FollowUp followUpForUpdating = followUpRepository.findById(id).get();
-//        String followUpName = followUpForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
+//        String followUpName = followUpForUpdating.getCollector().getCollectorname();
+//        String authenticatedCollectorName= jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if(authenticatedUserName.equals(followUpName)){
+//        if(authenticatedCollectorName.equals(followUpName)){
 //            followUpForUpdating.setName(followUp.getName());
 //            followUpForUpdating.setDescription(followUp.getDescription());
 //            followUpForUpdating.setPrice(followUp.getPrice());

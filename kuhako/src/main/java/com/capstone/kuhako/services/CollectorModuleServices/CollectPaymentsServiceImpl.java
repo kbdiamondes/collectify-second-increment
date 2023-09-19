@@ -15,16 +15,16 @@ public class CollectPaymentsServiceImpl {
     private CollectPaymentsRepository collectPaymentsRepository;
 
 //    @Autowired
-//    UserRepository userRepository;
+//    CollectorRepository collectorRepository;
 
 //    @Autowired
 //    JwtToken jwtToken;
 
     public void createCollectPayments(CollectPayments collectPayments){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+//        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         CollectPayments newCollectPayments = new CollectPayments();
-        newCollectPayments.setUser(collectPayments.getUser());
+        newCollectPayments.setCollector(collectPayments.getCollector());
         newCollectPayments.setCollectionDate(collectPayments.getCollectionDate());
         newCollectPayments.setRequiredCollectibles(collectPayments.getRequiredCollectibles());
         newCollectPayments.setItemCollectible(collectPayments.getItemCollectible());
@@ -41,10 +41,10 @@ public class CollectPaymentsServiceImpl {
         return new ResponseEntity<>("CollectPayments Deleted successfully", HttpStatus.OK);
 
 //        CollectPayments collectPaymentsForDeleting = collectPaymentsRepository.findById(id).get();
-//        String collectPaymentsName = collectPaymentsForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
+//        String collectPaymentsName = collectPaymentsForDeleting.getCollector().getCollectorname();
+//        String authenticatedCollectorname = jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if (authenticatedUsername.equals(collectPaymentsName)){
+//        if (authenticatedCollectorname.equals(collectPaymentsName)){
 //            collectPaymentsRepository.deleteById(id);
 //            return new ResponseEntity<>("CollectPayments Delete Successfully", HttpStatus.OK);
 //        }
@@ -56,7 +56,7 @@ public class CollectPaymentsServiceImpl {
     public ResponseEntity updateCollectPayments(Long id, CollectPayments collectPayments){
         CollectPayments collectPaymentsForUpdate = collectPaymentsRepository.findById(id).get();
 
-        collectPaymentsForUpdate.setUser(collectPayments.getUser());
+        collectPaymentsForUpdate.setCollector(collectPayments.getCollector());
         collectPaymentsForUpdate.setCollectionDate(collectPayments.getCollectionDate());
         collectPaymentsForUpdate.setRequiredCollectibles(collectPayments.getRequiredCollectibles());
         collectPaymentsForUpdate.setItemCollectible(collectPayments.getItemCollectible());
@@ -68,10 +68,10 @@ public class CollectPaymentsServiceImpl {
         return new ResponseEntity("CollectPayments updated successfully", HttpStatus.OK);
 
 //        CollectPayments collectPaymentsForUpdating = collectPaymentsRepository.findById(id).get();
-//        String collectPaymentsName = collectPaymentsForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
+//        String collectPaymentsName = collectPaymentsForUpdating.getCollector().getCollectorname();
+//        String authenticatedCollectorName= jwtToken.getCollectornameFromToken(stringToken);
 //
-//        if(authenticatedUserName.equals(collectPaymentsName)){
+//        if(authenticatedCollectorName.equals(collectPaymentsName)){
 //            collectPaymentsForUpdating.setName(collectPayments.getName());
 //            collectPaymentsForUpdating.setDescription(collectPayments.getDescription());
 //            collectPaymentsForUpdating.setPrice(collectPayments.getPrice());

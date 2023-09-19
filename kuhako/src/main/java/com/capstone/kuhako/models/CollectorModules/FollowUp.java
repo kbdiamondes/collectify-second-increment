@@ -1,6 +1,6 @@
 package com.capstone.kuhako.models.CollectorModules;
 
-import com.capstone.kuhako.models.User;
+import com.capstone.kuhako.models.Collector;
 
 import javax.persistence.*;
 
@@ -12,15 +12,15 @@ public class FollowUp {
     private int followUp_id;
 
     @Column
-    private User user;
+    private Collector collector;
 
     @Column
     private String paymentStatus;
 
     public FollowUp() {
     }
-    public FollowUp(User user, String paymentStatus) {
-        this.user = user;
+    public FollowUp(Collector collector, String paymentStatus) {
+        this.collector = collector;
         this.paymentStatus = paymentStatus;
     }
 
@@ -28,12 +28,12 @@ public class FollowUp {
         return followUp_id;
     }
 
-    public User getUser() {
-        return user;
+    public Collector getCollector() {
+        return collector;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCollector(Collector collector) {
+        this.collector = collector;
     }
 
     public String getPaymentStatus() {
