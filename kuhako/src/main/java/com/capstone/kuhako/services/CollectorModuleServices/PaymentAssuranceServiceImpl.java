@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentAssuranceServiceImpl {
+public class PaymentAssuranceServiceImpl implements PaymentAssuranceService {
     @Autowired
     private PaymentAssuranceRepository paymentAssuranceRepository;
 

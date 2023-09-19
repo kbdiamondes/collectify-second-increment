@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CollectAllDuePaymentsServiceImpl {
+public class CollectAllDuePaymentsServiceImpl implements CollectAllDuePaymentsService {
     @Autowired
     private CollectAllDuePaymentsRepository collectAllDuePaymentsRepository;
 

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SendFollowUpServiceImpl {
+public class SendFollowUpServiceImpl implements SendFollowUpService{
     @Autowired
     private SendFollowUpRepository sendFollowUpRepository;
 

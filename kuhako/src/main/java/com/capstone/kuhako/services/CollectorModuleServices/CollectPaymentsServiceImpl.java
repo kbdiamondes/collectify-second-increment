@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class CollectPaymentsServiceImpl {
+public class CollectPaymentsServiceImpl implements CollectPaymentsService{
     @Autowired
     private CollectPaymentsRepository collectPaymentsRepository;
 

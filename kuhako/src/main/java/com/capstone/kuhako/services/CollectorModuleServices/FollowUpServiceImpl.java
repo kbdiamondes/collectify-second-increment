@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FollowUpServiceImpl {
+public class FollowUpServiceImpl implements FollowUpService{
     @Autowired
     private FollowUpRepository followUpRepository;
 

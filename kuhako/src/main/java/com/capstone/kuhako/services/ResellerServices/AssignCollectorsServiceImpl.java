@@ -30,11 +30,8 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
     // update Assign Collectorss
     public ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors){
         AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).get();
-
         assignCollectorsForUpdate.setCollector(assignCollectors.getCollector());
-
         assignCollectorsRepository.save(assignCollectorsForUpdate);
-
         return new ResponseEntity("AssignCollectors updated successfully", HttpStatus.OK);
 
     }

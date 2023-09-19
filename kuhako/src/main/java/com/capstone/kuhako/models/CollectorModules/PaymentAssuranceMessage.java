@@ -21,18 +21,18 @@ public class PaymentAssuranceMessage {
     private String collectorMessage;
 
 
-    @OneToOne
+  @OneToOne
     @JoinColumn(name="chatCollector_id", nullable = false)
     private ChatCollector chatCollector;
-   /* @Column
+/* @Column
     private ChatCollector chatCollector;*/
 
     public PaymentAssuranceMessage() {
     }
-    public PaymentAssuranceMessage(Collector collector, String collectorMessage, ChatCollector chatCollector) {
+    public PaymentAssuranceMessage(Collector collector, String collectorMessage) {
         this.collector = collector;
         this.collectorMessage = collectorMessage;
-        this.chatCollector = chatCollector;
+        //this.chatCollector = chatCollector;
     }
 
     public int getPaymentAssuranceMessage_id() {
@@ -55,7 +55,7 @@ public class PaymentAssuranceMessage {
         this.collectorMessage = collectorMessage;
     }
 
-    public ChatCollector getChatCollector() {
+   public ChatCollector getChatCollector() {
         return chatCollector;
     }
 

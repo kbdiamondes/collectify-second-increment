@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentAssuranceMessageServiceImpl {
+public class PaymentAssuranceMessageServiceImpl implements PaymentAssuranceMessageService{
     @Autowired
     private PaymentAssuranceMessageRepository paymentAssuranceMessageRepository;
 

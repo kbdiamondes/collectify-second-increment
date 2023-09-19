@@ -1,8 +1,7 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
-
-import com.capstone.kuhako.models.ClientModules.ChatCollector;
 import com.capstone.kuhako.services.ClientModuleServices.ChatCollectorService;
+import com.capstone.kuhako.models.ClientModules.ChatCollector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class ChatCollectorController {
 
     @Autowired
-    private ChatCollectorService chatCollectorService;
+    ChatCollectorService chatCollectorService;
     @RequestMapping(value="/chatCollector", method = RequestMethod.POST)
     public ResponseEntity<Object> createChatCollector(@RequestBody ChatCollector chatCollector) {
         chatCollectorService.createChatCollector(chatCollector);

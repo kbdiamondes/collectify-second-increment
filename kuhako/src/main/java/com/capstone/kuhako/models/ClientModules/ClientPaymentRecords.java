@@ -5,6 +5,8 @@ import com.capstone.kuhako.models.CollectorModules.CollectPayments;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "clientPaymentRecords")
 public class ClientPaymentRecords {
     @Id
     @GeneratedValue
@@ -14,10 +16,18 @@ public class ClientPaymentRecords {
     @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
-    @Column
+   /* @Column
+    private PayDues payDues;*/
+    @OneToOne
+    @JoinColumn(name="payDues_id", nullable = false)
     private PayDues payDues;
 
-    @Column
+
+    /*@Column
+    private CollectPayments collectPayments;*/
+
+    @OneToOne
+    @JoinColumn(name="collectPayments_id", nullable = false)
     private CollectPayments collectPayments;
 
     public ClientPaymentRecords() {

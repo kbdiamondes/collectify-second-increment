@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionHistoryServiceImpl {
+public class TransactionHistoryServiceImpl implements TransactionHistoryService{
     @Autowired
     private TransactionHistoryRepository transactionHistoryRepository;
 
