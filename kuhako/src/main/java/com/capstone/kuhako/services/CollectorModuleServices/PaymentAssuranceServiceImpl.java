@@ -22,7 +22,7 @@ public class PaymentAssuranceServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         PaymentAssurance newPaymentAssurance = new PaymentAssurance();
-        newPaymentAssurance.setUser(paymentAssurance.getUser());
+        newPaymentAssurance.setCollector(paymentAssurance.getCollector());
         newPaymentAssurance.setPaymentStatus(paymentAssurance.getPaymentStatus());
         paymentAssuranceRepository.save(newPaymentAssurance);
     }
@@ -50,7 +50,7 @@ public class PaymentAssuranceServiceImpl {
     public ResponseEntity updatePaymentAssurance(Long id, PaymentAssurance paymentAssurance){
         PaymentAssurance paymentAssuranceForUpdate = paymentAssuranceRepository.findById(id).get();
 
-        paymentAssuranceForUpdate.setUser(paymentAssurance.getUser());
+        paymentAssuranceForUpdate.setCollector(paymentAssurance.getCollector());
         paymentAssuranceForUpdate.setPaymentStatus(paymentAssurance.getPaymentStatus());
 
         paymentAssuranceRepository.save(paymentAssuranceForUpdate);

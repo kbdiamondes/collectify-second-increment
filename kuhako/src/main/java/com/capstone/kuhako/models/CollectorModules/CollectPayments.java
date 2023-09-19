@@ -12,7 +12,8 @@ public class CollectPayments {
     @GeneratedValue
     private int collectPayments_id;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
     @Column

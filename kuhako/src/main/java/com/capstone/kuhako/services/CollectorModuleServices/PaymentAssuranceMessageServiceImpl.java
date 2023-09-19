@@ -23,6 +23,7 @@ public class PaymentAssuranceMessageServiceImpl {
 //        Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
 
         PaymentAssuranceMessage newPaymentAssuranceMessage = new PaymentAssuranceMessage();
+        newPaymentAssuranceMessage.setCollector(paymentAssuranceMessage.getCollector());
         newPaymentAssuranceMessage.setCollectorMessage(paymentAssuranceMessage.getCollectorMessage());
         newPaymentAssuranceMessage.setChatCollector(paymentAssuranceMessage.getChatCollector());
         paymentAssuranceMessageRepository.save(newPaymentAssuranceMessage);
@@ -51,6 +52,7 @@ public class PaymentAssuranceMessageServiceImpl {
     public ResponseEntity updatePaymentAssuranceMessage(Long id, PaymentAssuranceMessage paymentAssuranceMessage){
         PaymentAssuranceMessage paymentAssuranceMessageForUpdate = paymentAssuranceMessageRepository.findById(id).get();
 
+        paymentAssuranceMessageForUpdate.setCollector(paymentAssuranceMessageForUpdate.getCollector());
         paymentAssuranceMessageForUpdate.setCollectorMessage(paymentAssuranceMessage.getCollectorMessage());
         paymentAssuranceMessageForUpdate.setChatCollector(paymentAssuranceMessage.getChatCollector());
 

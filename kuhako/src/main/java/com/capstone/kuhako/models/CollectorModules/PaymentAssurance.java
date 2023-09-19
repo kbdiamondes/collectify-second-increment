@@ -11,7 +11,8 @@ public class PaymentAssurance {
     @GeneratedValue
     private int paymentAssurance_id;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
     @Column

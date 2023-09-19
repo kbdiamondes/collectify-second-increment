@@ -11,7 +11,8 @@ public class FollowUp {
     @GeneratedValue
     private int followUp_id;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
     @Column

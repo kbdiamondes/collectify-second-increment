@@ -1,6 +1,7 @@
 package com.capstone.kuhako.models.CollectorModules;
 
 import com.capstone.kuhako.models.ClientModules.PayDues;
+import com.capstone.kuhako.models.Collector;
 
 import javax.persistence.*;
 
@@ -11,6 +12,10 @@ public class collectorCollectionRecords {
     @GeneratedValue
     private int collectorCollectionRecords_id;
 
+    @ManyToOne
+    @JoinColumn(name="collector_id", nullable = false)
+    private Collector collector;
+
     @Column
     private PayDues payDues;
 
@@ -19,13 +24,22 @@ public class collectorCollectionRecords {
 
     public collectorCollectionRecords() {
     }
-    public collectorCollectionRecords(PayDues payDues, CollectPayments collectPayments) {
+    public collectorCollectionRecords(Collector collector, PayDues payDues, CollectPayments collectPayments) {
+        this.collector = collector;
         this.payDues = payDues;
         this.collectPayments = collectPayments;
     }
 
     public int getCollectorCollectionRecords_id() {
         return collectorCollectionRecords_id;
+    }
+
+    public Collector getCollector() {
+        return collector;
+    }
+
+    public void setCollector(Collector collector) {
+        this.collector = collector;
     }
 
     public PayDues getPayDues() {

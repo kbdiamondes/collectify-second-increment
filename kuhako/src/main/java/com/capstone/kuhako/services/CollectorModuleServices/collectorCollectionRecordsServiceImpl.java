@@ -22,6 +22,7 @@ public class collectorCollectionRecordsServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         collectorCollectionRecords newCollectorCollectionRecords = new collectorCollectionRecords();
+        newCollectorCollectionRecords.setCollector(collectorCollectionRecords.getCollector());
         newCollectorCollectionRecords.setPayDues(collectorCollectionRecords.getPayDues());
         newCollectorCollectionRecords.setCollectPayments(collectorCollectionRecords.getCollectPayments());
         collectorCollectionRecordsRepository.save(newCollectorCollectionRecords);
@@ -50,6 +51,7 @@ public class collectorCollectionRecordsServiceImpl {
     public ResponseEntity updateCollectorCollectionRecords(Long id, collectorCollectionRecords collectorCollectionRecords){
         collectorCollectionRecords collectorCollectionRecordsForUpdate = collectorCollectionRecordsRepository.findById(id).get();
 
+        collectorCollectionRecordsForUpdate.setCollector(collectorCollectionRecords.getCollector());
         collectorCollectionRecordsForUpdate.setPayDues(collectorCollectionRecords.getPayDues());
         collectorCollectionRecordsForUpdate.setCollectPayments(collectorCollectionRecords.getCollectPayments());
 
