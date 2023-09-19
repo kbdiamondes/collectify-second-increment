@@ -25,13 +25,15 @@ public class PaymentDues {
 
     public PaymentDues() {
     }
-
-
     public PaymentDues(Client client, String itemName, double requiredCollectible, boolean dueStatus) {
         this.client = client;
         this.itemName = itemName;
         this.requiredCollectible = requiredCollectible;
         this.dueStatus = dueStatus;
+    }
+
+    public int getPaymentDues_id() {
+        return paymentDues_id;
     }
 
     public Client getClient() {
@@ -40,10 +42,6 @@ public class PaymentDues {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getPaymentDues_id() {
-        return paymentDues_id;
     }
 
     public String getItemName() {

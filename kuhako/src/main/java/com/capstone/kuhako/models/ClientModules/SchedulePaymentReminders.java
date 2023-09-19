@@ -34,7 +34,6 @@ public class SchedulePaymentReminders {
 
     public SchedulePaymentReminders() {
     }
-
     public SchedulePaymentReminders(Client client, PaymentDues paymentDues, Date collectionDate, long productTypeID, String reminderTitle, Date reminderDate) {
         this.client = client;
         this.paymentDues = paymentDues;
@@ -44,16 +43,16 @@ public class SchedulePaymentReminders {
         this.reminderDate = reminderDate;
     }
 
+    public int getSchedulePaymentReminders_id() {
+        return schedulePaymentReminders_id;
+    }
+
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getSchedulePaymentReminders_id() {
-        return schedulePaymentReminders_id;
     }
 
     public PaymentDues getPaymentDues() {

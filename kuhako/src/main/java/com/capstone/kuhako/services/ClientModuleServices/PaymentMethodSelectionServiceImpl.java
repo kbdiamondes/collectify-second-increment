@@ -22,6 +22,8 @@ public class PaymentMethodSelectionServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         PaymentMethodSelection newPaymentMethodSelection = new PaymentMethodSelection();
+
+        newPaymentMethodSelection.setClient(paymentMethodSelection.getClient());
         newPaymentMethodSelection.setPurchaseMethod(paymentMethodSelection.getPurchaseMethod());
         newPaymentMethodSelection.setItemName(paymentMethodSelection.getItemName());
         newPaymentMethodSelection.setItemPrice(paymentMethodSelection.getItemPrice());
@@ -53,6 +55,7 @@ public class PaymentMethodSelectionServiceImpl {
     public ResponseEntity updatePaymentMethodSelection(Long id, PaymentMethodSelection paymentMethodSelection){
         PaymentMethodSelection paymentMethodSelectionForUpdate = paymentMethodSelectionRepository.findById(id).get();
 
+        paymentMethodSelectionForUpdate.setClient(paymentMethodSelection.getClient());
         paymentMethodSelectionForUpdate.setPurchaseMethod(paymentMethodSelection.getPurchaseMethod());
         paymentMethodSelectionForUpdate.setItemName(paymentMethodSelection.getItemName());
         paymentMethodSelectionForUpdate.setItemPrice(paymentMethodSelection.getItemPrice());

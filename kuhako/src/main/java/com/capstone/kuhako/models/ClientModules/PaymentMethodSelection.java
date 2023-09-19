@@ -31,7 +31,6 @@ public class PaymentMethodSelection {
 
     public PaymentMethodSelection() {
     }
-
     public PaymentMethodSelection(Client client, String purchaseMethod, String itemName, String itemPrice, String itemSpecs, double installmentAmount) {
         this.client = client;
         this.purchaseMethod = purchaseMethod;
@@ -41,16 +40,16 @@ public class PaymentMethodSelection {
         this.installmentAmount = installmentAmount;
     }
 
+    public int getPaymentMethodSelection_id() {
+        return paymentMethodSelection_id;
+    }
+
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getPaymentMethodSelection_id() {
-        return paymentMethodSelection_id;
     }
 
     public String getPurchaseMethod() {

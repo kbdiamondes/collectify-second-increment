@@ -22,6 +22,8 @@ public class ClientPaymentRecordsServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         ClientPaymentRecords newClientPaymentRecords = new ClientPaymentRecords();
+
+        newClientPaymentRecords.setClient(clientPaymentRecords.getClient());
         newClientPaymentRecords.setPayDues(clientPaymentRecords.getPayDues());
         newClientPaymentRecords.setCollectPayments(clientPaymentRecords.getCollectPayments());
         clientPaymentRecordsRepository.save(newClientPaymentRecords);
@@ -50,6 +52,7 @@ public class ClientPaymentRecordsServiceImpl {
     public ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords){
         ClientPaymentRecords clientPaymentRecordsForUpdate = clientPaymentRecordsRepository.findById(id).get();
 
+        clientPaymentRecordsForUpdate.setClient(clientPaymentRecords.getClient());
         clientPaymentRecordsForUpdate.setPayDues(clientPaymentRecords.getPayDues());
         clientPaymentRecordsForUpdate.setCollectPayments(clientPaymentRecords.getCollectPayments());
 

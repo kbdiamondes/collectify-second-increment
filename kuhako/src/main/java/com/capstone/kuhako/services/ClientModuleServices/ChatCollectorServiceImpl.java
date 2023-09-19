@@ -16,6 +16,8 @@ public class ChatCollectorServiceImpl {
     //Create ChatCollector
     public void createChatCollector(ChatCollector chatCollector){
         ChatCollector newChatCollector = new ChatCollector();
+
+        newChatCollector.setClient(chatCollector.getClient());
         newChatCollector.setPaymentAssurance(chatCollector.getPaymentAssurance());
         newChatCollector.setClientMessage(chatCollector.getClientMessage());
         chatCollectorRepository.save(newChatCollector);
@@ -32,6 +34,8 @@ public class ChatCollectorServiceImpl {
     // Update
     public ResponseEntity updateChatCollector(Long id, ChatCollector chatCollector){
         ChatCollector chatCollectorForUpdate = chatCollectorRepository.findById(id).get();
+
+        chatCollectorForUpdate.setClient(chatCollector.getClient());
         chatCollectorForUpdate.setPaymentAssurance(chatCollector.getPaymentAssurance());
         chatCollectorForUpdate.setClientMessage(chatCollector.getClientMessage());
         chatCollectorRepository.save(chatCollectorForUpdate);

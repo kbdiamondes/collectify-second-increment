@@ -22,6 +22,7 @@ public class TransactionHistoryServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         TransactionHistory newTransactionHistory = new TransactionHistory();
+
         newTransactionHistory.setClient(transactionHistory.getClient());
         newTransactionHistory.setTransactionDate(transactionHistory.getTransactionDate());
         newTransactionHistory.setAmountSent(transactionHistory.getAmountSent());

@@ -22,6 +22,8 @@ public class SchedulePaymentRemindersServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         SchedulePaymentReminders newSchedulePaymentReminders = new SchedulePaymentReminders();
+
+        newSchedulePaymentReminders.setClient(schedulePaymentReminders.getClient());
         newSchedulePaymentReminders.setPaymentDues(schedulePaymentReminders.getPaymentDues());
         newSchedulePaymentReminders.setCollectionDate(schedulePaymentReminders.getCollectionDate());
         newSchedulePaymentReminders.setProductTypeID(schedulePaymentReminders.getProductTypeID());
@@ -53,6 +55,7 @@ public class SchedulePaymentRemindersServiceImpl {
     public ResponseEntity updateSchedulePaymentReminders(Long id, SchedulePaymentReminders schedulePaymentReminders){
         SchedulePaymentReminders schedulePaymentRemindersForUpdate = schedulePaymentRemindersRepository.findById(id).get();
 
+        schedulePaymentRemindersForUpdate.setClient(schedulePaymentReminders.getClient());
         schedulePaymentRemindersForUpdate.setPaymentDues(schedulePaymentReminders.getPaymentDues());
         schedulePaymentRemindersForUpdate.setCollectionDate(schedulePaymentReminders.getCollectionDate());
         schedulePaymentRemindersForUpdate.setProductTypeID(schedulePaymentReminders.getProductTypeID());

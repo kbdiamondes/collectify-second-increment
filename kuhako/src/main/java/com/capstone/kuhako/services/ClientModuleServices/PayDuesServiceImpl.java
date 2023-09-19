@@ -22,6 +22,8 @@ public class PayDuesServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         PayDues newPayDues = new PayDues();
+
+        newPayDues.setClient(payDues.getClient());
         newPayDues.setPaymentDues(payDues.getPaymentDues());
         newPayDues.setItemPrice(payDues.getItemPrice());
         newPayDues.setReferenceNumber(payDues.getReferenceNumber());
@@ -53,6 +55,7 @@ public class PayDuesServiceImpl {
     public ResponseEntity updatePayDues(Long id, PayDues payDues){
         PayDues payDuesForUpdate = payDuesRepository.findById(id).get();
 
+        payDuesForUpdate.setClient(payDues.getClient());
         payDuesForUpdate.setPaymentDues(payDues.getPaymentDues());
         payDuesForUpdate.setItemPrice(payDues.getItemPrice());
         payDuesForUpdate.setReferenceNumber(payDues.getReferenceNumber());

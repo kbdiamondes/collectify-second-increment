@@ -33,7 +33,6 @@ public class TransactionDetails {
 
     public TransactionDetails() {
     }
-
     public TransactionDetails(Client client, double monthlyCollectible, double fullCashPrice, double interestRate, Date dueDate, double totalPayment) {
         this.client = client;
         this.monthlyCollectible = monthlyCollectible;
@@ -43,16 +42,16 @@ public class TransactionDetails {
         this.totalPayment = totalPayment;
     }
 
+    public int getTransactionDetails_id() {
+        return transactionDetails_id;
+    }
+
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getTransactionDetails_id() {
-        return transactionDetails_id;
     }
 
     public double getMonthlyCollectible() {

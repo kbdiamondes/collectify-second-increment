@@ -22,6 +22,8 @@ public class PaymentDuesServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         PaymentDues newPaymentDues = new PaymentDues();
+
+        newPaymentDues.setClient(paymentDues.getClient());
         newPaymentDues.setItemName(paymentDues.getItemName());
         newPaymentDues.setRequiredCollectible(paymentDues.getRequiredCollectible());
         newPaymentDues.setDueStatus(paymentDues.isDueStatus());
@@ -51,6 +53,7 @@ public class PaymentDuesServiceImpl {
     public ResponseEntity updatePaymentDues(Long id, PaymentDues paymentDues){
         PaymentDues paymentDuesForUpdate = paymentDuesRepository.findById(id).get();
 
+        paymentDuesForUpdate.setClient(paymentDues.getClient());
         paymentDuesForUpdate.setItemName(paymentDues.getItemName());
         paymentDuesForUpdate.setRequiredCollectible(paymentDues.getRequiredCollectible());
         paymentDuesForUpdate.setDueStatus(paymentDues.isDueStatus());

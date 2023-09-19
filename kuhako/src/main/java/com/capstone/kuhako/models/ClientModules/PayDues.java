@@ -36,7 +36,6 @@ public class PayDues {
 
     public PayDues() {
     }
-
     public PayDues(Client client, PaymentDues paymentDues, double itemPrice, String referenceNumber, String paymentType, String transactionProof) {
         this.client = client;
         this.paymentDues = paymentDues;
@@ -46,8 +45,8 @@ public class PayDues {
         this.transactionProof = transactionProof;
     }
 
-    public void setPayDues_id(int payDues_id) {
-        this.payDues_id = payDues_id;
+    public int getPayDues_id() {
+        return payDues_id;
     }
 
     public Client getClient() {
@@ -56,10 +55,6 @@ public class PayDues {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public int getPayDues_id() {
-        return payDues_id;
     }
 
     public PaymentDues getPaymentDues() {

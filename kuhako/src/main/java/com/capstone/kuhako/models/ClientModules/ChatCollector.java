@@ -28,14 +28,11 @@ public class ChatCollector {
 
     public ChatCollector() {
     }
-
     public ChatCollector(Client client, PaymentAssurance paymentAssurance, String clientMessage) {
         this.client = client;
         this.paymentAssurance = paymentAssurance;
         this.clientMessage = clientMessage;
     }
-
-
 
     public int getChatCollector_id() {
         return chatCollector_id;

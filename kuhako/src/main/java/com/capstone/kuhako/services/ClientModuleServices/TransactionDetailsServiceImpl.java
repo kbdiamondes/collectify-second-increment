@@ -22,6 +22,8 @@ public class TransactionDetailsServiceImpl {
 //        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         TransactionDetails newTransactionDetails = new TransactionDetails();
+
+        newTransactionDetails.setClient(transactionDetails.getClient());
         newTransactionDetails.setMonthlyCollectible(transactionDetails.getMonthlyCollectible());
         newTransactionDetails.setFullCashPrice(transactionDetails.getFullCashPrice());
         newTransactionDetails.setInterestRate(transactionDetails.getInterestRate());
@@ -53,6 +55,7 @@ public class TransactionDetailsServiceImpl {
     public ResponseEntity updateTransactionDetails(Long id, TransactionDetails transactionDetails){
         TransactionDetails transactionDetailsForUpdate = transactionDetailsRepository.findById(id).get();
 
+        transactionDetailsForUpdate.setClient(transactionDetails.getClient());
         transactionDetailsForUpdate.setMonthlyCollectible(transactionDetails.getMonthlyCollectible());
         transactionDetailsForUpdate.setFullCashPrice(transactionDetails.getFullCashPrice());
         transactionDetailsForUpdate.setInterestRate(transactionDetails.getInterestRate());
