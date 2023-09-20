@@ -12,17 +12,9 @@ public class ClientPaymentRecordsServiceImpl implements ClientPaymentRecordsServ
     @Autowired
     private ClientPaymentRecordsRepository clientPaymentRecordsRepository;
 
-//    @Autowired
-//    UserRepository userRepository;
-
-//    @Autowired
-//    JwtToken jwtToken;
-
     public void createClientPaymentRecords(ClientPaymentRecords clientPaymentRecords){
-//        User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-
+//      User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         ClientPaymentRecords newClientPaymentRecords = new ClientPaymentRecords();
-
         newClientPaymentRecords.setClient(clientPaymentRecords.getClient());
         newClientPaymentRecords.setPayDues(clientPaymentRecords.getPayDues());
         newClientPaymentRecords.setCollectPayments(clientPaymentRecords.getCollectPayments());
@@ -35,45 +27,14 @@ public class ClientPaymentRecordsServiceImpl implements ClientPaymentRecordsServ
     public ResponseEntity deleteClientPaymentRecords(Long id){
         clientPaymentRecordsRepository.deleteById(id);
         return new ResponseEntity<>("ClientPaymentRecords Deleted successfully", HttpStatus.OK);
-
-//        ClientPaymentRecords clientPaymentRecordsForDeleting = clientPaymentRecordsRepository.findById(id).get();
-//        String clientPaymentRecordsName = clientPaymentRecordsForDeleting.getUser().getUsername();
-//        String authenticatedUsername = jwtToken.getUsernameFromToken(stringToken);
-//
-//        if (authenticatedUsername.equals(clientPaymentRecordsName)){
-//            clientPaymentRecordsRepository.deleteById(id);
-//            return new ResponseEntity<>("ClientPaymentRecords Delete Successfully", HttpStatus.OK);
-//        }
-//        else{
-//            return new ResponseEntity<>("You are not authorized to delete this ClientPaymentRecords",HttpStatus.UNAUTHORIZED);
-//        }
     }
 
     public ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords){
         ClientPaymentRecords clientPaymentRecordsForUpdate = clientPaymentRecordsRepository.findById(id).get();
-
         clientPaymentRecordsForUpdate.setClient(clientPaymentRecords.getClient());
         clientPaymentRecordsForUpdate.setPayDues(clientPaymentRecords.getPayDues());
         clientPaymentRecordsForUpdate.setCollectPayments(clientPaymentRecords.getCollectPayments());
-
         clientPaymentRecordsRepository.save(clientPaymentRecordsForUpdate);
-
         return new ResponseEntity("ClientPaymentRecords updated successfully", HttpStatus.OK);
-
-//        ClientPaymentRecords clientPaymentRecordsForUpdating = clientPaymentRecordsRepository.findById(id).get();
-//        String clientPaymentRecordsName = clientPaymentRecordsForUpdating.getUser().getUsername();
-//        String authenticatedUserName= jwtToken.getUsernameFromToken(stringToken);
-//
-//        if(authenticatedUserName.equals(clientPaymentRecordsName)){
-//            clientPaymentRecordsForUpdating.setName(clientPaymentRecords.getName());
-//            clientPaymentRecordsForUpdating.setDescription(clientPaymentRecords.getDescription());
-//            clientPaymentRecordsForUpdating.setPrice(clientPaymentRecords.getPrice());
-//
-//            clientPaymentRecordsRepository.save(clientPaymentRecordsForUpdating);
-//            return  new ResponseEntity("ClientPaymentRecords has been Revised.", HttpStatus.OK);
-//        }
-//        else {
-//            return new ResponseEntity<>("Your are not authorize to update this ClientPaymentRecords.",HttpStatus.UNAUTHORIZED);
-//        }
     }
 }
