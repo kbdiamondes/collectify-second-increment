@@ -5,11 +5,11 @@ import com.capstone.kuhako.models.Client;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "paymentDues")
-public class PaymentDues {
+@Table(name = "duePayments")
+public class DuePayments {
     @Id
     @GeneratedValue
-    private int paymentDues_id;
+    private int duePayments_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -23,17 +23,17 @@ public class PaymentDues {
     @Column
     private boolean dueStatus;
 
-    public PaymentDues() {
+    public DuePayments() {
     }
-    public PaymentDues(Client client, String itemName, double requiredCollectible, boolean dueStatus) {
+    public DuePayments(Client client, String itemName, double requiredCollectible, boolean dueStatus) {
         this.client = client;
         this.itemName = itemName;
         this.requiredCollectible = requiredCollectible;
         this.dueStatus = dueStatus;
     }
 
-    public int getPaymentDues_id() {
-        return paymentDues_id;
+    public int getDuePayments_id() {
+        return duePayments_id;
     }
 
     public Client getClient() {

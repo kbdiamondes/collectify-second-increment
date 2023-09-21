@@ -17,7 +17,7 @@ public class PayDuesServiceImpl implements PayDuesService{
 //      User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         PayDues newPayDues = new PayDues();
         newPayDues.setClient(payDues.getClient());
-        newPayDues.setPaymentDues(payDues.getPaymentDues());
+        newPayDues.setDuePayments(payDues.getDuePayments());
         newPayDues.setItemPrice(payDues.getItemPrice());
         newPayDues.setReferenceNumber(payDues.getReferenceNumber());
         newPayDues.setPaymentType(payDues.getPaymentType());
@@ -36,7 +36,7 @@ public class PayDuesServiceImpl implements PayDuesService{
     public ResponseEntity updatePayDues(Long id, PayDues payDues){
         PayDues payDuesForUpdate = payDuesRepository.findById(id).get();
         payDuesForUpdate.setClient(payDues.getClient());
-        payDuesForUpdate.setPaymentDues(payDues.getPaymentDues());
+        payDuesForUpdate.setDuePayments(payDues.getDuePayments());
         payDuesForUpdate.setItemPrice(payDues.getItemPrice());
         payDuesForUpdate.setReferenceNumber(payDues.getReferenceNumber());
         payDuesForUpdate.setPaymentType(payDues.getPaymentType());
