@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/reseller")
 public class MyCollectorsController {
     @Autowired
     MyCollectorsService myCollectorsService;

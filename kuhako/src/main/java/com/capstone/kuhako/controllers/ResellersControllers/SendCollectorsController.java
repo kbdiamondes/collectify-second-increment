@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
     @RestController
     @CrossOrigin
+    @RequestMapping("/reseller")
     public class SendCollectorsController {
         @Autowired
         SendCollectorsService sendCollectorsService;

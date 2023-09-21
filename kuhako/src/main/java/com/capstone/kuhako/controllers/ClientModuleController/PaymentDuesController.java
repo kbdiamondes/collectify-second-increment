@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/client")
 public class PaymentDuesController {
     @Autowired
     PaymentDuesService paymentDuesService;

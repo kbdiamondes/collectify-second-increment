@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/collector")
+
 public class CollectPaymentsController {
     @Autowired
     CollectPaymentsService collectPaymentsService;
