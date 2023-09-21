@@ -14,14 +14,11 @@ public class ChatCollectorServiceImpl implements ChatCollectorService{
 
     //Create ChatCollector
     public void createChatCollector(ChatCollector chatCollector){
-//      ChatCollector newChatCollector = new ChatCollector();
-//      newChatCollector.setClient(chatCollector.getClient());
-//      newChatCollector.setPaymentAssurance(chatCollector.getPaymentAssurance());
-//      newChatCollector.setClientMessage(chatCollector.getClientMessage());
-//      chatCollectorRepository.save(newChatCollector);
-        chatCollectorRepository.save(chatCollector);
-
-
+      ChatCollector newChatCollector = new ChatCollector();
+      newChatCollector.setClient(chatCollector.getClient());
+      newChatCollector.setPaymentAssurance(chatCollector.getPaymentAssurance());
+      newChatCollector.setClientMessage(chatCollector.getClientMessage());
+      chatCollectorRepository.save(newChatCollector);
     }
     // Get All ChatCollector
     public Iterable<ChatCollector> getChatCollector(){

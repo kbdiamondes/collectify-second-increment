@@ -29,10 +29,10 @@ public class PaymentAssuranceMessage {
 
     public PaymentAssuranceMessage() {
     }
-    public PaymentAssuranceMessage(Collector collector, String collectorMessage) {
+    public PaymentAssuranceMessage(Collector collector, String collectorMessage,ChatCollector chatCollector) {
         this.collector = collector;
         this.collectorMessage = collectorMessage;
-        //this.chatCollector = chatCollector;
+        this.chatCollector = chatCollector;
     }
 
     public int getPaymentAssuranceMessage_id() {
