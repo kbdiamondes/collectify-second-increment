@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends CrudRepository<Client,Object> {
     Client findByUsername(String fullName);
-    Optional<Client> findbyId(Long client_id);
+    /*Optional<Client> findbyId(Long client_id);*/
 }
 
