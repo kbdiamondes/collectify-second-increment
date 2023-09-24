@@ -14,6 +14,11 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+
+    public Iterable<Client> getClient_Id(Long clientId) {
+        return null;
+    }
+
     // Create Client
     public void createClient(Client client){
         clientRepository.save(client);

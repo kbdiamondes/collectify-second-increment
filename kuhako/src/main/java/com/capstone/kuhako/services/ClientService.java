@@ -3,9 +3,14 @@ package com.capstone.kuhako.services;
 import com.capstone.kuhako.models.Client;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
 
 
 public interface ClientService {
+
+//    Iterable<Client> getClient_Id(Long clientId) {
+//    }
+
     // Create Client
     void createClient(Client client);
     // Get Client
