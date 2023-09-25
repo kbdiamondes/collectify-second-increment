@@ -62,7 +62,7 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      * @return ResponseEntity with a message indicating success or failure.
      */
     public ResponseEntity deleteDuePayments(Long clientId, Long id) {
-        DuePayments duePaymentsToDelete = duePaymentRepository.findById(clientId).orElse(null);
+        DuePayments duePaymentsToDelete = duePaymentRepository.findById(id).orElse(null);
 
         if (duePaymentsToDelete != null && duePaymentsToDelete.getClient().getClient_id().equals(clientId)) {
             duePaymentRepository.deleteById(id);

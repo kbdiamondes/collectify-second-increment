@@ -5,7 +5,7 @@ import com.capstone.kuhako.models.ClientModules.PaymentMethodSelection;
 import org.springframework.http.ResponseEntity;
 
 public interface PaymentMethodSelectionService {
-    void createPaymentMethodSelection(PaymentMethodSelection paymentMethodSelection, Long clientId);
+    void createPaymentMethodSelection(Long clientId,PaymentMethodSelection paymentMethodSelection);
 
     Iterable<PaymentMethodSelection> getPaymentMethodSelection();
 

@@ -17,7 +17,7 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
     @Autowired
     private ClientRepository clientRepository;
 
-    public void createPaymentMethodSelection(PaymentMethodSelection paymentMethodSelection, Long clientId){
+    public void createPaymentMethodSelection(Long clientId,PaymentMethodSelection paymentMethodSelection){
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null){
             paymentMethodSelection.setClient(client);
@@ -33,7 +33,7 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
     }
 
     public ResponseEntity deletePaymentMethodSelection(Long clientId,Long id){
-        PaymentMethodSelection paymentMethodSelectionToDelete = paymentMethodSelectionRepository.findById(clientId).orElse(null);
+        PaymentMethodSelection paymentMethodSelectionToDelete = paymentMethodSelectionRepository.findById(id).orElse(null);
         if(paymentMethodSelectionToDelete != null && paymentMethodSelectionToDelete.getClient().getClient_id().equals(clientId)){
             paymentMethodSelectionRepository.deleteById(id);
             return new ResponseEntity<>("Payment Method Deleted Successfully!",HttpStatus.OK);
@@ -44,16 +44,12 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
 
     public ResponseEntity updatePaymentMethodSelection(Long clientId, Long id, PaymentMethodSelection paymentMethodSelection){
         PaymentMethodSelection paymentMethodSelectionForUpdate = paymentMethodSelectionRepository.findById(id).orElse(null);
-        if(paymentMethodSelectionForUpdate != null){
+        if(paymentMethodSelectionForUpdate != null && paymentMethodSelectionForUpdate.getClient().getClient_id().equals(clientId)){
             paymentMethodSelectionForUpdate.setPurchaseMethod(paymentMethodSelection.getPurchaseMethod());
             paymentMethodSelectionForUpdate.setItemName(paymentMethodSelection.getItemName());
             paymentMethodSelectionForUpdate.setItemPrice(paymentMethodSelection.getItemPrice());
             paymentMethodSelectionForUpdate.setItemSpecs(paymentMethodSelection.getItemSpecs());
             paymentMethodSelectionForUpdate.setInstallmentAmount(paymentMethodSelection.getInstallmentAmount());
-            Client client = clientRepository.findById(clientId).orElse(null);
-            if(client != null){
-                paymentMethodSelectionForUpdate.setClient(client);
-            }
             paymentMethodSelectionRepository.save(paymentMethodSelectionForUpdate);
             return new ResponseEntity<>("Payment Method Updated!",HttpStatus.OK);
         }
