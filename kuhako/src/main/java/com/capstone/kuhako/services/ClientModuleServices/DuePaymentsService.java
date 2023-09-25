@@ -5,7 +5,7 @@ import com.capstone.kuhako.models.ClientModules.DuePayments;
 import org.springframework.http.ResponseEntity;
 
 public interface DuePaymentsService {
-    void createDuePayments(DuePayments duePayments , Long clientId);
+    void createDuePayments(Long clientId, DuePayments duePayments);
 
     Iterable<DuePayments> getDuePayments();
 

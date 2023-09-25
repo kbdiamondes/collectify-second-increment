@@ -27,7 +27,7 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      * @param duePayments The DuePayments object to be created.
      * @param clientId    The ID of the associated client.
      */
-    public void createDuePayments(DuePayments duePayments, Long clientId) {
+    public void createDuePayments(Long clientId,DuePayments duePayments) {
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null) {
             duePayments.setClient(client);
