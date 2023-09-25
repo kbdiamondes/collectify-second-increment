@@ -17,8 +17,8 @@ public class PaymentMethodSelectionController {
     PaymentMethodSelectionService paymentMethodSelectionService;
 
     @RequestMapping(value="/paymentMethodSelection/{clientId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createPaymentMethodSelection(@RequestBody PaymentMethodSelection paymentMethodSelection,@PathVariable Long clientId) {
-        paymentMethodSelectionService.createPaymentMethodSelection(paymentMethodSelection,clientId);
+    public ResponseEntity<Object> createPaymentMethodSelection(@PathVariable Long clientId,@RequestBody PaymentMethodSelection paymentMethodSelection) {
+        paymentMethodSelectionService.createPaymentMethodSelection(clientId,paymentMethodSelection);
         return new ResponseEntity<>("PaymentMethodSelection created successfully", HttpStatus.CREATED);
     }
     @RequestMapping(value="/paymentMethodSelection", method = RequestMethod.GET)

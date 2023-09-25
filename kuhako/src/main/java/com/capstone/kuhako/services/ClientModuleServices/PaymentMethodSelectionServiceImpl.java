@@ -17,7 +17,7 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
     @Autowired
     private ClientRepository clientRepository;
 
-    public void createPaymentMethodSelection(PaymentMethodSelection paymentMethodSelection, Long clientId){
+    public void createPaymentMethodSelection(Long clientId,PaymentMethodSelection paymentMethodSelection){
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null){
             paymentMethodSelection.setClient(client);
