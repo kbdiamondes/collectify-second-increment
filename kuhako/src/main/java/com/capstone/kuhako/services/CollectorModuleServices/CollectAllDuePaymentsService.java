@@ -4,11 +4,13 @@ import com.capstone.kuhako.models.CollectorModules.CollectAllDuePayments;
 import org.springframework.http.ResponseEntity;
 
 public interface CollectAllDuePaymentsService{
-    void createCollectAllDuePayments(CollectAllDuePayments paymentDues);
+    void createCollectAllDuePayments(Long collectorId, CollectAllDuePayments paymentDues);
 
     Iterable<CollectAllDuePayments> getCollectAllDuePayments();
 
-    ResponseEntity deleteCollectAllDuePayments(Long id);
+    Iterable<CollectAllDuePayments> getCollectAllDuePaymentsByClientId(Long collectorId);
 
-    ResponseEntity updateCollectAllDuePayments(Long id, CollectAllDuePayments paymentDues);
+    ResponseEntity deleteCollectAllDuePayments(Long collectorId, Long id);
+
+    ResponseEntity updateCollectAllDuePayments(Long collectorId, Long id, CollectAllDuePayments paymentDues);
 }

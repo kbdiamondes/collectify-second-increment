@@ -27,7 +27,7 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      * @param duePayments The DuePayments object to be created.
      * @param clientId    The ID of the associated client.
      */
-    public void createDuePayments(DuePayments duePayments, Long clientId) {
+    public void createDuePayments(Long clientId, DuePayments duePayments) {
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null) {
             duePayments.setClient(client);
@@ -80,18 +80,14 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      * @param duePayments   The updated DuePayments object.
      * @return ResponseEntity with a message indicating success or failure.
      */
-    public ResponseEntity updateDuePayments(Long clientId , Long id, DuePayments duePayments) {
+    public ResponseEntity updateDuePayments(Long clientId, Long id, DuePayments duePayments) {
         DuePayments duePaymentsForUpdate = duePaymentRepository.findById(id).orElse(null);
-        if (duePaymentsForUpdate != null) {
+        if (duePaymentsForUpdate != null && duePaymentsForUpdate.getClient().getClient_id().equals(clientId)) {
             duePaymentsForUpdate.setRequiredCollectible(duePayments.getRequiredCollectible());
             duePaymentsForUpdate.setDueStatus(duePayments.isDueStatus());
-            Client client = clientRepository.findById(clientId).orElse(null);
-            if (client != null) {
-                duePaymentsForUpdate.setClient(client);
-            }
             duePaymentRepository.save(duePaymentsForUpdate);
             return new ResponseEntity<>("Due Payments Updated successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Due payment not found",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Due payment not found or does not belong to the specified client",HttpStatus.NOT_FOUND);
     }
 }

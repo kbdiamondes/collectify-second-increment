@@ -5,15 +5,13 @@ import com.capstone.kuhako.models.ClientModules.DuePayments;
 import org.springframework.http.ResponseEntity;
 
 public interface DuePaymentsService {
-    void createDuePayments(DuePayments duePayments , Long clientId);
+    void createDuePayments(Long clientId, DuePayments duePayments);
 
     Iterable<DuePayments> getDuePayments();
 
     Iterable<DuePayments>getDuePaymentsByClientId(Long clientId);
 
-    ResponseEntity deleteDuePayments(Long clientId , Long id);
+    ResponseEntity deleteDuePayments(Long clientId, Long id);
 
-    ResponseEntity updateDuePayments( Long clientId,Long id ,DuePayments duePayments);
-
-   /* Iterable<DuePayments> getClientDuePayments (Client client);*/
+    ResponseEntity updateDuePayments(Long clientId, Long id, DuePayments duePayments);
 }
