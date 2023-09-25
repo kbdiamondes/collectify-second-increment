@@ -36,7 +36,7 @@ public class PaymentMethodSelectionController {
     }
 
     @RequestMapping(value="/paymentMethodSelection/{clientId}/{paymentMethodSelectionid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updatePaymentMethodSelection(@PathVariable Long clientId, @PathVariable Long paymentMethodSelectionid, @RequestBody PaymentMethodSelection paymentMethodSelection) {
-        return paymentMethodSelectionService.updatePaymentMethodSelection(clientId,paymentMethodSelectionid, paymentMethodSelection);
+    public ResponseEntity<Object> updatePaymentMethodSelection(@PathVariable Long clientId, @PathVariable Long paymentMethodSelection_id, @RequestBody PaymentMethodSelection paymentMethodSelection) {
+        return paymentMethodSelectionService.updatePaymentMethodSelection(clientId,paymentMethodSelection_id, paymentMethodSelection);
     }
 }
