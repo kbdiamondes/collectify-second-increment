@@ -10,7 +10,7 @@ import java.util.Date;
 public class SchedulePaymentReminders {
     @Id
     @GeneratedValue
-    private int schedulePaymentReminders_id;
+    private Long schedulePaymentReminders_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -43,7 +43,7 @@ public class SchedulePaymentReminders {
         this.reminderDate = reminderDate;
     }
 
-    public int getSchedulePaymentReminders_id() {
+    public Long getSchedulePaymentReminders_id() {
         return schedulePaymentReminders_id;
     }
 

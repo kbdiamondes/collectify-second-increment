@@ -10,7 +10,7 @@ import java.util.Date;
 public class TransactionDetails {
     @Id
     @GeneratedValue
-    private int transactionDetails_id;
+    private Long transactionDetails_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -42,7 +42,7 @@ public class TransactionDetails {
         this.totalPayment = totalPayment;
     }
 
-    public int getTransactionDetails_id() {
+    public Long getTransactionDetails_id() {
         return transactionDetails_id;
     }
 

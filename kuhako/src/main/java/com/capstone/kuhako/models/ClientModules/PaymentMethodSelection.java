@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class PaymentMethodSelection {
     @Id
     @GeneratedValue
-    private int paymentMethodSelection_id;
+    private Long paymentMethodSelection_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -40,7 +40,7 @@ public class PaymentMethodSelection {
         this.installmentAmount = installmentAmount;
     }
 
-    public int getPaymentMethodSelection_id() {
+    public Long getPaymentMethodSelection_id() {
         return paymentMethodSelection_id;
     }
 

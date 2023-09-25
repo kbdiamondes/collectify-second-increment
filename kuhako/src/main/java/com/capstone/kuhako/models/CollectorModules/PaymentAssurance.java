@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class PaymentAssurance {
     @Id
     @GeneratedValue
-    private int paymentAssurance_id;
+    private Long paymentAssurance_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -25,7 +25,7 @@ public class PaymentAssurance {
         this.paymentStatus = paymentStatus;
     }
 
-    public int getPaymentAssurance_id() {
+    public Long getPaymentAssurance_id() {
         return paymentAssurance_id;
     }
 

@@ -9,44 +9,77 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for handling DuePayments related operations.
+ */
 @Service
 public class DuePaymentsServiceImpl implements DuePaymentsService {
+
     @Autowired
     private DuePaymentsRepository duePaymentRepository;
 
     @Autowired
     private ClientRepository clientRepository;
 
+    /**
+     * Creates a new DuePayments entry associated with the specified client.
+     *
+     * @param duePayments The DuePayments object to be created.
+     * @param clientId    The ID of the associated client.
+     */
     public void createDuePayments(DuePayments duePayments, Long clientId) {
-/*//      User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-        DuePayments newDuePayments = new DuePayments();
-        newDuePayments.setClient(duePayments.getClient());
-        newDuePayments.setItemName(duePayments.getItemName());
-        newDuePayments.setRequiredCollectible(duePayments.getRequiredCollectible());
-        newDuePayments.setDueStatus(duePayments.isDueStatus());
-        duePaymentRepository.save(newDuePayments);*/
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null) {
             duePayments.setClient(client);
             duePaymentRepository.save(duePayments);
         }
-
     }
 
+    /**
+     * Retrieves all DuePayments entries.
+     *
+     * @return Iterable of DuePayments objects.
+     */
     public Iterable<DuePayments> getDuePayments() {
         return duePaymentRepository.findAll();
     }
 
+    /**
+     * Retrieves all DuePayments entries associated with a specific client.
+     *
+     * @param clientId The ID of the client.
+     * @return Iterable of DuePayments objects.
+     */
     public Iterable<DuePayments> getDuePaymentsByClientId(Long clientId) {
         return duePaymentRepository.findDuePaymentsByClientId(clientId);
     }
 
+    /**
+     * Deletes a DuePayments entry associated with a specific client.
+     *
+     * @param clientId       The ID of the client.
+     * @param id  The ID of the DuePayments entry.
+     * @return ResponseEntity with a message indicating success or failure.
+     */
+    public ResponseEntity deleteDuePayments(Long clientId, Long id) {
+        DuePayments duePaymentsToDelete = duePaymentRepository.findById(clientId).orElse(null);
 
-    public ResponseEntity deleteDuePayments(Long id) {
-        duePaymentRepository.deleteById(id);
-        return new ResponseEntity<>("PaymentDues Deleted successfully", HttpStatus.OK);
+        if (duePaymentsToDelete != null && duePaymentsToDelete.getClient().getClient_id().equals(clientId)) {
+            duePaymentRepository.deleteById(id);
+            return new ResponseEntity<>("Due Payments Deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Due payment not found or does not belong to the specified client", HttpStatus.NOT_FOUND);
+        }
     }
 
+    /**
+     * Updates a DuePayments entry associated with a specific client.
+     *
+     * @param clientId      The ID of the client.
+     * @param id            The ID of the DuePayments entry.
+     * @param duePayments   The updated DuePayments object.
+     * @return ResponseEntity with a message indicating success or failure.
+     */
     public ResponseEntity updateDuePayments(Long clientId , Long id, DuePayments duePayments) {
         DuePayments duePaymentsForUpdate = duePaymentRepository.findById(id).orElse(null);
         if (duePaymentsForUpdate != null) {
@@ -61,10 +94,4 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
         }
         return new ResponseEntity<>("Due payment not found",HttpStatus.NOT_FOUND);
     }
-
-
-
-//    public Iterable<DuePayments> getClientDuePayments(Client client) {
-//        return duePaymentRepository.findbyClient(client);
-//    }
 }

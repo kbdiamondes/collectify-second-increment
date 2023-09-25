@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class collectorCollectionRecords {
     @Id
     @GeneratedValue
-    private int collectorCollectionRecords_id;
+    private Long collectorCollectionRecords_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -42,7 +42,7 @@ public class collectorCollectionRecords {
     }
 
 
-    public int getCollectorCollectionRecords_id() {
+    public Long getCollectorCollectionRecords_id() {
         return collectorCollectionRecords_id;
     }
 

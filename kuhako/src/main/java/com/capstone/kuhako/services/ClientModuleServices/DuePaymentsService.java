@@ -11,7 +11,7 @@ public interface DuePaymentsService {
 
     Iterable<DuePayments>getDuePaymentsByClientId(Long clientId);
 
-    ResponseEntity deleteDuePayments(Long id);
+    ResponseEntity deleteDuePayments(Long clientId , Long id);
 
     ResponseEntity updateDuePayments( Long clientId,Long id ,DuePayments duePayments);
 

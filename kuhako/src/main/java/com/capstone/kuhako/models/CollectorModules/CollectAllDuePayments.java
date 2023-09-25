@@ -10,7 +10,7 @@ import java.util.Date;
 public class CollectAllDuePayments {
     @Id
     @GeneratedValue
-    private int collectAllDuePayments_id;
+    private Long collectAllDuePayments_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -38,7 +38,7 @@ public class CollectAllDuePayments {
         this.transactionProof = transactionProof;
     }
 
-    public int getCollectAllDuePayments_id() {
+    public Long getCollectAllDuePayments_id() {
         return collectAllDuePayments_id;
     }
 

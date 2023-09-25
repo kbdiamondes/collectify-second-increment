@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class SendFollowUp {
     @Id
     @GeneratedValue
-    private int sendFollowUp_id;
+    private Long sendFollowUp_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -29,7 +29,7 @@ public class SendFollowUp {
         this.reminderMessage = reminderMessage;
     }
 
-    public int getSendFollowUp_id() {
+    public Long getSendFollowUp_id() {
         return sendFollowUp_id;
     }
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class ChatCollector {
     @Id
     @GeneratedValue
-    private int chatCollector_id;
+    private Long chatCollector_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -34,7 +34,7 @@ public class ChatCollector {
         this.clientMessage = clientMessage;
     }
 
-    public int getChatCollector_id() {
+    public Long getChatCollector_id() {
         return chatCollector_id;
     }
 

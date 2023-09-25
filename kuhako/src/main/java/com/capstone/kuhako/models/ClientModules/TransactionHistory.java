@@ -10,7 +10,7 @@ import java.util.Date;
 public class TransactionHistory {
     @Id
     @GeneratedValue
-    private int transactionHistory_id;
+    private Long transactionHistory_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -32,7 +32,7 @@ public class TransactionHistory {
         this.amountSent = amountSent;
     }
 
-    public int getTransactionHistory_id() {
+    public Long getTransactionHistory_id() {
         return transactionHistory_id;
     }
 

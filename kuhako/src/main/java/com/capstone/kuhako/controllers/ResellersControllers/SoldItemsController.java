@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
     @RestController
     @CrossOrigin
-    @RequestMapping("/reseller")
+    @RequestMapping("/resellerPage")
     public class SoldItemsController {
         @Autowired
         SoldItemsService soldItemsService;

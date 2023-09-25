@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class PayDues {
     @Id
     @GeneratedValue
-    private int payDues_id;
+    private Long payDues_id;
 
     @ManyToOne
     @JoinColumn(name="client_id", nullable = false)
@@ -45,7 +45,7 @@ public class PayDues {
         this.transactionProof = transactionProof;
     }
 
-    public int getPayDues_id() {
+    public Long getPayDues_id() {
         return payDues_id;
     }
 

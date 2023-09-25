@@ -16,24 +16,27 @@ public class PaymentMethodSelectionController {
     @Autowired
     PaymentMethodSelectionService paymentMethodSelectionService;
 
-    @RequestMapping(value="/paymentMethodSelection", method = RequestMethod.POST)
-    public ResponseEntity<Object> createPaymentMethodSelection(@RequestBody PaymentMethodSelection paymentMethodSelection) {
-        paymentMethodSelectionService.createPaymentMethodSelection(paymentMethodSelection);
+    @RequestMapping(value="/paymentMethodSelection/{clientId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createPaymentMethodSelection(@RequestBody PaymentMethodSelection paymentMethodSelection,@PathVariable Long clientId) {
+        paymentMethodSelectionService.createPaymentMethodSelection(paymentMethodSelection,clientId);
         return new ResponseEntity<>("PaymentMethodSelection created successfully", HttpStatus.CREATED);
     }
-
     @RequestMapping(value="/paymentMethodSelection", method = RequestMethod.GET)
     public ResponseEntity<Object> getPaymentMethodSelection() {
         return new ResponseEntity<>(paymentMethodSelectionService.getPaymentMethodSelection(), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/paymentMethodSelection/{paymentMethodSelectionid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deletePaymentMethodSelection(@PathVariable Long paymentMethodSelectionid) {
-        return paymentMethodSelectionService.deletePaymentMethodSelection(paymentMethodSelectionid);
+    @RequestMapping(value="/paymentMethodSelection/client/{clientId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getPaymentMethodSelectionByClientId(@PathVariable Long clientId) {
+        return new ResponseEntity<>(paymentMethodSelectionService.getPaymentMethodSelectionByClientId(clientId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/paymentMethodSelection/{paymentMethodSelectionid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updatePaymentMethodSelection(@PathVariable Long paymentMethodSelectionid, @RequestBody PaymentMethodSelection paymentMethodSelection) {
-        return paymentMethodSelectionService.updatePaymentMethodSelection(paymentMethodSelectionid, paymentMethodSelection);
+    @RequestMapping(value = "/paymentMethodSelection/{clientId}/{paymentMethodSelectionid}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deletePaymentMethodSelection(@PathVariable Long clientId,@PathVariable Long paymentMethodSelectionid) {
+        return paymentMethodSelectionService.deletePaymentMethodSelection(clientId,paymentMethodSelectionid);
+    }
+
+    @RequestMapping(value="/paymentMethodSelection/{clientId}/{paymentMethodSelectionid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updatePaymentMethodSelection(@PathVariable Long clientId, @PathVariable Long paymentMethodSelectionid, @RequestBody PaymentMethodSelection paymentMethodSelection) {
+        return paymentMethodSelectionService.updatePaymentMethodSelection(clientId,paymentMethodSelectionid, paymentMethodSelection);
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class FollowUp {
     @Id
     @GeneratedValue
-    private int followUp_id;
+    private Long followUp_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -25,7 +25,7 @@ public class FollowUp {
         this.paymentStatus = paymentStatus;
     }
 
-    public int getFollowUp_id() {
+    public Long getFollowUp_id() {
         return followUp_id;
     }
 
