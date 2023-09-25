@@ -8,7 +8,7 @@ public interface CollectAllDuePaymentsService{
 
     Iterable<CollectAllDuePayments> getCollectAllDuePayments();
 
-    Iterable<CollectAllDuePayments> getCollectAllDuePaymentsByClientId(Long collectorId);
+    Iterable<CollectAllDuePayments> getCollectAllDuePaymentsByCollectorId(Long collectorId);
 
     ResponseEntity deleteCollectAllDuePayments(Long collectorId, Long id);
 

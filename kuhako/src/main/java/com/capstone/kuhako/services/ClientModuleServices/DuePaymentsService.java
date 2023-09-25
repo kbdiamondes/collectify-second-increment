@@ -1,6 +1,5 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
-import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.DuePayments;
 import org.springframework.http.ResponseEntity;
 

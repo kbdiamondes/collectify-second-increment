@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class CollectAllDuePaymentsServiceImpl implements CollectAllDuePaymentsService {
     @Autowired
     private CollectAllDuePaymentsRepository collectAllDuePaymentsRepository;
-
     @Autowired
     private CollectorRepository collectorRepository;
 
@@ -30,7 +29,7 @@ public class CollectAllDuePaymentsServiceImpl implements CollectAllDuePaymentsSe
         return collectAllDuePaymentsRepository.findAll();
     }
 
-    public Iterable<CollectAllDuePayments> getCollectAllDuePaymentsByClientId(Long collectorId){
+    public Iterable<CollectAllDuePayments> getCollectAllDuePaymentsByCollectorId(Long collectorId){
         return collectAllDuePaymentsRepository.findCollectAllDuePaymentsByCollectorId(collectorId);
     }
 
