@@ -33,7 +33,7 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
     }
 
     public ResponseEntity deletePaymentMethodSelection(Long clientId,Long id){
-        PaymentMethodSelection paymentMethodSelectionToDelete = paymentMethodSelectionRepository.findById(clientId).orElse(null);
+        PaymentMethodSelection paymentMethodSelectionToDelete = paymentMethodSelectionRepository.findById(id).orElse(null);
         if(paymentMethodSelectionToDelete != null && paymentMethodSelectionToDelete.getClient().getClient_id().equals(clientId)){
             paymentMethodSelectionRepository.deleteById(id);
             return new ResponseEntity<>("Payment Method Deleted Successfully!",HttpStatus.OK);
