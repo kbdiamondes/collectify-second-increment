@@ -1,7 +1,10 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.ClientPaymentRecords;
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.repositories.ClientModuleRepository.ClientPaymentRecordsRepository;
+import com.capstone.kuhako.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,29 +15,39 @@ public class ClientPaymentRecordsServiceImpl implements ClientPaymentRecordsServ
     @Autowired
     private ClientPaymentRecordsRepository clientPaymentRecordsRepository;
 
-    public void createClientPaymentRecords(ClientPaymentRecords clientPaymentRecords){
-//      User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-        ClientPaymentRecords newClientPaymentRecords = new ClientPaymentRecords();
-        newClientPaymentRecords.setClient(clientPaymentRecords.getClient());
-        newClientPaymentRecords.setPayDues(clientPaymentRecords.getPayDues());
-        newClientPaymentRecords.setCollectPayments(clientPaymentRecords.getCollectPayments());
-        clientPaymentRecordsRepository.save(newClientPaymentRecords);
+    @Autowired
+    private ClientRepository clientRepository;
+
+    public void createClientPaymentRecords(Long clientId, ClientPaymentRecords clientPaymentRecords){
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if(client != null){
+            clientPaymentRecords.setClient(client);
+            clientPaymentRecordsRepository.save(clientPaymentRecords);
+        }
     }
     public Iterable<ClientPaymentRecords> getClientPaymentRecords(){
         return clientPaymentRecordsRepository.findAll();
     }
+    public Iterable<ClientPaymentRecords>getClientPaymentRecordsByClientId(Long clientId){
+        return clientPaymentRecordsRepository.findClientPaymentRecordsClientId(clientId);
+    }
+    public ResponseEntity deleteClientPaymentRecordsByClientId(Long clientId,Long id){
+        ClientPaymentRecords clientPaymentRecordsToDelete = clientPaymentRecordsRepository.findById(id).orElse(null);
 
-    public ResponseEntity deleteClientPaymentRecords(Long id){
-        clientPaymentRecordsRepository.deleteById(id);
-        return new ResponseEntity<>("ClientPaymentRecords Deleted successfully", HttpStatus.OK);
+        if(clientPaymentRecordsToDelete != null && clientPaymentRecordsToDelete.getClient().getClient_id().equals(clientId)){
+            clientPaymentRecordsRepository.deleteById(id);
+            return new ResponseEntity<>("Client Payment Records Deleted successfully",HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Due payment not found or does not belong to the specified client", HttpStatus.NOT_FOUND);
+        }
     }
 
-    public ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords){
-        ClientPaymentRecords clientPaymentRecordsForUpdate = clientPaymentRecordsRepository.findById(id).get();
-        clientPaymentRecordsForUpdate.setClient(clientPaymentRecords.getClient());
-        clientPaymentRecordsForUpdate.setPayDues(clientPaymentRecords.getPayDues());
-        clientPaymentRecordsForUpdate.setCollectPayments(clientPaymentRecords.getCollectPayments());
-        clientPaymentRecordsRepository.save(clientPaymentRecordsForUpdate);
-        return new ResponseEntity("ClientPaymentRecords updated successfully", HttpStatus.OK);
-    }
+//    public ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords){
+//        ClientPaymentRecords clientPaymentRecordsForUpdate = clientPaymentRecordsRepository.findById(id).get();
+//        clientPaymentRecordsForUpdate.setClient(clientPaymentRecords.getClient());
+//        clientPaymentRecordsForUpdate.setPayDues(clientPaymentRecords.getPayDues());
+//        clientPaymentRecordsForUpdate.setCollectPayments(clientPaymentRecords.getCollectPayments());
+//        clientPaymentRecordsRepository.save(clientPaymentRecordsForUpdate);
+//        return new ResponseEntity("ClientPaymentRecords updated successfully", HttpStatus.OK);
+//    }
 }

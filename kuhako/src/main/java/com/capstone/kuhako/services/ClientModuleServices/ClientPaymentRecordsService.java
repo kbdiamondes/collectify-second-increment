@@ -1,5 +1,7 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
+import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.User;
 import com.capstone.kuhako.services.UserService;
 import com.capstone.kuhako.models.ClientModules.ClientPaymentRecords;
@@ -9,12 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 public interface ClientPaymentRecordsService {
-    void createClientPaymentRecords(ClientPaymentRecords clientPaymentRecords);
+    void createClientPaymentRecords(Long clientId, ClientPaymentRecords clientPaymentRecords);
 
     Iterable<ClientPaymentRecords> getClientPaymentRecords();
 
-    ResponseEntity deleteClientPaymentRecords(Long id);
+    Iterable<ClientPaymentRecords>getClientPaymentRecordsByClientId(Long clientId);
 
-    ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords);
+    ResponseEntity deleteClientPaymentRecordsByClientId(Long clientId, Long id);
+
+    /*ResponseEntity updateClientPaymentRecords(Long id, ClientPaymentRecords clientPaymentRecords);*/
 
 }
