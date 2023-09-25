@@ -82,13 +82,9 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      */
     public ResponseEntity updateDuePayments(Long clientId , Long id, DuePayments duePayments) {
         DuePayments duePaymentsForUpdate = duePaymentRepository.findById(id).orElse(null);
-        if (duePaymentsForUpdate != null) {
+        if (duePaymentsForUpdate != null && duePaymentsForUpdate.getClient().getClient_id().equals(clientId)) {
             duePaymentsForUpdate.setRequiredCollectible(duePayments.getRequiredCollectible());
             duePaymentsForUpdate.setDueStatus(duePayments.isDueStatus());
-            Client client = clientRepository.findById(clientId).orElse(null);
-            if (client != null) {
-                duePaymentsForUpdate.setClient(client);
-            }
             duePaymentRepository.save(duePaymentsForUpdate);
             return new ResponseEntity<>("Due Payments Updated successfully", HttpStatus.OK);
         }

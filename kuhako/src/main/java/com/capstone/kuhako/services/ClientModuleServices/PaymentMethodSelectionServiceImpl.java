@@ -44,16 +44,12 @@ public class PaymentMethodSelectionServiceImpl implements PaymentMethodSelection
 
     public ResponseEntity updatePaymentMethodSelection(Long clientId, Long id, PaymentMethodSelection paymentMethodSelection){
         PaymentMethodSelection paymentMethodSelectionForUpdate = paymentMethodSelectionRepository.findById(id).orElse(null);
-        if(paymentMethodSelectionForUpdate != null){
+        if(paymentMethodSelectionForUpdate != null && paymentMethodSelectionForUpdate.getClient().getClient_id().equals(clientId)){
             paymentMethodSelectionForUpdate.setPurchaseMethod(paymentMethodSelection.getPurchaseMethod());
             paymentMethodSelectionForUpdate.setItemName(paymentMethodSelection.getItemName());
             paymentMethodSelectionForUpdate.setItemPrice(paymentMethodSelection.getItemPrice());
             paymentMethodSelectionForUpdate.setItemSpecs(paymentMethodSelection.getItemSpecs());
             paymentMethodSelectionForUpdate.setInstallmentAmount(paymentMethodSelection.getInstallmentAmount());
-            Client client = clientRepository.findById(clientId).orElse(null);
-            if(client != null){
-                paymentMethodSelectionForUpdate.setClient(client);
-            }
             paymentMethodSelectionRepository.save(paymentMethodSelectionForUpdate);
             return new ResponseEntity<>("Payment Method Updated!",HttpStatus.OK);
         }
