@@ -30,12 +30,12 @@ public class PaymentMethodSelectionController {
         return new ResponseEntity<>(paymentMethodSelectionService.getPaymentMethodSelectionByClientId(clientId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/paymentMethodSelection/{clientId}/{paymentMethodSelectionid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deletePaymentMethodSelection(@PathVariable Long clientId,@PathVariable Long paymentMethodSelectionid) {
-        return paymentMethodSelectionService.deletePaymentMethodSelection(clientId,paymentMethodSelectionid);
+    @RequestMapping(value = "/paymentMethodSelection/{clientId}/{paymentMethodSelection_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deletePaymentMethodSelection(@PathVariable Long clientId,@PathVariable Long paymentMethodSelection_id) {
+        return paymentMethodSelectionService.deletePaymentMethodSelection(clientId,paymentMethodSelection_id);
     }
 
-    @RequestMapping(value="/paymentMethodSelection/{clientId}/{paymentMethodSelectionid}", method = RequestMethod.PUT)
+    @RequestMapping(value="/paymentMethodSelection/{clientId}/{paymentMethodSelection_id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePaymentMethodSelection(@PathVariable Long clientId, @PathVariable Long paymentMethodSelection_id, @RequestBody PaymentMethodSelection paymentMethodSelection) {
         return paymentMethodSelectionService.updatePaymentMethodSelection(clientId,paymentMethodSelection_id, paymentMethodSelection);
     }
