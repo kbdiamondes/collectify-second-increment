@@ -14,9 +14,9 @@ public class AssignCollectorsController {
     @Autowired
     AssignCollectorsService assignCollectorsService;
 
-    @RequestMapping(value="/assignCollectors", method = RequestMethod.POST)
-    public ResponseEntity<Object> createAssignCollectors(@RequestBody AssignCollectors assignCollectors) {
-        assignCollectorsService.createAssignCollectors(assignCollectors);
+    @RequestMapping(value="/assignCollectors/{resellerId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createAssignCollectors(@PathVariable Long resellerId ,@RequestBody AssignCollectors assignCollectors) {
+        assignCollectorsService.createAssignCollectors(resellerId,assignCollectors);
         return new ResponseEntity<>("AssignCollectors created successfully", HttpStatus.CREATED);
     }
 
@@ -25,13 +25,17 @@ public class AssignCollectorsController {
         return new ResponseEntity<>(assignCollectorsService.getAssignCollectors(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/assignCollectors/{assignCollectorsid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteAssignCollectors(@PathVariable int assignCollectorsid) {
-        return assignCollectorsService.deleteAssignCollectors(assignCollectorsid);
+    @RequestMapping(value="/assignCollectors/reseller/{resellerId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAssignCollectorsByResellerId(@PathVariable Long resellerId) {
+        return new ResponseEntity<>(assignCollectorsService.getAssignCollectorsByResellerId(resellerId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/assignCollectors/{assignCollectorsid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateAssignCollectors(@PathVariable int assignCollectorsid, @RequestBody AssignCollectors assignCollectors) {
-        return assignCollectorsService.updateAssignCollectors(assignCollectorsid, assignCollectors);
+    @RequestMapping(value = "/assignCollectors/{resellerId}/{assignCollectors_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteAssignCollectors(@PathVariable Long resellerId,@PathVariable Long assignCollectors_id) {
+        return assignCollectorsService.deleteAssignCollectors(resellerId,assignCollectors_id);
+    }
+    @RequestMapping(value="/assignCollectors/{resellerId}/{assignCollectors_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateAssignCollectors(@PathVariable Long resellerId,@PathVariable Long assignCollectors_id, @RequestBody AssignCollectors assignCollectors) {
+        return assignCollectorsService.updateAssignCollectors(resellerId,assignCollectors_id, assignCollectors);
     }
 }

@@ -1,7 +1,9 @@
 package com.capstone.kuhako.services.ResellerServices;
 
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.models.ResellerModule.AssignCollectors;
 import com.capstone.kuhako.repositories.ResellerRepositories.AssignCollectorsRepository;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,27 +14,44 @@ public class AssignCollectorsServiceImpl implements AssignCollectorsService{
     @Autowired
     private AssignCollectorsRepository assignCollectorsRepository;
 
+    @Autowired
+    private ResellerRepository resellerRepository;
 
     // create Assign Collectors
-    public void createAssignCollectors(AssignCollectors assignCollectors){
-        assignCollectorsRepository.save(assignCollectors);
+    public void createAssignCollectors(Long resellerId, AssignCollectors assignCollectors){
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+        if(reseller != null){
+            assignCollectors.setReseller(reseller);
+            assignCollectorsRepository.save(assignCollectors);
+        }
     }
     // get all Assign Collectors
     public Iterable<AssignCollectors> getAssignCollectors(){
         return assignCollectorsRepository.findAll();
     }
 
-    // delete Assign Collectors
-    public ResponseEntity deleteAssignCollectors(int id){
-        assignCollectorsRepository.deleteById(id);
-        return new ResponseEntity<>("AssignCollectors Deleted successfully", HttpStatus.OK);
+    public Iterable<AssignCollectors> getAssignCollectorsByResellerId(Long resellerId){
+        return assignCollectorsRepository.findAssignCollectorsByResellerId(resellerId);
     }
-    // update Assign Collectorss
-    public ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors){
-        AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).get();
-        assignCollectorsForUpdate.setCollector(assignCollectors.getCollector());
-        assignCollectorsRepository.save(assignCollectorsForUpdate);
-        return new ResponseEntity("AssignCollectors updated successfully", HttpStatus.OK);
 
+    // delete Assign Collectors
+    public ResponseEntity deleteAssignCollectors(Long resellerId,Long id){
+       AssignCollectors assignCollectorsToDelete = assignCollectorsRepository.findById(id).orElse(null);
+       if (assignCollectorsToDelete != null && assignCollectorsToDelete.getReseller().getReseller_id().equals(resellerId)) {
+           assignCollectorsRepository.deleteById(id);
+           return new ResponseEntity<>("Assign Collector Deleted Successfully", HttpStatus.OK);
+       }else {
+           return new ResponseEntity<>("Assign Collector Not Found",HttpStatus.NOT_FOUND);
+       }
+    }
+    // update Assign Collectors
+    public ResponseEntity updateAssignCollectors(Long resellerId,Long id, AssignCollectors assignCollectors){
+        AssignCollectors assignCollectorsForUpdate = assignCollectorsRepository.findById(id).orElse(null);
+        if(assignCollectorsForUpdate !=null && assignCollectorsForUpdate.getReseller().getReseller_id().equals(resellerId)){
+            assignCollectorsForUpdate.setCollector(assignCollectors.getCollector());
+            assignCollectorsRepository.save(assignCollectorsForUpdate);
+            return new ResponseEntity("AssignCollectors updated successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity("AssignCollectors Not Found", HttpStatus.NOT_FOUND);
     }
 }

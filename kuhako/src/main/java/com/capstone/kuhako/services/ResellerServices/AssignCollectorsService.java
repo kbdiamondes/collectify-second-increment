@@ -1,14 +1,17 @@
 package com.capstone.kuhako.services.ResellerServices;
 
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.ResellerModule.AssignCollectors;
 import org.springframework.http.ResponseEntity;
 
 public interface AssignCollectorsService{
-    void createAssignCollectors(AssignCollectors assignCollectors);
+    void createAssignCollectors(Long resellerId,AssignCollectors assignCollectors);
 
     Iterable<AssignCollectors> getAssignCollectors();
 
-    ResponseEntity deleteAssignCollectors(int id);
+    Iterable<AssignCollectors>getAssignCollectorsByResellerId(Long resellerId);
 
-    ResponseEntity updateAssignCollectors(int id, AssignCollectors assignCollectors);
+    ResponseEntity deleteAssignCollectors(Long resellerId,Long id);
+
+    ResponseEntity updateAssignCollectors(Long resellerId ,Long id, AssignCollectors assignCollectors);
 }
