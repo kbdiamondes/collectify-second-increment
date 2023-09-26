@@ -1,7 +1,10 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
+import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.ClientModules.PayDues;
 import com.capstone.kuhako.repositories.ClientModuleRepository.PayDuesRepository;
+import com.capstone.kuhako.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,36 +15,44 @@ public class PayDuesServiceImpl implements PayDuesService{
     @Autowired
     private PayDuesRepository payDuesRepository;
 
-
-    public void createPayDues(PayDues payDues){
-//      User author = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-        PayDues newPayDues = new PayDues();
-        newPayDues.setClient(payDues.getClient());
-        newPayDues.setDuePayments(payDues.getDuePayments());
-        newPayDues.setItemPrice(payDues.getItemPrice());
-        newPayDues.setReferenceNumber(payDues.getReferenceNumber());
-        newPayDues.setPaymentType(payDues.getPaymentType());
-        newPayDues.setTransactionProof(payDues.getTransactionProof());
-        payDuesRepository.save(newPayDues);
+    @Autowired
+    private ClientRepository clientRepository;
+    
+    public void createPayDues(Long clientId,PayDues payDues){
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            payDues.setClient(client);
+            payDuesRepository.save(payDues);
+        }
     }
     public Iterable<PayDues> getPayDues(){
         return payDuesRepository.findAll();
     }
+    
+    public Iterable<PayDues> getPayDuesByClientId(Long clientId) {
+        return payDuesRepository.findPayDuesByClientId(clientId);
+    }
+    public ResponseEntity deletePayDues(Long clientId,Long id){
+        PayDues payDuesToDelete = payDuesRepository.findById(id).orElse(null);
 
-    public ResponseEntity deletePayDues(Long id){
-        payDuesRepository.deleteById(id);
-        return new ResponseEntity<>("PayDues Deleted successfully", HttpStatus.OK);
+        if (payDuesToDelete != null && payDuesToDelete.getClient().getClient_id().equals(clientId)) {
+            payDuesRepository.deleteById(id);
+            return new ResponseEntity<>("Pay Dues Deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Pay Dues not found or does not belong to the specified client", HttpStatus.NOT_FOUND);
+        }
     }
 
-    public ResponseEntity updatePayDues(Long id, PayDues payDues){
-        PayDues payDuesForUpdate = payDuesRepository.findById(id).get();
-        payDuesForUpdate.setClient(payDues.getClient());
-        payDuesForUpdate.setDuePayments(payDues.getDuePayments());
-        payDuesForUpdate.setItemPrice(payDues.getItemPrice());
-        payDuesForUpdate.setReferenceNumber(payDues.getReferenceNumber());
-        payDuesForUpdate.setPaymentType(payDues.getPaymentType());
-        payDuesForUpdate.setTransactionProof(payDues.getTransactionProof());
-        payDuesRepository.save(payDuesForUpdate);
-        return new ResponseEntity("PayDues updated successfully", HttpStatus.OK);
+    public ResponseEntity updatePayDues(Long clientId,Long id, PayDues payDues){
+        PayDues payDuesForUpdate = payDuesRepository.findById(id).orElse(null);
+        if (payDuesForUpdate != null && payDuesForUpdate.getClient().getClient_id().equals(clientId)) {
+            payDuesForUpdate.setItemPrice(payDues.getItemPrice());
+            payDuesForUpdate.setReferenceNumber(payDues.getReferenceNumber());
+            payDuesForUpdate.setPaymentType(payDues.getPaymentType());
+            payDuesForUpdate.setTransactionProof(payDues.getTransactionProof());
+            payDuesRepository.save(payDuesForUpdate);
+            return new ResponseEntity<>("Pay Dues Updated successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Pay Dues not found",HttpStatus.NOT_FOUND);
     }
 }

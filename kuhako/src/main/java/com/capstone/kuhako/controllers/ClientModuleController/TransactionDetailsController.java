@@ -16,9 +16,9 @@ public class TransactionDetailsController {
     @Autowired
     TransactionDetailsService transactionDetailsService;
 
-    @RequestMapping(value="/transactionDetails", method = RequestMethod.POST)
-    public ResponseEntity<Object> createTransactionDetails(@RequestBody TransactionDetails transactionDetails) {
-        transactionDetailsService.createTransactionDetails(transactionDetails);
+    @RequestMapping(value="/transactionDetails/{clientId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createTransactionDetails(@PathVariable Long clientId,@RequestBody TransactionDetails transactionDetails) {
+        transactionDetailsService.createTransactionDetails(clientId, transactionDetails);
         return new ResponseEntity<>("TransactionDetails created successfully", HttpStatus.CREATED);
     }
 
@@ -27,13 +27,17 @@ public class TransactionDetailsController {
         return new ResponseEntity<>(transactionDetailsService.getTransactionDetails(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/transactionDetails/{transactionDetailsid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteTransactionDetails(@PathVariable Long transactionDetailsid) {
-        return transactionDetailsService.deleteTransactionDetails(transactionDetailsid);
+    @RequestMapping(value="/transactionDetails/client/{clientId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getTransactionDetailsByClientId(@PathVariable Long clientId) {
+        return new ResponseEntity<>(transactionDetailsService.getTransactionDetailsByClientId(clientId), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/transactionDetails/{clientId}/{transactionDetails_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteTransactionDetails(@PathVariable Long clientId,@PathVariable Long transactionDetails_id) {
+        return transactionDetailsService.deleteTransactionDetails(clientId,transactionDetails_id);
     }
 
-    @RequestMapping(value="/transactionDetails/{transactionDetailsid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateTransactionDetails(@PathVariable Long transactionDetailsid, @RequestBody TransactionDetails transactionDetails) {
-        return transactionDetailsService.updateTransactionDetails(transactionDetailsid, transactionDetails);
+    @RequestMapping(value="/transactionDetails/{clientId}/{transactionDetails_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateTransactionDetails(@PathVariable Long clientId, @PathVariable Long transactionDetails_id, @RequestBody TransactionDetails transactionDetails) {
+        return transactionDetailsService.updateTransactionDetails(clientId,transactionDetails_id, transactionDetails);
     }
 }

@@ -1,14 +1,17 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.ClientModules.PayDues;
 import org.springframework.http.ResponseEntity;
 
 public interface PayDuesService {
-    void createPayDues(PayDues payDues);
+    void createPayDues(Long clienId,PayDues payDues);
 
     Iterable<PayDues> getPayDues();
 
-    ResponseEntity deletePayDues(Long id);
+    Iterable<PayDues>getPayDuesByClientId(Long clientId);
 
-    ResponseEntity updatePayDues(Long id, PayDues payDues);
+    ResponseEntity deletePayDues(Long clientId, Long id);
+
+    ResponseEntity updatePayDues(Long clientId,Long id, PayDues payDues);
 }

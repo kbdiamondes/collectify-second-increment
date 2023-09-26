@@ -16,9 +16,9 @@ public class PayDuesController {
     @Autowired
     PayDuesService payDuesService;
 
-    @RequestMapping(value="/payDues", method = RequestMethod.POST)
-    public ResponseEntity<Object> createPayDues(@RequestBody PayDues payDues) {
-        payDuesService.createPayDues(payDues);
+    @RequestMapping(value="/payDues/{clientId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createPayDues(@PathVariable Long clientId,@RequestBody PayDues payDues) {
+        payDuesService.createPayDues(clientId,payDues);
         return new ResponseEntity<>("PayDues created successfully", HttpStatus.CREATED);
     }
 
@@ -27,13 +27,18 @@ public class PayDuesController {
         return new ResponseEntity<>(payDuesService.getPayDues(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/payDues/{payDuesid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deletePayDues(@PathVariable Long payDuesid) {
-        return payDuesService.deletePayDues(payDuesid);
+    @RequestMapping(value="/payDues/client/{clientId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getPayDuesByClientId(@PathVariable Long clientId) {
+        return new ResponseEntity<>(payDuesService.getPayDuesByClientId(clientId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/payDues/{payDuesid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updatePayDues(@PathVariable Long payDuesid, @RequestBody PayDues payDues) {
-        return payDuesService.updatePayDues(payDuesid, payDues);
+    @RequestMapping(value = "/payDues/{clientId}/{payDues_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deletePayDues(@PathVariable Long clientId,@PathVariable Long payDues_id) {
+        return payDuesService.deletePayDues(clientId,payDues_id);
+    }
+
+    @RequestMapping(value="/payDues/{clientId}/{payDuesid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updatePayDues(@PathVariable Long clientId,@PathVariable Long payDuesid, @RequestBody PayDues payDues) {
+        return payDuesService.updatePayDues(clientId,payDuesid, payDues);
     }
 }

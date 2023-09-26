@@ -1,14 +1,17 @@
 package com.capstone.kuhako.services.ClientModuleServices;
 
+import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.ClientModules.TransactionDetails;
 import org.springframework.http.ResponseEntity;
 
 public interface TransactionDetailsService {
-    void createTransactionDetails(TransactionDetails transactionDetails);
+    void createTransactionDetails(Long clientId, TransactionDetails transactionDetails);
 
     Iterable<TransactionDetails> getTransactionDetails();
 
-    ResponseEntity deleteTransactionDetails(Long id);
+    Iterable<TransactionDetails>getTransactionDetailsByClientId(Long clientId);
 
-    ResponseEntity updateTransactionDetails(Long id, TransactionDetails transactionDetails);
+    ResponseEntity deleteTransactionDetails(Long clientId,Long id);
+
+    ResponseEntity updateTransactionDetails(Long clientId,Long id, TransactionDetails transactionDetails);
 }
