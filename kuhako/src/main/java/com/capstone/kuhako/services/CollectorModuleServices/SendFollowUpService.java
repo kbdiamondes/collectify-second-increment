@@ -4,11 +4,13 @@ import com.capstone.kuhako.models.CollectorModules.SendFollowUp;
 import org.springframework.http.ResponseEntity;
 
 public interface SendFollowUpService {
-    void createSendFollowUp(SendFollowUp paymentDues);
+    void createSendFollowUp(Long collectorId, SendFollowUp paymentDues);
 
     Iterable<SendFollowUp> getSendFollowUp();
 
-    ResponseEntity deleteSendFollowUp(Long id);
+    Iterable<SendFollowUp> getSendFollowUpByCollectorId(Long collectorId);
 
-    ResponseEntity updateSendFollowUp(Long id, SendFollowUp paymentDues);
+    ResponseEntity deleteSendFollowUp(Long collectorId, Long id);
+
+    ResponseEntity updateSendFollowUp(Long collectorId, Long id, SendFollowUp paymentDues);
 }
