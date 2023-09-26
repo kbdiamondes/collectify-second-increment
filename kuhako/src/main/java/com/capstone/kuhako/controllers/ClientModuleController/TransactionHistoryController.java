@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.TransactionHistory;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.TransactionHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,19 @@ public class TransactionHistoryController {
     @Autowired
     TransactionHistoryService transactionHistoryService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/transactionHistory/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createTransactionHistory(@PathVariable Long clientId,@RequestBody TransactionHistory transactionHistory) {
-        transactionHistoryService.createTransactionHistory(clientId,transactionHistory);
-        return new ResponseEntity<>("Transaction History created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            transactionHistoryService.createTransactionHistory(clientId,transactionHistory);
+            return new ResponseEntity<>("Transaction History created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Transaction History Records does not exist", HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @RequestMapping(value="/transactionHistory", method = RequestMethod.GET)

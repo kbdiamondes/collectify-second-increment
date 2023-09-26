@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.SchedulePaymentReminders;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.SchedulePaymentRemindersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,18 @@ public class SchedulePaymentRemindersController {
     @Autowired
     SchedulePaymentRemindersService schedulePaymentRemindersService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/schedulePaymentReminders/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createSchedulePaymentReminders(@PathVariable Long clientId,@RequestBody SchedulePaymentReminders schedulePaymentReminders) {
-        schedulePaymentRemindersService.createSchedulePaymentReminders(clientId,schedulePaymentReminders);
-        return new ResponseEntity<>("SchedulePaymentReminders created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            schedulePaymentRemindersService.createSchedulePaymentReminders(clientId,schedulePaymentReminders);
+            return new ResponseEntity<>("Schedule Payment Reminders created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Schedule Payment Reminders does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/schedulePaymentReminders", method = RequestMethod.GET)

@@ -1,5 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
+import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.ClientRepository;
+import com.capstone.kuhako.repositories.CollectorRepository;
 import com.capstone.kuhako.services.ClientModuleServices.ChatCollectorService;
 import com.capstone.kuhako.models.ClientModules.ChatCollector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +18,18 @@ public class ChatCollectorController {
 
     @Autowired
     ChatCollectorService chatCollectorService;
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/chatCollector/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createChatCollector(@PathVariable Long clientId,@RequestBody ChatCollector chatCollector) {
-        chatCollectorService.createChatCollector(clientId,chatCollector);
-        return new ResponseEntity<>("ChatCollector created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            chatCollectorService.createChatCollector(clientId,chatCollector);
+            return new ResponseEntity<>("Chat Collector created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Chat Collector does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/chatCollector", method = RequestMethod.GET)
