@@ -16,9 +16,9 @@ public class SchedulePaymentRemindersController {
     @Autowired
     SchedulePaymentRemindersService schedulePaymentRemindersService;
 
-    @RequestMapping(value="/schedulePaymentReminders", method = RequestMethod.POST)
-    public ResponseEntity<Object> createSchedulePaymentReminders(@RequestBody SchedulePaymentReminders schedulePaymentReminders) {
-        schedulePaymentRemindersService.createSchedulePaymentReminders(schedulePaymentReminders);
+    @RequestMapping(value="/schedulePaymentReminders/{clientId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createSchedulePaymentReminders(@PathVariable Long clientId,@RequestBody SchedulePaymentReminders schedulePaymentReminders) {
+        schedulePaymentRemindersService.createSchedulePaymentReminders(clientId,schedulePaymentReminders);
         return new ResponseEntity<>("SchedulePaymentReminders created successfully", HttpStatus.CREATED);
     }
 
@@ -26,14 +26,18 @@ public class SchedulePaymentRemindersController {
     public ResponseEntity<Object> getSchedulePaymentReminders() {
         return new ResponseEntity<>(schedulePaymentRemindersService.getSchedulePaymentReminders(), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/schedulePaymentReminders/{schedulePaymentRemindersid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteSchedulePaymentReminders(@PathVariable Long schedulePaymentRemindersid) {
-        return schedulePaymentRemindersService.deleteSchedulePaymentReminders(schedulePaymentRemindersid);
+    @RequestMapping(value="/schedulePaymentReminders/client/{clientId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getSchedulePaymentRemindersByClientId(@PathVariable Long clientId) {
+        return new ResponseEntity<>(schedulePaymentRemindersService.getSchedulePaymentRemindersByClientId(clientId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/schedulePaymentReminders/{schedulePaymentRemindersid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateSchedulePaymentReminders(@PathVariable Long schedulePaymentRemindersid, @RequestBody SchedulePaymentReminders schedulePaymentReminders) {
-        return schedulePaymentRemindersService.updateSchedulePaymentReminders(schedulePaymentRemindersid, schedulePaymentReminders);
+    @RequestMapping(value = "/schedulePaymentReminders/{clientId}/{schedulePaymentReminders_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteSchedulePaymentReminders(@PathVariable Long clientId,@PathVariable Long schedulePaymentReminders_id) {
+        return schedulePaymentRemindersService.deleteSchedulePaymentReminders(clientId,schedulePaymentReminders_id);
+    }
+
+    @RequestMapping(value="/schedulePaymentReminders/{clientId}/{schedulePaymentReminders_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateSchedulePaymentReminders(@PathVariable Long clientId,@PathVariable Long schedulePaymentReminders_id, @RequestBody SchedulePaymentReminders schedulePaymentReminders) {
+        return schedulePaymentRemindersService.updateSchedulePaymentReminders(clientId,schedulePaymentReminders_id, schedulePaymentReminders);
     }
 }
