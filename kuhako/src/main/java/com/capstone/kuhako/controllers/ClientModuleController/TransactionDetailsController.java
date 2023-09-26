@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.TransactionDetails;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.TransactionDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +18,19 @@ public class TransactionDetailsController {
     @Autowired
     TransactionDetailsService transactionDetailsService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/transactionDetails/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createTransactionDetails(@PathVariable Long clientId,@RequestBody TransactionDetails transactionDetails) {
-        transactionDetailsService.createTransactionDetails(clientId, transactionDetails);
-        return new ResponseEntity<>("TransactionDetails created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            transactionDetailsService.createTransactionDetails(clientId, transactionDetails);
+            return new ResponseEntity<>("Transaction Details created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Transaction Details does not exist", HttpStatus.NOT_FOUND);
+        }
     }
-
     @RequestMapping(value="/transactionDetails", method = RequestMethod.GET)
     public ResponseEntity<Object> getTransactionDetails() {
         return new ResponseEntity<>(transactionDetailsService.getTransactionDetails(), HttpStatus.OK);

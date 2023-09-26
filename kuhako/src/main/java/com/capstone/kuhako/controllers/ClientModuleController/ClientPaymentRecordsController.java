@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.ClientPaymentRecords;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.ClientPaymentRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,18 @@ public class ClientPaymentRecordsController {
     @Autowired
     ClientPaymentRecordsService clientPaymentRecordsService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/clientPaymentRecords/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createClientPaymentRecords(@PathVariable Long clientId, @RequestBody ClientPaymentRecords clientPaymentRecords) {
-        clientPaymentRecordsService.createClientPaymentRecords(clientId,clientPaymentRecords);
-        return new ResponseEntity<>("ClientPaymentRecords created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            clientPaymentRecordsService.createClientPaymentRecords(clientId,clientPaymentRecords);
+            return new ResponseEntity<>("Client Payment Records created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Client Payment Records does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/clientPaymentRecords/client/{clientId}", method = RequestMethod.GET)

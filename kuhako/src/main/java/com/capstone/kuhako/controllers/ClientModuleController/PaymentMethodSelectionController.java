@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.PaymentMethodSelection;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.PaymentMethodSelectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,21 @@ public class PaymentMethodSelectionController {
     @Autowired
     PaymentMethodSelectionService paymentMethodSelectionService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @RequestMapping(value="/paymentMethodSelection/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createPaymentMethodSelection(@PathVariable Long clientId,@RequestBody PaymentMethodSelection paymentMethodSelection) {
-        paymentMethodSelectionService.createPaymentMethodSelection(clientId,paymentMethodSelection);
-        return new ResponseEntity<>("PaymentMethodSelection created successfully", HttpStatus.CREATED);
+
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            paymentMethodSelectionService.createPaymentMethodSelection(clientId,paymentMethodSelection);
+            return new ResponseEntity<>("Payment Method Selection created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Payment Method Selection does not exist", HttpStatus.NOT_FOUND);
+        }
     }
+
     @RequestMapping(value="/paymentMethodSelection", method = RequestMethod.GET)
     public ResponseEntity<Object> getPaymentMethodSelection() {
         return new ResponseEntity<>(paymentMethodSelectionService.getPaymentMethodSelection(), HttpStatus.OK);

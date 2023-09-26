@@ -1,6 +1,8 @@
 package com.capstone.kuhako.controllers.ResellersControllers;
 
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.models.ResellerModule.MyCollectors;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import com.capstone.kuhako.services.ResellerServices.MyCollectorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,18 @@ public class MyCollectorsController {
     @Autowired
     MyCollectorsService myCollectorsService;
 
+    @Autowired
+    private ResellerRepository resellerRepository;
+
     @RequestMapping(value="/myCollectors/{resellerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createMyCollectors(@PathVariable Long resellerId,@RequestBody MyCollectors myCollectors) {
-        myCollectorsService.createMyCollectors(resellerId,myCollectors);
-        return new ResponseEntity<>("MyCollectors created successfully", HttpStatus.CREATED);
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+        if (reseller != null) {
+            myCollectorsService.createMyCollectors(resellerId,myCollectors);
+            return new ResponseEntity<>("MyCollectors created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("MyCollectors does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/myCollectors", method = RequestMethod.GET)

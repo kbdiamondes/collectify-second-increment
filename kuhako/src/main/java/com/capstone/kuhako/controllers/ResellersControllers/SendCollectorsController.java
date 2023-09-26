@@ -2,6 +2,7 @@ package com.capstone.kuhako.controllers.ResellersControllers;
 
 import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.models.ResellerModule.SendCollectors;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import com.capstone.kuhako.services.ResellerServices.SendCollectorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,20 @@ import org.springframework.web.bind.annotation.*;
         @Autowired
         SendCollectorsService sendCollectorsService;
 
+        @Autowired
+        private ResellerRepository resellerRepository;
+
+
         @RequestMapping(value="/sendCollectors/{resellerId}", method = RequestMethod.POST)
         public ResponseEntity<Object> createSendCollectors(@PathVariable Long resellerId,@RequestBody SendCollectors sendCollectors) {
-            sendCollectorsService.createSendCollectors(resellerId,sendCollectors);
-            return new ResponseEntity<>("SendCollectors created successfully", HttpStatus.CREATED);
+            Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+            if (reseller != null) {
+                sendCollectorsService.createSendCollectors(resellerId,sendCollectors);
+                return new ResponseEntity<>("SendCollectors created successfully", HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("Assign Collectors Records does not exist", HttpStatus.NOT_FOUND);
+            }
         }
-
         @RequestMapping(value="/sendCollectors", method = RequestMethod.GET)
         public ResponseEntity<Object> getSendCollectors() {
             return new ResponseEntity<>(sendCollectorsService.getSendCollectors(), HttpStatus.OK);

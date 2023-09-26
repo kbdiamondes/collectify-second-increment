@@ -1,6 +1,8 @@
 package com.capstone.kuhako.controllers.ClientModuleController;
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.ClientModules.DuePayments;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.services.ClientModuleServices.DuePaymentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,20 @@ public class DuePaymentsController {
     @Autowired
     DuePaymentsService duePaymentsService;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     // Create a new DuePayments for a specific client
     @RequestMapping(value="/duePayments/{clientId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createDuePayments(@PathVariable Long clientId, @RequestBody DuePayments duePayments) {
-        duePaymentsService.createDuePayments(clientId, duePayments);
-        return new ResponseEntity<>("PaymentDues created successfully", HttpStatus.CREATED);
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client != null) {
+            duePaymentsService.createDuePayments(clientId, duePayments);
+            return new ResponseEntity<>("Dues Payment Records created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Dues Payment Records does not exist", HttpStatus.NOT_FOUND);
+        }
+
     }
 
     // Get all DuePayments
