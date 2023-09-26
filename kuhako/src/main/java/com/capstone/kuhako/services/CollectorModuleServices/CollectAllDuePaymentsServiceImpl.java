@@ -44,8 +44,8 @@ public class CollectAllDuePaymentsServiceImpl implements CollectAllDuePaymentsSe
         } else {
             return new ResponseEntity<>("CollectAllDuePayments not found", HttpStatus.NOT_FOUND);
         }
-
     }
+
     public ResponseEntity updateCollectAllDuePayments(Long collectorId, Long id, CollectAllDuePayments collectAllDuePayments){
         CollectAllDuePayments collectAllDuePaymentsForUpdate = collectAllDuePaymentsRepository.findById(id).orElse(null);
         if (collectAllDuePaymentsForUpdate != null && collectAllDuePaymentsForUpdate.getCollector().getCollector_id().equals(collectorId)) {

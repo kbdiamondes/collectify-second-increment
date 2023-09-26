@@ -4,11 +4,13 @@ import com.capstone.kuhako.models.CollectorModules.PaymentAssurance;
 import org.springframework.http.ResponseEntity;
 
 public interface PaymentAssuranceService {
-    void createPaymentAssurance(PaymentAssurance paymentDues);
+    void createPaymentAssurance(Long collectorId, PaymentAssurance paymentDues);
 
     Iterable<PaymentAssurance> getPaymentAssurance();
 
-    ResponseEntity deletePaymentAssurance(Long id);
+    Iterable<PaymentAssurance> getPaymentAssuranceByCollectorId(Long collectorId);;
 
-    ResponseEntity updatePaymentAssurance(Long id, PaymentAssurance paymentDues);
+    ResponseEntity deletePaymentAssurance(Long collectorId, Long id);
+
+    ResponseEntity updatePaymentAssurance(Long collectorId, Long id, PaymentAssurance paymentDues);
 }
