@@ -1,8 +1,10 @@
 package com.capstone.kuhako.services.CollectorModuleServices;
 
 
+import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.CollectorModules.CollectPayments;
 import com.capstone.kuhako.repositories.CollectorModuleRepository.CollectPaymentsRepository;
+import com.capstone.kuhako.repositories.CollectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,37 +15,52 @@ import org.springframework.stereotype.Service;
 public class CollectPaymentsServiceImpl implements CollectPaymentsService{
     @Autowired
     private CollectPaymentsRepository collectPaymentsRepository;
+    @Autowired
+    private CollectorRepository collectorRepository;
 
-
-    public void createCollectPayments(CollectPayments collectPayments){
-//      Collector author = collectorRepository.findByCollectorname(jwtToken.getCollectornameFromToken(stringToken));
-        CollectPayments newCollectPayments = new CollectPayments();
-        newCollectPayments.setCollector(collectPayments.getCollector());
-        newCollectPayments.setCollectionDate(collectPayments.getCollectionDate());
-        newCollectPayments.setRequiredCollectibles(collectPayments.getRequiredCollectibles());
-        newCollectPayments.setItemCollectible(collectPayments.getItemCollectible());
-        newCollectPayments.setPaymentType(collectPayments.getPaymentType());
-        newCollectPayments.setTransactionProof(collectPayments.getTransactionProof());
-        collectPaymentsRepository.save(newCollectPayments);
+    public void createCollectPayments(Long collectorId, CollectPayments collectPayments){
+        Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        if (collector != null) {
+            collectPayments.setCollector(collector);
+            collectPaymentsRepository.save(collectPayments);
+        }
     }
+
     public Iterable<CollectPayments> getCollectPayments(){
         return collectPaymentsRepository.findAll();
     }
 
-    public ResponseEntity deleteCollectPayments(Long id){
-        collectPaymentsRepository.deleteById(id);
-        return new ResponseEntity<>("CollectPayments Deleted successfully", HttpStatus.OK);
+    public Iterable<CollectPayments> getCollectPaymentsByCollectorId(Long collectorId){
+        return collectPaymentsRepository.findCollectPaymentsByCollectorId(collectorId);
     }
 
-    public ResponseEntity updateCollectPayments(Long id, CollectPayments collectPayments){
-        CollectPayments collectPaymentsForUpdate = collectPaymentsRepository.findById(id).get();
-        collectPaymentsForUpdate.setCollector(collectPayments.getCollector());
-        collectPaymentsForUpdate.setCollectionDate(collectPayments.getCollectionDate());
-        collectPaymentsForUpdate.setRequiredCollectibles(collectPayments.getRequiredCollectibles());
-        collectPaymentsForUpdate.setItemCollectible(collectPayments.getItemCollectible());
-        collectPaymentsForUpdate.setPaymentType(collectPayments.getPaymentType());
-        collectPaymentsForUpdate.setTransactionProof(collectPayments.getTransactionProof());
-        collectPaymentsRepository.save(collectPaymentsForUpdate);
-        return new ResponseEntity("CollectPayments updated successfully", HttpStatus.OK);
+    public ResponseEntity deleteCollectPayments(Long collectorId, Long id){
+        CollectPayments collectPaymentsToDelete = collectPaymentsRepository.findById(id).orElse(null);
+
+        if (collectPaymentsToDelete != null && collectPaymentsToDelete.getCollector().getCollector_id().equals(collectorId)) {
+            collectPaymentsRepository.deleteById(id);
+            return new ResponseEntity<>("CollectPayments Deleted successfully", HttpStatus.OK);
+        } else if (collectPaymentsToDelete != null) {
+            return new ResponseEntity<>("CollectPayments does not belong to the specified collector", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>("CollectPayments not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity updateCollectPayments(Long collectorId, Long id, CollectPayments collectPayments){
+        CollectPayments collectPaymentsForUpdate = collectPaymentsRepository.findById(id).orElse(null);
+        if (collectPaymentsForUpdate != null && collectPaymentsForUpdate.getCollector().getCollector_id().equals(collectorId)) {
+            collectPaymentsForUpdate.setCollectionDate(collectPayments.getCollectionDate());
+            collectPaymentsForUpdate.setRequiredCollectibles(collectPayments.getRequiredCollectibles());
+            collectPaymentsForUpdate.setItemCollectible(collectPayments.getItemCollectible());
+            collectPaymentsForUpdate.setPaymentType(collectPayments.getPaymentType());
+            collectPaymentsForUpdate.setTransactionProof(collectPayments.getTransactionProof());
+            collectPaymentsRepository.save(collectPaymentsForUpdate);
+            return new ResponseEntity<>("CollectPayments Updated successfully", HttpStatus.OK);
+        } else if (collectPaymentsForUpdate != null) {
+            return new ResponseEntity<>("CollectPayments does not belong to the specified collector", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>("CollectPayments not found",HttpStatus.NOT_FOUND);
+        }
     }
 }

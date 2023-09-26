@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.CollectorModuleController;
 
 
+import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.CollectorModules.CollectAllDuePayments;
+import com.capstone.kuhako.repositories.CollectorRepository;
 import com.capstone.kuhako.services.CollectorModuleServices.CollectAllDuePaymentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,18 @@ import org.springframework.web.bind.annotation.*;
 public class CollectAllDuePaymentsController {
     @Autowired
     CollectAllDuePaymentsService collectAllDuePaymentsService;
+    @Autowired
+    private CollectorRepository collectorRepository;
 
-    @RequestMapping(value="/collectAllDuePayments", method = RequestMethod.POST)
-    public ResponseEntity<Object> createCollectAllDuePayments(@RequestBody CollectAllDuePayments collectAllDuePayments) {
-        collectAllDuePaymentsService.createCollectAllDuePayments(collectAllDuePayments);
-        return new ResponseEntity<>("CollectAllDuePayments created successfully", HttpStatus.CREATED);
+    @RequestMapping(value="/collectAllDuePayments/{collectorId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createCollectAllDuePayments(@PathVariable Long collectorId, @RequestBody CollectAllDuePayments collectAllDuePayments) {
+        Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        if (collector != null) {
+            collectAllDuePaymentsService.createCollectAllDuePayments(collectorId, collectAllDuePayments);
+            return new ResponseEntity<>("CollectAllDuePayments created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Collector does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/collectAllDuePayments", method = RequestMethod.GET)
@@ -27,13 +36,18 @@ public class CollectAllDuePaymentsController {
         return new ResponseEntity<>(collectAllDuePaymentsService.getCollectAllDuePayments(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/collectAllDuePayments/{collectAllDuePaymentsid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteCollectAllDuePayments(@PathVariable Long collectAllDuePaymentsid) {
-        return collectAllDuePaymentsService.deleteCollectAllDuePayments(collectAllDuePaymentsid);
+    @RequestMapping(value="/collectAllDuePayments/collector/{collectorId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCollectAllDuePaymentsByCollectorId(@PathVariable Long collectorId) {
+        return new ResponseEntity<>(collectAllDuePaymentsService.getCollectAllDuePaymentsByCollectorId(collectorId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/collectAllDuePayments/{collectAllDuePaymentsid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateCollectAllDuePayments(@PathVariable Long collectAllDuePaymentsid, @RequestBody CollectAllDuePayments collectAllDuePayments) {
-        return collectAllDuePaymentsService.updateCollectAllDuePayments(collectAllDuePaymentsid, collectAllDuePayments);
+    @RequestMapping(value = "/collectAllDuePayments/{collectorId}/{collectAllDuePaymentsId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteCollectAllDuePayments(@PathVariable Long collectorId, @PathVariable Long collectAllDuePaymentsId) {
+        return collectAllDuePaymentsService.deleteCollectAllDuePayments(collectorId, collectAllDuePaymentsId);
+    }
+
+    @RequestMapping(value="/collectAllDuePayments/{collectorId}/{collectAllDuePaymentsId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateCollectAllDuePayments(@PathVariable Long collectorId, @PathVariable Long collectAllDuePaymentsId, @RequestBody CollectAllDuePayments collectAllDuePayments) {
+        return collectAllDuePaymentsService.updateCollectAllDuePayments(collectorId, collectAllDuePaymentsId, collectAllDuePayments);
     }
 }

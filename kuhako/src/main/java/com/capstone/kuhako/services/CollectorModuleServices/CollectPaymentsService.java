@@ -5,11 +5,13 @@ import com.capstone.kuhako.models.CollectorModules.CollectPayments;
 import org.springframework.http.ResponseEntity;
 
 public interface CollectPaymentsService {
-    void createCollectPayments(CollectPayments paymentDues);
+    void createCollectPayments(Long collectorId, CollectPayments paymentDues);
 
     Iterable<CollectPayments> getCollectPayments();
 
-    ResponseEntity deleteCollectPayments(Long id);
+    Iterable<CollectPayments> getCollectPaymentsByCollectorId(Long collectorId);
 
-    ResponseEntity updateCollectPayments(Long id, CollectPayments paymentDues);
+    ResponseEntity deleteCollectPayments(Long collectorId, Long id);
+
+    ResponseEntity updateCollectPayments(Long collectorId, Long id, CollectPayments paymentDues);
 }

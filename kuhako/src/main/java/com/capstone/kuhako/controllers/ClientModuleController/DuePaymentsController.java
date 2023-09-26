@@ -18,8 +18,8 @@ public class DuePaymentsController {
 
     // Create a new DuePayments for a specific client
     @RequestMapping(value="/duePayments/{clientId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createDuePayments(@PathVariable Long clientId,@RequestBody DuePayments duePayments) {
-        duePaymentsService.createDuePayments(clientId,duePayments);
+    public ResponseEntity<Object> createDuePayments(@PathVariable Long clientId, @RequestBody DuePayments duePayments) {
+        duePaymentsService.createDuePayments(clientId, duePayments);
         return new ResponseEntity<>("PaymentDues created successfully", HttpStatus.CREATED);
     }
 
