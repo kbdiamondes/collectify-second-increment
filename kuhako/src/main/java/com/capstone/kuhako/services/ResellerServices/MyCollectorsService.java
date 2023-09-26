@@ -1,5 +1,6 @@
 package com.capstone.kuhako.services.ResellerServices;
 
+import com.capstone.kuhako.models.ResellerModule.AssignCollectors;
 import com.capstone.kuhako.models.ResellerModule.MyCollectors;
 import org.springframework.http.ResponseEntity;
 
@@ -8,7 +9,9 @@ public interface MyCollectorsService {
 
     Iterable<MyCollectors> getMyCollectors();
 
-    ResponseEntity deleteMyCollectors(Long id);
+    Iterable<MyCollectors>getMyCollectorsByResellerId(Long resellerId);
 
-    ResponseEntity updateMyCollectors(Long id, MyCollectors myCollectors);
+    ResponseEntity deleteMyCollectors(Long resellerId,Long id);
+
+    ResponseEntity updateMyCollectors(Long resellerId,Long id, MyCollectors myCollectors);
 }

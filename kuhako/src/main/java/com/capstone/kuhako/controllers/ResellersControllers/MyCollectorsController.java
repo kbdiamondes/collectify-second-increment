@@ -14,9 +14,9 @@ public class MyCollectorsController {
     @Autowired
     MyCollectorsService myCollectorsService;
 
-    @RequestMapping(value="/myCollectors", method = RequestMethod.POST)
-    public ResponseEntity<Object> createMyCollectors(@RequestBody MyCollectors myCollectors) {
-        myCollectorsService.createMyCollectors(myCollectors);
+    @RequestMapping(value="/myCollectors/{resellerId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createMyCollectors(@PathVariable Long resellerId,@RequestBody MyCollectors myCollectors) {
+        myCollectorsService.createMyCollectors(resellerId,myCollectors);
         return new ResponseEntity<>("MyCollectors created successfully", HttpStatus.CREATED);
     }
 
@@ -24,14 +24,18 @@ public class MyCollectorsController {
     public ResponseEntity<Object> getMyCollectors() {
         return new ResponseEntity<>(myCollectorsService.getMyCollectors(), HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/myCollectors/{myCollectorsid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteMyCollectors(@PathVariable int myCollectorsid) {
-        return myCollectorsService.deleteMyCollectors(myCollectorsid);
+    @RequestMapping(value="/myCollectors/reseller/{resellerId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getMyCollectorsByResellerId(@PathVariable Long resellerId) {
+        return new ResponseEntity<>(myCollectorsService.getMyCollectorsByResellerId(resellerId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/myCollectors/{myCollectorsid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateMyCollectors(@PathVariable int myCollectorsid, @RequestBody MyCollectors myCollectors) {
-        return myCollectorsService.updateMyCollectors(myCollectorsid, myCollectors);
+    @RequestMapping(value = "/myCollectors/{resellerId}/{myCollectors_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteMyCollectors(@PathVariable Long resellerId, @PathVariable Long myCollectors_id) {
+        return myCollectorsService.deleteMyCollectors(resellerId,myCollectors_id);
+    }
+
+    @RequestMapping(value="/myCollectors/{resellerId}/{myCollectors_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateMyCollectors(@PathVariable Long resellerId,@PathVariable Long myCollectors_id, @RequestBody MyCollectors myCollectors) {
+        return myCollectorsService.updateMyCollectors(resellerId,myCollectors_id, myCollectors);
     }
 }
