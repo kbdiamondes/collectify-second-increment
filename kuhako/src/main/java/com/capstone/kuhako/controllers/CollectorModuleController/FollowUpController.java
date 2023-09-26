@@ -1,7 +1,9 @@
 package com.capstone.kuhako.controllers.CollectorModuleController;
 
 
+import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.CollectorModules.FollowUp;
+import com.capstone.kuhako.repositories.CollectorRepository;
 import com.capstone.kuhako.services.CollectorModuleServices.FollowUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,18 @@ import org.springframework.web.bind.annotation.*;
 public class FollowUpController {
     @Autowired
     FollowUpService followUpService;
+    @Autowired
+    private CollectorRepository collectorRepository;
 
-    @RequestMapping(value="/followUp", method = RequestMethod.POST)
-    public ResponseEntity<Object> createFollowUp(@RequestBody FollowUp followUp) {
-        followUpService.createFollowUp(followUp);
-        return new ResponseEntity<>("FollowUp created successfully", HttpStatus.CREATED);
+    @RequestMapping(value="/followUp/{collectorId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createFollowUp(@PathVariable Long collectorId, @RequestBody FollowUp followUp) {
+        Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        if (collector != null) {
+            followUpService.createFollowUp(collectorId, followUp);
+            return new ResponseEntity<>("FollowUp created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Collector does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value="/followUp", method = RequestMethod.GET)
@@ -27,13 +36,18 @@ public class FollowUpController {
         return new ResponseEntity<>(followUpService.getFollowUp(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/followUp/{followUpid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteFollowUp(@PathVariable Long followUpid) {
-        return followUpService.deleteFollowUp(followUpid);
+    @RequestMapping(value="/followUp/collector/{collectorId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFollowUpByCollectorId(@PathVariable Long collectorId) {
+        return new ResponseEntity<>(followUpService.getFollowUpByCollectorId(collectorId), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/followUp/{followUpid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateFollowUp(@PathVariable Long followUpid, @RequestBody FollowUp followUp) {
-        return followUpService.updateFollowUp(followUpid, followUp);
+    @RequestMapping(value = "/followUp/{collectorId}/{followUpId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteFollowUp(@PathVariable Long collectorId, @PathVariable Long followUpId) {
+        return followUpService.deleteFollowUp(collectorId, followUpId);
+    }
+
+    @RequestMapping(value="/followUp/{collectorId}/{followUpId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateFollowUp(@PathVariable Long collectorId, @PathVariable Long followUpId, @RequestBody FollowUp followUp) {
+        return followUpService.updateFollowUp(collectorId, followUpId, followUp);
     }
 }
