@@ -1,6 +1,7 @@
 package com.capstone.kuhako.services.ResellerServices;
 
 import com.capstone.kuhako.models.Reseller;
+import com.capstone.kuhako.models.ResellerModule.AssignCollectors;
 import com.capstone.kuhako.models.ResellerModule.MyCollectors;
 import com.capstone.kuhako.models.ResellerModule.SendCollectors;
 import com.capstone.kuhako.repositories.ClientRepository;
@@ -19,30 +20,41 @@ public class SendCollectorsServiceImpl implements SendCollectorsService{
     private SendCollectorsRepository sendCollectorsRepository;
 
     @Autowired
-    ResellerRepository resellerRepository;
+    private ResellerRepository resellerRepository;
 
-    public void createSendCollectors(SendCollectors sendCollectors) {
-        sendCollectorsRepository.save(sendCollectors);
+    public void createSendCollectors(Long resellerId, SendCollectors sendCollectors) {
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+        if(reseller != null){
+            sendCollectors.setReseller(reseller);
+            sendCollectorsRepository.save(sendCollectors);
+        }
     }
-
     public Iterable<SendCollectors> getSendCollectors(){
         return sendCollectorsRepository.findAll();
     }
 
-    public ResponseEntity deleteSendCollectors(Long id){
-        sendCollectorsRepository.deleteById(id);
-        return new ResponseEntity<>("SendCollectors Deleted successfully", HttpStatus.OK);
+    public Iterable<SendCollectors> getSendCollectorsByResellerId(Long resellerId){
+        return sendCollectorsRepository.findSendCollectorsByResellerId(resellerId);
+    }
+    
+    public ResponseEntity deleteSendCollectors(Long resellerId,Long id){
+        SendCollectors sendCollectorsToDelete = sendCollectorsRepository.findById(id).orElse(null);
+        if (sendCollectorsToDelete != null && sendCollectorsToDelete.getReseller().getReseller_id().equals(resellerId)) {
+            sendCollectorsRepository.deleteById(id);
+            return new ResponseEntity<>("Assign Collector Deleted Successfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Assign Collector Not Found",HttpStatus.NOT_FOUND);
+        }
     }
 
-    public ResponseEntity<String> updateSendCollectors(Long id, SendCollectors sendCollectors) {
+    public ResponseEntity<String> updateSendCollectors(Long resellerId,Long id, SendCollectors sendCollectors) {
         SendCollectors sendCollectorsForUpdate = sendCollectorsRepository.findById(id).orElse(null);
-        if (sendCollectorsForUpdate != null) {
-            sendCollectorsForUpdate.setReseller(sendCollectors.getReseller());
+        if (sendCollectorsForUpdate != null && sendCollectorsForUpdate.getReseller().getReseller_id().equals(resellerId)) {
             sendCollectorsForUpdate.setPaymentDues(sendCollectors.getPaymentDues());
             sendCollectorsRepository.save(sendCollectorsForUpdate);
-            return new ResponseEntity<>("SendCollectors updated successfully", HttpStatus.OK);
+            return new ResponseEntity<>("Send Collectors updated successfully", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("SendCollectors not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Send Collectors not found", HttpStatus.NOT_FOUND);
         }
     }
 
