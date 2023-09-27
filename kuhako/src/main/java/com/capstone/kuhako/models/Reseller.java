@@ -13,6 +13,8 @@ public class Reseller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reseller_id;
 
+
+
     @Column
     private String username;
 

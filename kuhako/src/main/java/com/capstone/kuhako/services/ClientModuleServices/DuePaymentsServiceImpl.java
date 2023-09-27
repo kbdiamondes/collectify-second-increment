@@ -30,9 +30,12 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
     public void createDuePayments(Long clientId, DuePayments duePayments) {
         Client client = clientRepository.findById(clientId).orElse(null);
         if (client != null) {
+            //Collector placeholder = new Collector
+            //.setCollector(placeholder)
             duePayments.setClient(client);
             duePaymentRepository.save(duePayments);
         }
+
     }
 
     /**
@@ -41,6 +44,7 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
      * @return Iterable of DuePayments objects.
      */
     public Iterable<DuePayments> getDuePayments() {
+        //if(placeholder
         return duePaymentRepository.findAll();
     }
 
@@ -88,6 +92,8 @@ public class DuePaymentsServiceImpl implements DuePaymentsService {
             duePaymentRepository.save(duePaymentsForUpdate);
             return new ResponseEntity<>("Due Payments Updated successfully", HttpStatus.OK);
         }
+        //if(==0)
+
         return new ResponseEntity<>("Due payment not found or does not belong to the specified client",HttpStatus.NOT_FOUND);
     }
 }

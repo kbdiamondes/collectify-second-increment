@@ -13,6 +13,10 @@ public class Collector {
     @GeneratedValue
     private Long collector_id;
 
+    @ManyToOne
+    @JoinColumn(name="reseller_id", nullable = false)
+    private Reseller reseller;
+
     @Column
     private String username;
 
@@ -34,7 +38,9 @@ public class Collector {
 
     public Collector() {
     }
-    public Collector(String username, String password, String fullName, String address, String email) {
+
+    public Collector(Reseller reseller, String username, String password, String fullName, String address, String email) {
+        this.reseller = reseller;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
