@@ -10,4 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ResellerRepository extends CrudRepository<Reseller,Object> {
+    Reseller findByUsername(String username);
 }

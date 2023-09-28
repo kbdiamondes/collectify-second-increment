@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CollectorRepository extends CrudRepository<Collector,Object> {
+    Collector findByUsername(String username);
 }

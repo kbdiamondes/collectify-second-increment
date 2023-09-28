@@ -6,11 +6,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
+
+
+
 @Entity
 @Table(name = "reseller")
 public class Reseller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long reseller_id;
 
     @Column
