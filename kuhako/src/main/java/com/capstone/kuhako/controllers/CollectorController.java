@@ -1,11 +1,15 @@
 package com.capstone.kuhako.controllers;
 
+import com.capstone.kuhako.exceptions.UserException;
 import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.services.CollectorService;
+import com.capstone.kuhako.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -13,6 +17,10 @@ public class CollectorController {
 
     @Autowired
     CollectorService collectorService;
+
+
+    @Autowired
+    private RegistrationService registrationService;
 
     // Create User
     @RequestMapping(value = "/collector",method = RequestMethod.POST)
@@ -34,5 +42,12 @@ public class CollectorController {
     @RequestMapping (value = "/collector/{collectorid}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCollector(@PathVariable Long collectorid, @RequestBody Collector collector){
         return collectorService.updateCollector(collectorid,collector);
+    }
+
+    @PostMapping("/registerCollector")
+    public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException, UserException {
+        String username = body.get("username");
+        String password = body.get("password");
+        return registrationService.registerUser(username, password);
     }
 }

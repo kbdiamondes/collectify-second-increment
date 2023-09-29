@@ -1,18 +1,25 @@
 package com.capstone.kuhako.controllers;
 
+import com.capstone.kuhako.exceptions.UserException;
 import com.capstone.kuhako.models.Reseller;
+import com.capstone.kuhako.services.RegistrationService;
 import com.capstone.kuhako.services.ResellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class ResellerController {
     @Autowired
-
     ResellerService resellerService;
+
+    @Autowired
+    private RegistrationService registrationService;
+
 
     // Create User
     @RequestMapping(value = "/reseller",method = RequestMethod.POST)
@@ -34,5 +41,12 @@ public class ResellerController {
     @RequestMapping (value = "/resel/{resellerid}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCollector(@PathVariable Long resellerid, @RequestBody Reseller reseller){
         return resellerService.updateReseller(resellerid,reseller);
+    }
+
+    @PostMapping("/registerReseller")
+    public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException, UserException {
+        String username = body.get("username");
+        String password = body.get("password");
+        return registrationService.registerUser(username, password);
     }
 }

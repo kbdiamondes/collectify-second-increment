@@ -82,7 +82,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                .antMatchers( "/login").permitAll()
+                .antMatchers( "/registerClient").permitAll()
+                .antMatchers( "/registerReseller").permitAll()
+                .antMatchers( "/registerCollector").permitAll()
                 .antMatchers("/public/**").permitAll() // Allow public access
                 .antMatchers(HttpMethod.POST, "/client").permitAll() // Permit POST requests to /client
                 .antMatchers(HttpMethod.POST, "/reseller").permitAll() // Permit POST requests to /reseller
@@ -92,12 +95,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/reseller/**").hasRole("RESELLER") // Protect reseller endpoints
                 .anyRequest().authenticated()
                 .and()
+                // This configures the authentication entry point for handling authentication failures.
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticate).and()
+                // This is used to specify that the application should not create or use any sessions, as it is following a stateless authentication approach using JSON Web Tokens (JWT).
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+                /*
                 .formLogin()
-                .loginPage("/authenticate").permitAll()
+                .loginPage("/login").permitAll()
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll();*/
+
     }
 
 }

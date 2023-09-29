@@ -34,6 +34,12 @@ public class Client {
 
     public Client() {
         }
+
+    public Client(String username, String encodedPassword) {
+        this.username = username;
+        this.password = encodedPassword;
+    }
+
     public Long getClient_id() {
         return client_id;
         }
@@ -44,6 +50,8 @@ public class Client {
             this.address = address;
             this.email = email;
         }
+
+
 
     public void setClient_id(Long client_id) {
         this.client_id = client_id;

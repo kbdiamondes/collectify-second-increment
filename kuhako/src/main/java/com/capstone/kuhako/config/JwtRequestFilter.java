@@ -43,7 +43,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     // doFilterInternal() method is the core method of the filter, which gets called for every incoming HTTP request.
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-
+        // Check if the request URI is "/authenticate" and skip token validation
+        if (request.getRequestURI().equals("/authenticate")) {
+            chain.doFilter(request, response);
+            return;
+        }
         // gets the JWT token from the Authorization header of the incoming request and attempts to validate it using the JwtToken utility class.
         final String requestTokenHeader = request.getHeader("Authorization");
 
