@@ -30,7 +30,7 @@ public class CollectorController {
     }
     //  Get all User
     @RequestMapping(value = "/collector" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getUsername() {
+    public ResponseEntity<Object> getUsername(@RequestHeader(value="Authorization") String stringToken) {
         return new ResponseEntity<>(collectorService.getUsername(), HttpStatus.OK);
     }
     // Delete a U
@@ -48,6 +48,10 @@ public class CollectorController {
     public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException, UserException {
         String username = body.get("username");
         String password = body.get("password");
-        return registrationService.registerUser(username, password);
+        String email = body.get("email");
+        String fullName = body.get("fullName");
+        String address = body.get("address");
+
+        return collectorService.registerCollector(username, password, fullName, email, address);
     }
 }

@@ -3,7 +3,6 @@ package com.capstone.kuhako.controllers;
 import com.capstone.kuhako.exceptions.UserException;
 import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.services.ClientService;
-import com.capstone.kuhako.services.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +18,6 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @Autowired
-    private RegistrationService registrationService;
-
-
     // Create User
     @RequestMapping(value = "/client",method = RequestMethod.POST)
     public ResponseEntity<Object> createClient(@RequestBody Client client){
@@ -30,8 +25,8 @@ public class ClientController {
         return new ResponseEntity<>("Client Account created Successfully", HttpStatus.CREATED);
     }
     //  Get all User
-    @RequestMapping(value = "/client" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getUsername() {
+    @GetMapping(value = "/client" )
+    public ResponseEntity<Object> getUsername(@RequestHeader(value="Authorization") String stringToken) {
         return new ResponseEntity<>(clientService.getUsername(), HttpStatus.OK);
     }
     // Delete a U

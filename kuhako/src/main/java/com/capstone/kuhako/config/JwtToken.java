@@ -60,6 +60,7 @@ public class JwtToken implements Serializable {
 
         logger.debug("Claims: " + claims);
         System.out.println("Claims: " + claims);
+
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
@@ -67,6 +68,9 @@ public class JwtToken implements Serializable {
         final String username = getUsernameFromToken(token);
         final String role = (String) getClaimFromToken(token, claims -> claims.get("role"));
 
+        System.out.println("\n\nDebug for validateToken");
+        System.out.println("Username: " + username);
+        System.out.println("Role: " + role);
         // Check if the token's username and role match the UserDetails
         return username.equals(userDetails.getUsername()) && roleMatchesUser(userDetails, role) && !isTokenExpired(token);
     }

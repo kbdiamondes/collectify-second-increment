@@ -29,7 +29,7 @@ public class ResellerController {
     }
     //  Get all User
     @RequestMapping(value = "/reseller" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getUsername() {
+    public ResponseEntity<Object> getUsername(@RequestHeader(value="Authorization") String stringToken) {
         return new ResponseEntity<>(resellerService.getUsername(), HttpStatus.OK);
     }
     // Delete a U
@@ -47,6 +47,9 @@ public class ResellerController {
     public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException, UserException {
         String username = body.get("username");
         String password = body.get("password");
-        return registrationService.registerUser(username, password);
+        String email = body.get("email");
+        String fullName = body.get("fullName");
+        String address = body.get("address");
+        return resellerService.registerReseller(username, password, fullName, email, address);
     }
 }

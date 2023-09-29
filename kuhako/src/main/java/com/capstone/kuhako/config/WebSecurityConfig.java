@@ -90,6 +90,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/client").permitAll() // Permit POST requests to /client
                 .antMatchers(HttpMethod.POST, "/reseller").permitAll() // Permit POST requests to /reseller
                 .antMatchers(HttpMethod.POST, "/collector").permitAll() // Permit POST requests to /collector
+                .antMatchers(HttpMethod.GET, "/client").permitAll() //Permit GET request to /client but request Authorization header or token
+                .antMatchers(HttpMethod.GET, "/collector").permitAll() //Permit GET request to /client but request Authorization header or token
+                .antMatchers(HttpMethod.GET, "/reseller").permitAll()//Permit GET request to /client but request Authorization header or token
                 .antMatchers("/client/**").hasRole("CLIENT") // Protect client endpoints
                 .antMatchers("/collector/**").hasRole("COLLECTOR") // Protect collector endpoints
                 .antMatchers("/reseller/**").hasRole("RESELLER") // Protect reseller endpoints
@@ -98,15 +101,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // This configures the authentication entry point for handling authentication failures.
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticate).and()
                 // This is used to specify that the application should not create or use any sessions, as it is following a stateless authentication approach using JSON Web Tokens (JWT).
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().formLogin().disable();
 
-                /*
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();*/
 
     }
 

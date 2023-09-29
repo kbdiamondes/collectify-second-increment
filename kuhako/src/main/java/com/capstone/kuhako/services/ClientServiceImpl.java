@@ -1,5 +1,6 @@
 package com.capstone.kuhako.services;
 
+import com.capstone.kuhako.config.JwtToken;
 import com.capstone.kuhako.config.WebSecurityConfig;
 import com.capstone.kuhako.exceptions.UserException;
 import com.capstone.kuhako.models.Client;
@@ -26,6 +27,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtToken jwtToken;
 
     // Create Client
     public void createClient(Client client){
