@@ -6,12 +6,12 @@ import com.capstone.kuhako.models.Reseller;
 import javax.persistence.*;
 @Entity
 @Table(name = "assignedCollection")
-public class AssignedCollection {
+public class AssignedCollections {
     @Id
     @GeneratedValue
     private Long assignedCollection_id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="reseller_id", nullable = false)
     private Reseller reseller;
 
@@ -19,7 +19,7 @@ public class AssignedCollection {
     @JoinColumn(name="contract_id", nullable = false)
     private Contracts contracts;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
@@ -31,10 +31,10 @@ public class AssignedCollection {
     private byte[] transactionProof;
 
 
-    public AssignedCollection() {
+    public AssignedCollections() {
     }
 
-    public AssignedCollection(Reseller reseller, Contracts contracts, Collector collector, double amountPayments, byte[] transactionProof) {
+    public AssignedCollections(Reseller reseller, Contracts contracts, Collector collector, double amountPayments, byte[] transactionProof) {
         this.reseller = reseller;
         this.contracts = contracts;
         this.collector = collector;

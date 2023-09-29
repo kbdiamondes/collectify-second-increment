@@ -1,7 +1,6 @@
 package com.capstone.kuhako.models.JoinModule;
 
 import com.capstone.kuhako.models.Client;
-import com.capstone.kuhako.models.ClientModules.DuePayments;
 import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.Reseller;
 
@@ -11,18 +10,18 @@ import javax.persistence.*;
 @Table(name = "contracts")
 public class Contracts {
     @Id
-    @GeneratedValue
-    private Long contract_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long contracts_id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="reseller_id", nullable = false)
     private Reseller reseller;
 
     @OneToOne
-    @JoinColumn(name="client_id", nullable = false)
+    @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
 
@@ -41,7 +40,10 @@ public class Contracts {
 
     public Contracts() {
     }
-
+    public Contracts(String itemName, double itemPrice) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+    }
     public Contracts(Reseller reseller, Client client, Collector collector, String itemName, double itemPrice, double totalAmountPaid, String paymentType, String specifications, boolean paymentStatus) {
         this.reseller = reseller;
         this.client = client;
@@ -54,15 +56,13 @@ public class Contracts {
         this.paymentStatus = paymentStatus;
     }
 
-    public Long getContract_id() {
-        return contract_id;
+    public Long getContracts_id() {
+        return contracts_id;
     }
-/*
 
-    public void setContract_id(Long contract_id) {
-        this.contract_id = contract_id;
-    }
-*/
+//    public void setContracts_id(Long contracts_id) {
+//        this.contracts_id = contracts_id;
+//    }
 
     public Reseller getReseller() {
         return reseller;

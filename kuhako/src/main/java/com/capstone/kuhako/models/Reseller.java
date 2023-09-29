@@ -1,5 +1,6 @@
 package com.capstone.kuhako.models;
 
+import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.models.ResellerModule.SendCollectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,7 +14,9 @@ public class Reseller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reseller_id;
 
-
+    @OneToMany(mappedBy = "reseller", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Collector> collectors;
 
     @Column
     private String username;
@@ -32,20 +35,35 @@ public class Reseller {
 
     @OneToMany(mappedBy = "reseller")
     @JsonIgnore
+    private Set<Contracts> contracts;
+
+    @OneToMany(mappedBy = "reseller")
+    @JsonIgnore
     private Set<SendCollectors> sendCollectors;
 
     public Reseller() {
     }
-    public Reseller(String username, String password, String fullName, String address, String email) {
+
+    public Reseller(Set<Collector> collectors, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<SendCollectors> sendCollectors) {
+        this.collectors = collectors;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
+        this.contracts = contracts;
+        this.sendCollectors = sendCollectors;
+    }
+    //    public void setReseller_id(Long reseller_id) {
+//        this.reseller_id = reseller_id;
+//    }
+
+    public Set<Collector> getCollectors() {
+        return collectors;
     }
 
-    public void setReseller_id(Long reseller_id) {
-        this.reseller_id = reseller_id;
+    public void setCollectors(Set<Collector> collectors) {
+        this.collectors = collectors;
     }
 
     public String getUsername() {
@@ -98,5 +116,13 @@ public class Reseller {
 
     public void setSendCollectors(Set<SendCollectors> sendCollectors) {
         this.sendCollectors = sendCollectors;
+    }
+
+    public Set<Contracts> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contracts> contracts) {
+        this.contracts = contracts;
     }
 }

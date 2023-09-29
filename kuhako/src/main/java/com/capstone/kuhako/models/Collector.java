@@ -1,6 +1,6 @@
 package com.capstone.kuhako.models;
 
-import com.capstone.kuhako.models.ResellerModule.SendCollectors;
+import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -32,24 +32,40 @@ public class Collector {
     @Column
     private String email;
 
+    @OneToMany(mappedBy = "collector")
+    @JsonIgnore
+    private Set<Contracts> contracts;
+
  /*   @OneToMany(mappedBy = "collector")
     @JsonIgnore
     private Set<SendCollectors> sendCollectors;*/
 
     public Collector() {
     }
-
-    public Collector(Reseller reseller, String username, String password, String fullName, String address, String email) {
+    public Collector(Reseller reseller, String username, String password, String fullName, String address, String email, Set<Contracts> contracts) {
         this.reseller = reseller;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
+        this.contracts = contracts;
     }
 
-    public void setCollector_id(Long collector_id) {
-        this.collector_id = collector_id;
+    public Long getCollector_id() {
+        return collector_id;
+    }
+
+//    public void setCollector_id(Long collector_id) {
+//        this.collector_id = collector_id;
+//    }
+
+    public Reseller getReseller() {
+        return reseller;
+    }
+
+    public void setReseller(Reseller reseller) {
+        this.reseller = reseller;
     }
 
     public String getUsername() {
@@ -92,10 +108,6 @@ public class Collector {
         this.email = email;
     }
 
-    public Long getCollector_id() {
-        return collector_id;
-    }
-
  /*   public Set<SendCollectors> getSendCollectors() {
         return sendCollectors;
     }
@@ -103,4 +115,12 @@ public class Collector {
     public void setSendCollectors(Set<SendCollectors> sendCollectors) {
         this.sendCollectors = sendCollectors;
     }*/
+
+    public Set<Contracts> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contracts> contracts) {
+        this.contracts = contracts;
+    }
 }

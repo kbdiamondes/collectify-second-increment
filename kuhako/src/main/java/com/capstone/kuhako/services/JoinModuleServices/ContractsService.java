@@ -1,16 +1,23 @@
 package com.capstone.kuhako.services.JoinModuleServices;
 
-import com.capstone.kuhako.models.ResellerModule.AssignCollectors;
+import com.capstone.kuhako.models.JoinModule.Contracts;
+import com.capstone.kuhako.models.JoinModule.ContractsClient;
+import com.capstone.kuhako.models.JoinModule.ContractsCollector;
+import com.capstone.kuhako.models.JoinModule.ContractsReseller;
 import org.springframework.http.ResponseEntity;
 
 public interface ContractsService {
-    void createAssignCollectors(Long resellerId,AssignCollectors assignCollectors);
+    void createContract(Long resellerId, Contracts contracts);
 
-    Iterable<AssignCollectors> getAssignCollectors();
+    Iterable<Contracts> getContracts();
 
-    Iterable<AssignCollectors>getAssignCollectorsByResellerId(Long resellerId);
+    Iterable<ContractsReseller>getContractsByResellerId(Long resellerId);
 
-    ResponseEntity deleteAssignCollectors(Long resellerId,Long id);
+    Iterable<ContractsCollector>getContractsByCollectorId(Long resellerId);
 
-    ResponseEntity updateAssignCollectors(Long resellerId ,Long id, AssignCollectors assignCollectors);
+    Iterable<ContractsClient>getContractsByClientId(Long resellerId);
+
+    ResponseEntity deleteContract(Long resellerId,Long id);
+
+    ResponseEntity updateContract(Long resellerId ,Long id, Contracts contracts);
 }

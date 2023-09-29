@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface CollectorService {
 
     // Create Client
-    void createCollector(Collector client);
+    void createCollector(Long resellerId, Collector client);
 
     // Get Client
     Iterable<Collector> getUsername();

@@ -1,9 +1,9 @@
 package com.capstone.kuhako.controllers.JoinModuleController;
 
 import com.capstone.kuhako.models.Reseller;
-import com.capstone.kuhako.models.ResellerModule.MyCollectors;
+import com.capstone.kuhako.models.JoinModule.AssignedCollections;
 import com.capstone.kuhako.repositories.ResellerRepository;
-import com.capstone.kuhako.services.ResellerServices.MyCollectorsService;
+import com.capstone.kuhako.services.JoinModuleServices.AssignedCollectionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,38 +14,39 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/resellerPage")
 public class AssignedCollectionsController {
     @Autowired
-    MyCollectorsService myCollectorsService;
+    AssignedCollectionsService assignedCollectionsService;
 
     @Autowired
     private ResellerRepository resellerRepository;
 
-    @RequestMapping(value="/myCollectors/{resellerId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createMyCollectors(@PathVariable Long resellerId,@RequestBody MyCollectors myCollectors) {
+    @RequestMapping(value="/assignedCollections/{resellerId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createAssignedCollections(@PathVariable Long resellerId,@RequestBody AssignedCollections assignedCollections) {
         Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
         if (reseller != null) {
-            myCollectorsService.createMyCollectors(resellerId,myCollectors);
-            return new ResponseEntity<>("MyCollectors created successfully", HttpStatus.CREATED);
+            assignedCollectionsService.createAssignedCollections(resellerId,assignedCollections);
+            return new ResponseEntity<>("AssignedCollections created successfully", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("MyCollectors does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("AssignedCollections does not exist", HttpStatus.NOT_FOUND);
         }
     }
 
-    @RequestMapping(value="/myCollectors", method = RequestMethod.GET)
-    public ResponseEntity<Object> getMyCollectors() {
-        return new ResponseEntity<>(myCollectorsService.getMyCollectors(), HttpStatus.OK);
-    }
-    @RequestMapping(value="/myCollectors/reseller/{resellerId}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getMyCollectorsByResellerId(@PathVariable Long resellerId) {
-        return new ResponseEntity<>(myCollectorsService.getMyCollectorsByResellerId(resellerId), HttpStatus.OK);
+    @RequestMapping(value="/assignedCollections", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAssignedCollections() {
+        return new ResponseEntity<>(assignedCollectionsService.getAssignedCollections(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/myCollectors/{resellerId}/{myCollectors_id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteMyCollectors(@PathVariable Long resellerId, @PathVariable Long myCollectors_id) {
-        return myCollectorsService.deleteMyCollectors(resellerId,myCollectors_id);
+//    @RequestMapping(value="/assignedCollections/reseller/{resellerId}", method = RequestMethod.GET)
+//    public ResponseEntity<Object> getAssignedCollectionsByResellerId(@PathVariable Long resellerId) {
+//        return new ResponseEntity<>(assignedCollectionsService.getAssignedCollectionsByResellerId(resellerId), HttpStatus.OK);
+//    }
+
+    @RequestMapping(value = "/assignedCollections/{resellerId}/{assignedCollections_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteAssignedCollections(@PathVariable Long resellerId, @PathVariable Long assignedCollections_id) {
+        return assignedCollectionsService.deleteAssignedCollections(resellerId,assignedCollections_id);
     }
 
-    @RequestMapping(value="/myCollectors/{resellerId}/{myCollectors_id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateMyCollectors(@PathVariable Long resellerId,@PathVariable Long myCollectors_id, @RequestBody MyCollectors myCollectors) {
-        return myCollectorsService.updateMyCollectors(resellerId,myCollectors_id, myCollectors);
+    @RequestMapping(value="/assignedCollections/{resellerId}/{assignedCollections_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateAssignedCollections(@PathVariable Long resellerId,@PathVariable Long assignedCollections_id, @RequestBody AssignedCollections assignedCollections) {
+        return assignedCollectionsService.updateAssignedCollections(resellerId,assignedCollections_id, assignedCollections);
     }
 }

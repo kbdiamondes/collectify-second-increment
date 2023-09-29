@@ -1,7 +1,9 @@
 package com.capstone.kuhako.services;
 
 import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.repositories.CollectorRepository;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,20 @@ import org.springframework.stereotype.Service;
 public class CollectorServiceImpl implements CollectorService{
     @Autowired
     private CollectorRepository collectorRepository;
+    @Autowired
+    private ResellerRepository resellerRepository;
 
     // Create a Collector
-    public void createCollector(Collector collector){
-        collectorRepository.save(collector);
+    @Override
+    public void createCollector(Long resellerId, Collector collector) {
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+
+        if (reseller != null) {
+            collector.setReseller(reseller);
+            collectorRepository.save(collector);
+        }
     }
+
     // Get all Collector
     public Iterable<Collector> getUsername(){
         return collectorRepository.findAll();
