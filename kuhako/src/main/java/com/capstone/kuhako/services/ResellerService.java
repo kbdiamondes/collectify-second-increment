@@ -12,4 +12,6 @@ public interface ResellerService {
     ResponseEntity deleteReseller(Long id);
     // Update a Client
     ResponseEntity updateReseller(Long id, Reseller reseller);
+
+    ResponseEntity assignCollectorToClient(Long resellerId, Long collectorId, Long clientId);
 }

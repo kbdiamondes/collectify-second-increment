@@ -15,9 +15,9 @@ public class AssignedCollections {
     @JoinColumn(name="reseller_id", nullable = false)
     private Reseller reseller;
 
-    @OneToOne
-    @JoinColumn(name="contract_id", nullable = false)
-    private Contracts contracts;
+//    @OneToOne
+//    @JoinColumn(name="contract_id", nullable = false)
+//    private Contracts contracts;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
@@ -34,9 +34,8 @@ public class AssignedCollections {
     public AssignedCollections() {
     }
 
-    public AssignedCollections(Reseller reseller, Contracts contracts, Collector collector, double amountPayments, byte[] transactionProof) {
+    public AssignedCollections(Reseller reseller, Collector collector, double amountPayments, byte[] transactionProof) {
         this.reseller = reseller;
-        this.contracts = contracts;
         this.collector = collector;
         this.amountPayments = amountPayments;
         this.transactionProof = transactionProof;
@@ -58,13 +57,13 @@ public class AssignedCollections {
         this.reseller = reseller;
     }
 
-    public Contracts getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(Contracts contracts) {
-        this.contracts = contracts;
-    }
+//    public Contracts getContracts() {
+//        return contracts;
+//    }
+//
+//    public void setContracts(Contracts contracts) {
+//        this.contracts = contracts;
+//    }
 
     public Collector getCollector() {
         return collector;

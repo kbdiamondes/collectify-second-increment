@@ -1,12 +1,11 @@
 package com.capstone.kuhako.services.JoinModuleServices;
 
-import com.capstone.kuhako.models.JoinModule.Contracts;
-import com.capstone.kuhako.models.JoinModule.ContractsClient;
-import com.capstone.kuhako.models.JoinModule.ContractsCollector;
-import com.capstone.kuhako.models.JoinModule.ContractsReseller;
+import com.capstone.kuhako.models.JoinModule.*;
 import org.springframework.http.ResponseEntity;
 
 public interface ContractsService {
+    boolean canCreateContract(Contracts newContract);
+
     void createContract(Long resellerId, Contracts contracts);
 
     Iterable<Contracts> getContracts();
@@ -15,9 +14,11 @@ public interface ContractsService {
 
     Iterable<ContractsCollector>getContractsByCollectorId(Long resellerId);
 
+    Iterable<ContractsCollector>getContractsHistoryByCollectorId(Long resellerId);
+
     Iterable<ContractsClient>getContractsByClientId(Long resellerId);
 
-    ResponseEntity deleteContract(Long resellerId,Long id);
+    ResponseEntity deleteContract(Long resellerId, Long id);
 
-    ResponseEntity updateContract(Long resellerId ,Long id, Contracts contracts);
+    ResponseEntity updateContract(Long collectorId, AssignedCollections assignedCollections);
 }

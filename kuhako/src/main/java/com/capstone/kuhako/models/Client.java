@@ -12,6 +12,14 @@ public class Client {
     @GeneratedValue
     private Long client_id;
 
+    @ManyToOne
+    @JoinColumn(name="reseller_id", nullable = false)
+    private Reseller reseller;
+
+    @ManyToOne
+    @JoinColumn(name="collector_id")
+    private Collector collector;
+
     @Column
     private String username;
 
@@ -37,7 +45,9 @@ public class Client {
 
     public Client() {
     }
-    public Client(String username, String password, String fullName, String address, String email, Contracts contract) {
+    public Client(Reseller reseller, Collector collector, String username, String password, String fullName, String address, String email, Contracts contract) {
+        this.reseller = reseller;
+        this.collector = collector;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -53,6 +63,23 @@ public class Client {
 //    public void setClient_id(Long client_id) {
 //        this.client_id = client_id;
 //        }
+
+
+    public Reseller getReseller() {
+        return reseller;
+    }
+
+    public void setReseller(Reseller reseller) {
+        this.reseller = reseller;
+    }
+
+    public Collector getCollector() {
+        return collector;
+    }
+
+    public void setCollector(Collector collector) {
+        this.collector = collector;
+    }
 
     public String getUsername() {
         return username;

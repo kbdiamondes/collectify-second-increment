@@ -18,6 +18,10 @@ public class Reseller {
     @JsonIgnore
     private Set<Collector> collectors;
 
+    @OneToMany(mappedBy = "reseller", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Client> clients;
+
     @Column
     private String username;
 
@@ -44,8 +48,9 @@ public class Reseller {
     public Reseller() {
     }
 
-    public Reseller(Set<Collector> collectors, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<SendCollectors> sendCollectors) {
+    public Reseller(Set<Collector> collectors, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<SendCollectors> sendCollectors) {
         this.collectors = collectors;
+        this.clients = clients;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -54,7 +59,12 @@ public class Reseller {
         this.contracts = contracts;
         this.sendCollectors = sendCollectors;
     }
-    //    public void setReseller_id(Long reseller_id) {
+
+    public Long getReseller_id() {
+        return reseller_id;
+    }
+
+//    public void setReseller_id(Long reseller_id) {
 //        this.reseller_id = reseller_id;
 //    }
 
@@ -64,6 +74,14 @@ public class Reseller {
 
     public void setCollectors(Set<Collector> collectors) {
         this.collectors = collectors;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 
     public String getUsername() {
@@ -104,10 +122,6 @@ public class Reseller {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getReseller_id() {
-        return reseller_id;
     }
 
     public Set<SendCollectors> getSendCollectors() {

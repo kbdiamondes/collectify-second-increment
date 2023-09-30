@@ -27,13 +27,18 @@ public class ResellerController {
         return new ResponseEntity<>(resellerService.getUsername(), HttpStatus.OK);
     }
     // Delete a U
-    @RequestMapping (value = "/reseller/{resellerid}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteClient(@PathVariable Long resellerid){
-        return resellerService.deleteReseller(resellerid);
+    @RequestMapping (value = "/reseller/{resellerId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteClient(@PathVariable Long resellerId){
+        return resellerService.deleteReseller(resellerId);
     }
     // Update a post
-    @RequestMapping (value = "/resel/{resellerid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateCollector(@PathVariable Long resellerid, @RequestBody Reseller reseller){
-        return resellerService.updateReseller(resellerid,reseller);
+    @RequestMapping (value = "/reseller/{resellerId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateCollector(@PathVariable Long resellerId, @RequestBody Reseller reseller){
+        return resellerService.updateReseller(resellerId, reseller);
+    }
+
+    @RequestMapping (value = "/reseller/{resellerId}/assign/{collectorId}/{clientId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> AssignCollectorToClient(@PathVariable Long resellerId, @PathVariable Long collectorId, @PathVariable Long clientId){
+        return resellerService.assignCollectorToClient(resellerId, collectorId, clientId);
     }
 }

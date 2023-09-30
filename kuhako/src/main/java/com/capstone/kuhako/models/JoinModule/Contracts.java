@@ -3,6 +3,7 @@ package com.capstone.kuhako.models.JoinModule;
 import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.Reseller;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -18,11 +19,11 @@ public class Contracts {
     private Reseller reseller;
 
     @OneToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name="collector_id", nullable = false)
+    @JoinColumn(name="collector_id")
     private Collector collector;
 
     @Column
@@ -30,7 +31,7 @@ public class Contracts {
     @Column
     private double itemPrice;
     @Column
-    private double totalAmountPaid;
+    private double debtRemaining;
     @Column
     private String paymentType;
     @Column
@@ -40,20 +41,15 @@ public class Contracts {
 
     public Contracts() {
     }
-    public Contracts(String itemName, double itemPrice) {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-    }
-    public Contracts(Reseller reseller, Client client, Collector collector, String itemName, double itemPrice, double totalAmountPaid, String paymentType, String specifications, boolean paymentStatus) {
+    public Contracts(Reseller reseller, Client client, Collector collector, String itemName, double itemPrice, double debtRemaining, String paymentType, String specifications, boolean paymentStatus) {
         this.reseller = reseller;
         this.client = client;
         this.collector = collector;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
-        this.totalAmountPaid = totalAmountPaid;
+        this.debtRemaining = debtRemaining;
         this.paymentType = paymentType;
         this.specifications = specifications;
-        this.paymentStatus = paymentStatus;
     }
 
     public Long getContracts_id() {
@@ -104,12 +100,12 @@ public class Contracts {
         this.itemPrice = itemPrice;
     }
 
-    public double getTotalAmountPaid() {
-        return totalAmountPaid;
+    public double getDebtRemaining() {
+        return debtRemaining;
     }
 
-    public void setTotalAmountPaid(double totalAmountPaid) {
-        this.totalAmountPaid = totalAmountPaid;
+    public void setDebtRemaining(double debtRemaining) {
+        this.debtRemaining = debtRemaining;
     }
 
     public String getPaymentType() {

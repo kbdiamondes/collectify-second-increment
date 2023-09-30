@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AssignedCollectionsRepository extends CrudRepository<AssignedCollections,Object> {
-//    @Query("SELECT c FROM PaymentAssurance c WHERE c.reseller.collector_id = :collectorId")
-//    Iterable<AssignedCollections> findAssignedCollectionsByCollectorId(@Param("collectorId") Long collectorId);
 }

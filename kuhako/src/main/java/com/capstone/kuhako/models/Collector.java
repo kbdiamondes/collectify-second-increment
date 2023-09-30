@@ -17,6 +17,10 @@ public class Collector {
     @JoinColumn(name="reseller_id", nullable = false)
     private Reseller reseller;
 
+    @OneToMany(mappedBy = "collector", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Client> clients;
+
     @Column
     private String username;
 
@@ -42,8 +46,9 @@ public class Collector {
 
     public Collector() {
     }
-    public Collector(Reseller reseller, String username, String password, String fullName, String address, String email, Set<Contracts> contracts) {
+    public Collector(Reseller reseller, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts) {
         this.reseller = reseller;
+        this.clients = clients;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -66,6 +71,14 @@ public class Collector {
 
     public void setReseller(Reseller reseller) {
         this.reseller = reseller;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 
     public String getUsername() {

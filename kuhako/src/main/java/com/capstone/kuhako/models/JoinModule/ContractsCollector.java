@@ -12,13 +12,13 @@ public class ContractsCollector {
     @Column
     private String username;
     @Column
-    private double totalAmountPaid;
+    private double debtRemaining;
 
     public ContractsCollector() {
     }
-    public ContractsCollector(String username, double totalAmountPaid) {
+    public ContractsCollector(String username, double debtRemaining) {
         this.username = username;
-        this.totalAmountPaid = totalAmountPaid;
+        this.debtRemaining = debtRemaining;
     }
 
     public String getUsername() {
@@ -29,11 +29,11 @@ public class ContractsCollector {
         this.username = username;
     }
 
-    public double getTotalAmountPaid() {
-        return totalAmountPaid;
+    public double getDebtRemaining() {
+        return debtRemaining;
     }
 
-    public void setTotalAmountPaid(double totalAmountPaid) {
-        this.totalAmountPaid = totalAmountPaid;
+    public void setDebtRemaining(double debtRemaining) {
+        this.debtRemaining = debtRemaining;
     }
 }

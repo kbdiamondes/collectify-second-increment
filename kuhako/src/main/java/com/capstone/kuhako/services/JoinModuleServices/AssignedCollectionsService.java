@@ -4,7 +4,7 @@ import com.capstone.kuhako.models.JoinModule.AssignedCollections;
 import org.springframework.http.ResponseEntity;
 
 public interface AssignedCollectionsService {
-    void createAssignedCollections(Long resellerId,AssignedCollections assignedCollections);
+    void createAssignedCollections(Long resellerId, AssignedCollections assignedCollections);
 
     Iterable<AssignedCollections> getAssignedCollections();
 
