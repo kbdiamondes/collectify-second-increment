@@ -2,26 +2,22 @@ package com.capstone.kuhako.models.JoinModule;
 
 
 import com.capstone.kuhako.models.Collector;
-import com.capstone.kuhako.models.Reseller;
 import javax.persistence.*;
+
 @Entity
-@Table(name = "assignedCollection")
-public class AssignedCollections {
+@Table(name = "transactions")
+public class Transactions {
     @Id
     @GeneratedValue
-    private Long assignedCollection_id;
-
-    @ManyToOne
-    @JoinColumn(name="reseller_id", nullable = false)
-    private Reseller reseller;
-
-//    @OneToOne
-//    @JoinColumn(name="contract_id", nullable = false)
-//    private Contracts contracts;
+    private Long transactions_id;
 
     @ManyToOne
     @JoinColumn(name="collector_id", nullable = false)
     private Collector collector;
+
+    @ManyToOne
+    @JoinColumn(name="contracts_id", nullable = false)
+    private Contracts contracts;
 
     @Column
     private double amountPayments;
@@ -31,38 +27,21 @@ public class AssignedCollections {
     private byte[] transactionProof;
 
 
-    public AssignedCollections() {
+    public Transactions() {
     }
-
-    public AssignedCollections(Reseller reseller, Collector collector, double amountPayments, byte[] transactionProof) {
-        this.reseller = reseller;
+    public Transactions(Collector collector, Contracts contracts, double amountPayments, byte[] transactionProof) {
         this.collector = collector;
+        this.contracts = contracts;
         this.amountPayments = amountPayments;
         this.transactionProof = transactionProof;
     }
 
-    public Long getAssignedCollection_id() {
-        return assignedCollection_id;
+    public Long getTransactions_id() {
+        return transactions_id;
     }
 
-    /*public void setAssignedCollection_id(Long assignedCollection_id) {
-        this.assignedCollection_id = assignedCollection_id;
-    }*/
-
-    public Reseller getReseller() {
-        return reseller;
-    }
-
-    public void setReseller(Reseller reseller) {
-        this.reseller = reseller;
-    }
-
-//    public Contracts getContracts() {
-//        return contracts;
-//    }
-//
-//    public void setContracts(Contracts contracts) {
-//        this.contracts = contracts;
+//    public void setTransactions_id(Long transactions_id) {
+//        this.transactions_id = transactions_id;
 //    }
 
     public Collector getCollector() {
@@ -71,6 +50,14 @@ public class AssignedCollections {
 
     public void setCollector(Collector collector) {
         this.collector = collector;
+    }
+
+    public Contracts getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Contracts contracts) {
+        this.contracts = contracts;
     }
 
     public double getAmountPayments() {

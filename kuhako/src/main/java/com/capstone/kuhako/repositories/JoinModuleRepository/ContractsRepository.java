@@ -25,6 +25,6 @@ public interface ContractsRepository extends CrudRepository<Contracts,Object> {
     @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsCollector(cl.username, co.debtRemaining) FROM Contracts co JOIN co.client cl WHERE co.collector.collector_id = :collectorId AND co.paymentStatus = false")
     Iterable<ContractsCollector> findContractsHistoryByCollectorId(@Param("collectorId") Long collectorId);
 
-    @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsClient(co.itemName, co.itemPrice) FROM Contracts co WHERE co.client.client_id = :clientId")
+    @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsClient(co.itemName, co.itemPrice) FROM Contracts co WHERE co.client.client_id = :clientId AND co.paymentStatus = true")
     Iterable<ContractsClient> findContractsByClientId(@Param("clientId") Long collectorId);
 }

@@ -1,8 +1,7 @@
 package com.capstone.kuhako.controllers.JoinModuleController;
 
 import com.capstone.kuhako.models.Client;
-import com.capstone.kuhako.models.Collector;
-import com.capstone.kuhako.models.JoinModule.AssignedCollections;
+import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.repositories.ClientRepository;
@@ -75,8 +74,8 @@ public class ContractsController {
 //        return contractsService.deleteContract(resellerId,contracts_id);
 //    }
 
-    @RequestMapping(value="/contracts/assignedCollections/{collectorId}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateContracts(@PathVariable Long collectorId, @RequestBody AssignedCollections assignedCollections) {
-        return contractsService.updateContract(collectorId, assignedCollections);
+    @RequestMapping(value="/contracts/transactions/{collectorId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateContracts(@PathVariable Long collectorId, @RequestBody Transactions transactions) {
+        return contractsService.updateContract(collectorId, transactions);
     }
 }

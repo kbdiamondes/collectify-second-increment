@@ -20,5 +20,5 @@ public interface ContractsService {
 
     ResponseEntity deleteContract(Long resellerId, Long id);
 
-    ResponseEntity updateContract(Long collectorId, AssignedCollections assignedCollections);
+    ResponseEntity updateContract(Long collectorId, Transactions transactions);
 }

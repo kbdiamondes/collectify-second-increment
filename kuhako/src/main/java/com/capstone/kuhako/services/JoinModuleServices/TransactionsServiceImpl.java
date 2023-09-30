@@ -1,0 +1,59 @@
+package com.capstone.kuhako.services.JoinModuleServices;
+
+import com.capstone.kuhako.models.JoinModule.Transactions;
+import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.JoinModuleRepository.TransactionsRepository;
+import com.capstone.kuhako.repositories.CollectorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TransactionsServiceImpl implements TransactionsService {
+    @Autowired
+    private TransactionsRepository transactionsRepository;
+
+    @Autowired
+    private CollectorRepository collectorRepository;
+
+    // Create Transactions
+    public void createTransactions(Long collectorId, Transactions transactions){
+        Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        if(collector != null){
+            transactions.setCollector(collector);
+            transactionsRepository.save(transactions);
+        }
+    }
+    // Get all Collector
+    public Iterable<Transactions> getTransactions(){
+        return transactionsRepository.findAll();
+    }
+
+//    public Iterable<Transactions> getTransactionsByCollectorId(Long collectorId){
+//        return transactionsRepository.findTransactionsByCollectorId(collectorId);
+//    }
+
+
+    // delete Collectors
+
+    public ResponseEntity deleteTransactions(Long collectorId, Long id){
+        Transactions transactionsToDelete = transactionsRepository.findById(id).orElse(null);
+        if (transactionsToDelete != null && transactionsToDelete.getCollector().getCollector_id().equals(collectorId)) {
+            transactionsRepository.deleteById(id);
+            return new ResponseEntity<>("Transactions Deleted Successfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Transactions Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+    public ResponseEntity updateTransactions(Long collectorId, Long id, Transactions transactions){
+        Transactions transactionsForUpdate = transactionsRepository.findById(id).orElse(null);
+        if (transactionsForUpdate != null && transactionsForUpdate.getCollector().getCollector_id().equals(collectorId)){
+//            transactionsForUpdate.setCollectionStatus(transactions.getCollectionStatus());
+//            transactionsForUpdate.setRequiredCollectibles(transactions.getRequiredCollectibles());
+            transactionsRepository.save(transactionsForUpdate);
+            return new ResponseEntity("Transactions updated successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity("Transactions updated successfully", HttpStatus.NOT_FOUND);
+    }
+}

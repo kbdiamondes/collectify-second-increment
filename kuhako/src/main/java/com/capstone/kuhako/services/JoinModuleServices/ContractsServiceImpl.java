@@ -78,10 +78,10 @@ public class ContractsServiceImpl implements ContractsService {
     }
 
     // update Contracts
-    public ResponseEntity updateContract(Long collectorId, AssignedCollections assignedCollections){
+    public ResponseEntity updateContract(Long collectorId, Transactions transactions){
         Collector collector = collectorRepository.findById(collectorId).orElse(null);
         if(collector != null){
-//            assignedCollections.setCollector(collector);
+//            transactions.setCollector(collector);
 //            contracts.setPaymentStatus(true);
 //            contractsRepository.save(contracts);
         }
