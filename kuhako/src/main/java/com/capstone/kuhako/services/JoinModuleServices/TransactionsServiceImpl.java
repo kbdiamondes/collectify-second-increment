@@ -1,8 +1,10 @@
 package com.capstone.kuhako.services.JoinModuleServices;
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.ContractsRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.TransactionsRepository;
 import com.capstone.kuhako.repositories.CollectorRepository;
@@ -19,18 +21,23 @@ public class TransactionsServiceImpl implements TransactionsService {
     private CollectorRepository collectorRepository;
     @Autowired
     private ContractsRepository contractsRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     // Create Transactions
     public void createTransactions(Long collectorId, Transactions transactions){
-        Collector collector = collectorRepository.findById(collectorId).orElse(null);
-        Contracts contracts = contractsRepository.findById(transactions.getContracts().getContracts_id()).orElse(null);
-        if(collector != null){
-            transactions.setCollector(collector);
-            contracts.setDebtRemaining(contracts.getDebtRemaining()-transactions.getAmountPayments());
-            transactionsRepository.save(transactions);
-            contractsRepository.save(contracts);
-        }
+        Collector collector = collectorRepository.findById(collectorId).get();
+        Contracts contracts = contractsRepository.findById(transactions.getContracts().getContracts_id()).get();
+        Client client = clientRepository.findById(contracts.getClient().getClient_id()).get();
 
+        transactions.setCollector(collector);
+        contracts.setDebtRemaining(contracts.getDebtRemaining()-transactions.getAmountPayments());
+        if (contracts.getDebtRemaining()==0){
+            contracts.setPaymentStatus(false);
+            client.setContract(null);
+        }
+        transactionsRepository.save(transactions);
+        contractsRepository.save(contracts);
     }
     // Get all Collector
     public Iterable<Transactions> getTransactions(){

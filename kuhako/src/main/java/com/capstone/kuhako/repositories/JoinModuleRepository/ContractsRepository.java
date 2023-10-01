@@ -16,7 +16,7 @@ import java.util.List;
 public interface ContractsRepository extends CrudRepository<Contracts,Object> {
     List<Contracts> findByClientAndPaymentStatus(Client client, boolean status);
 
-    @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsReseller(cl.username, co.itemName, co.itemPrice, co.paymentType) FROM Contracts co JOIN co.client cl WHERE co.reseller.reseller_id = :resellerId")
+    @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsReseller(cl.username, co.itemName, co.itemPrice, co.paymentType) FROM Contracts co JOIN co.client cl WHERE co.reseller.reseller_id = :resellerId AND co.paymentStatus = true")
     Iterable<ContractsReseller> findContractsByResellerId(@Param("resellerId") Long resellerId);
 
     @Query("SELECT NEW com.capstone.kuhako.models.JoinModule.ContractsCollector(cl.username, co.debtRemaining) FROM Contracts co JOIN co.client cl WHERE co.collector.collector_id = :collectorId AND co.paymentStatus = true")
