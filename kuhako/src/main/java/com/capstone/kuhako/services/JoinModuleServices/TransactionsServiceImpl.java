@@ -1,7 +1,9 @@
 package com.capstone.kuhako.services.JoinModuleServices;
 
+import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.JoinModuleRepository.ContractsRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.TransactionsRepository;
 import com.capstone.kuhako.repositories.CollectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +15,22 @@ import org.springframework.stereotype.Service;
 public class TransactionsServiceImpl implements TransactionsService {
     @Autowired
     private TransactionsRepository transactionsRepository;
-
     @Autowired
     private CollectorRepository collectorRepository;
+    @Autowired
+    private ContractsRepository contractsRepository;
 
     // Create Transactions
     public void createTransactions(Long collectorId, Transactions transactions){
         Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        Contracts contracts = contractsRepository.findById(transactions.getContracts().getContracts_id()).orElse(null);
         if(collector != null){
             transactions.setCollector(collector);
+            contracts.setDebtRemaining(contracts.getDebtRemaining()-transactions.getAmountPayments());
             transactionsRepository.save(transactions);
+            contractsRepository.save(contracts);
         }
+
     }
     // Get all Collector
     public Iterable<Transactions> getTransactions(){

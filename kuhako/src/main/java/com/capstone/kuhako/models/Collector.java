@@ -1,6 +1,7 @@
 package com.capstone.kuhako.models;
 
 import com.capstone.kuhako.models.JoinModule.Contracts;
+import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -40,13 +41,17 @@ public class Collector {
     @JsonIgnore
     private Set<Contracts> contracts;
 
+    @OneToMany(mappedBy = "collector")
+    @JsonIgnore
+    private Set<Transactions> transactions;
+
  /*   @OneToMany(mappedBy = "collector")
     @JsonIgnore
     private Set<SendCollectors> sendCollectors;*/
 
     public Collector() {
     }
-    public Collector(Reseller reseller, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts) {
+    public Collector(Reseller reseller, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<Transactions> transactions) {
         this.reseller = reseller;
         this.clients = clients;
         this.username = username;
@@ -55,6 +60,7 @@ public class Collector {
         this.address = address;
         this.email = email;
         this.contracts = contracts;
+        this.transactions = transactions;
     }
 
     public Long getCollector_id() {
@@ -135,5 +141,13 @@ public class Collector {
 
     public void setContracts(Set<Contracts> contracts) {
         this.contracts = contracts;
+    }
+
+    public Set<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transactions> transactions) {
+        this.transactions = transactions;
     }
 }

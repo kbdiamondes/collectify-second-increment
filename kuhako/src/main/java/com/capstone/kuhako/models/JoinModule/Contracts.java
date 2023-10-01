@@ -6,6 +6,7 @@ import com.capstone.kuhako.models.Reseller;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "contracts")
@@ -39,9 +40,14 @@ public class Contracts {
     @Column
     private boolean paymentStatus;
 
+    @OneToMany(mappedBy = "contracts")
+    @JsonIgnore
+    private Set<Transactions> transactions;
+
     public Contracts() {
     }
-    public Contracts(Reseller reseller, Client client, Collector collector, String itemName, double itemPrice, double debtRemaining, String paymentType, String specifications, boolean paymentStatus) {
+
+    public Contracts(Reseller reseller, Client client, Collector collector, String itemName, double itemPrice, double debtRemaining, String paymentType, String specifications, boolean paymentStatus, Set<Transactions> transactions) {
         this.reseller = reseller;
         this.client = client;
         this.collector = collector;
@@ -50,6 +56,8 @@ public class Contracts {
         this.debtRemaining = debtRemaining;
         this.paymentType = paymentType;
         this.specifications = specifications;
+        this.paymentStatus = paymentStatus;
+        this.transactions = transactions;
     }
 
     public Long getContracts_id() {
@@ -130,5 +138,13 @@ public class Contracts {
 
     public void setPaymentStatus(boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public Set<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transactions> transactions) {
+        this.transactions = transactions;
     }
 }

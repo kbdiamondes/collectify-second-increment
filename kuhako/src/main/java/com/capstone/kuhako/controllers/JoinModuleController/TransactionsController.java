@@ -1,8 +1,10 @@
 package com.capstone.kuhako.controllers.JoinModuleController;
 
+import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.models.JoinModule.Transactions;
-import com.capstone.kuhako.models.Reseller;
-import com.capstone.kuhako.repositories.ResellerRepository;
+import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.repositories.CollectorRepository;
+import com.capstone.kuhako.repositories.JoinModuleRepository.ContractsRepository;
 import com.capstone.kuhako.services.JoinModuleServices.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +18,27 @@ public class TransactionsController {
     @Autowired
     TransactionsService transactionsService;
     @Autowired
-    private ResellerRepository resellerRepository;
+    private CollectorRepository collectorRepository;
+    @Autowired
+    private ContractsRepository contractsRepository;
 
-    @RequestMapping(value="/transactions/{resellerId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createTransactions(@PathVariable Long resellerId,@RequestBody Transactions transactions) {
-        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
-        if (reseller != null) {
-            transactionsService.createTransactions(resellerId, transactions);
-            return new ResponseEntity<>("Transactions created successfully", HttpStatus.CREATED);
+    @RequestMapping(value="/transactions/{collectorId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createTransactions(@PathVariable Long collectorId, @RequestBody Transactions transactions) {
+        Collector collector = collectorRepository.findById(collectorId).orElse(null);
+        Contracts contracts = contractsRepository.findById(transactions.getContracts().getContracts_id()).orElse(null);
+        if (collector != null && contracts != null) {
+            if (contracts.getCollector().equals(collector)){
+                if (contracts.getDebtRemaining() >= transactions.getAmountPayments()){
+                    transactionsService.createTransactions(collectorId, transactions);
+                    return new ResponseEntity<>("Transactions created successfully", HttpStatus.CREATED);
+                } else {
+                    return new ResponseEntity<>("Payment exceeds remaining debt", HttpStatus.NOT_FOUND);
+                }
+            } else {
+                return new ResponseEntity<>("Collector is not in charge on this contract", HttpStatus.NOT_FOUND);
+            }
         } else {
-            return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Collector/Contract does not exist", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -34,18 +47,18 @@ public class TransactionsController {
         return new ResponseEntity<>(transactionsService.getTransactions(), HttpStatus.OK);
     }
 
-//    @RequestMapping(value="/transactions/reseller/{resellerId}", method = RequestMethod.GET)
-//    public ResponseEntity<Object> getTransactionsByResellerId(@PathVariable Long resellerId) {
-//        return new ResponseEntity<>(transactionsService.getTransactionsByResellerId(resellerId), HttpStatus.OK);
+//    @RequestMapping(value="/transactions/collector/{collectorId}", method = RequestMethod.GET)
+//    public ResponseEntity<Object> getTransactionsByCollectorId(@PathVariable Long collectorId) {
+//        return new ResponseEntity<>(transactionsService.getTransactionsByCollectorId(collectorId), HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "/transactions/{resellerId}/{transactions_id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteTransactions(@PathVariable Long resellerId, @PathVariable Long transactions_id) {
-        return transactionsService.deleteTransactions(resellerId,transactions_id);
+    @RequestMapping(value = "/transactions/{collectorId}/{transactions_id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteTransactions(@PathVariable Long collectorId, @PathVariable Long transactions_id) {
+        return transactionsService.deleteTransactions(collectorId,transactions_id);
     }
 
-    @RequestMapping(value="/transactions/{resellerId}/{transactions_id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateTransactions(@PathVariable Long resellerId,@PathVariable Long transactions_id, @RequestBody Transactions transactions) {
-        return transactionsService.updateTransactions(resellerId,transactions_id, transactions);
+    @RequestMapping(value="/transactions/{collectorId}/{transactions_id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateTransactions(@PathVariable Long collectorId,@PathVariable Long transactions_id, @RequestBody Transactions transactions) {
+        return transactionsService.updateTransactions(collectorId,transactions_id, transactions);
     }
 }
