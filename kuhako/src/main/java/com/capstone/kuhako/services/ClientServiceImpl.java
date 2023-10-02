@@ -1,7 +1,9 @@
 package com.capstone.kuhako.services;
 
 import com.capstone.kuhako.models.Client;
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.repositories.ClientRepository;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private ResellerRepository resellerRepository;
 
 
     public Iterable<Client> getClient_Id(Long clientId) {
@@ -20,9 +23,15 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // Create Client
-    public void createClient(Client client){
-        clientRepository.save(client);
+    public void createClient(Long resellerId, Client client){
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+
+        if (reseller != null) {
+            client.setReseller(reseller);
+            clientRepository.save(client);
+        }
     }
+
     // Get all Client
     public Iterable<Client> getUsername(){
         return clientRepository.findAll();

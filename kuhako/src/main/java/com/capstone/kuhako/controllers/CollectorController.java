@@ -1,6 +1,8 @@
 package com.capstone.kuhako.controllers;
 
 import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.models.Reseller;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import com.capstone.kuhako.services.CollectorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,23 +17,26 @@ import org.slf4j.LoggerFactory;
 @CrossOrigin
 @RequestMapping("/user")
 public class CollectorController {
-
     @Autowired
     CollectorService collectorService;
-
-    private static final Logger logger = LoggerFactory.getLogger(Collector.class);
+    @Autowired
+    private ResellerRepository resellerRepository;
 
     // Create User
     @RequestMapping(value = "/collector/{resellerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createCollector(@PathVariable Long resellerId, @RequestBody Collector collector) {
-        collectorService.createCollector(resellerId, collector);
-        return new ResponseEntity<>("Collector Account created Successfully", HttpStatus.CREATED);
+        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+        if (reseller != null) {
+            collectorService.createCollector(resellerId, collector);
+            return new ResponseEntity<>("Collector Account created Successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
+        }
     }
 
     //  Get all User
     @RequestMapping(value = "/collector" , method = RequestMethod.GET)
     public ResponseEntity<Object> getUsername() {
-        logger.debug("Controller reach");
         return new ResponseEntity<>(collectorService.getUsername(), HttpStatus.OK);
     }
     // Delete a User
