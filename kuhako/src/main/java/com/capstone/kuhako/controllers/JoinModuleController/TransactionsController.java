@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/collectorPage")
+@RequestMapping("/CollectionPage")
 public class TransactionsController {
     @Autowired
     TransactionsService transactionsService;

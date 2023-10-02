@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/resellerPage")
+@RequestMapping("/JoinPage")
 public class ContractsController {
     @Autowired
     ContractsService contractsService;
@@ -69,10 +69,6 @@ public class ContractsController {
         return new ResponseEntity<>(contractsService.getContractsByClientId(clientId), HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/contracts/{resellerId}/{contracts_id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Object> deleteContracts(@PathVariable Long resellerId,@PathVariable Long contracts_id) {
-//        return contractsService.deleteContract(resellerId,contracts_id);
-//    }
 
     @RequestMapping(value="/contracts/transactions/{collectorId}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateContracts(@PathVariable Long collectorId, @RequestBody Transactions transactions) {
