@@ -1,8 +1,10 @@
 package com.capstone.kuhako.services.JoinModuleServices;
 
+import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.Collector;
 import com.capstone.kuhako.models.JoinModule.*;
 import com.capstone.kuhako.models.Reseller;
+import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.repositories.CollectorRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.ContractsRepository;
 import com.capstone.kuhako.repositories.ResellerRepository;
@@ -21,6 +23,8 @@ public class ContractsServiceImpl implements ContractsService {
     private ResellerRepository resellerRepository;
     @Autowired
     private CollectorRepository collectorRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     public boolean canCreateContract(Contracts newContract) {
         // Check if there are existing contracts with the same client and true status
@@ -37,7 +41,12 @@ public class ContractsServiceImpl implements ContractsService {
     // create Contracts
     public void createContract(Long resellerId, Contracts contracts){
         Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
+        Client client = clientRepository.findById(contracts.getClient().getClient_id()).orElse(null);
         if(reseller != null){
+            contracts.setCollector(null);
+            //contracts.setClient(null);
+            client.setReseller(reseller);
+            reseller.getClients().add(client);
             contracts.setReseller(reseller);
             contracts.setDebtRemaining(contracts.getItemPrice());
             contracts.setPaymentStatus(true);

@@ -23,13 +23,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // Create Client
-    public void createClient(Long resellerId, Client client){
-        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
-
-        if (reseller != null) {
-            client.setReseller(reseller);
-            clientRepository.save(client);
-        }
+    public void createClient(Client client){
+        client.setCollector(null);
+        client.setReseller(null);
+        client.setContract(null);
+        clientRepository.save(client);
     }
 
     // Get all Client

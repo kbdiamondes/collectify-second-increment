@@ -13,7 +13,7 @@ public class Client {
     private Long client_id;
 
     @ManyToOne
-    @JoinColumn(name="reseller_id", nullable = false)
+    @JoinColumn(name="reseller_id")
     private Reseller reseller;
 
     @ManyToOne

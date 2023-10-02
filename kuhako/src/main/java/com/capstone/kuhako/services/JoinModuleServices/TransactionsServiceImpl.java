@@ -4,14 +4,19 @@ import com.capstone.kuhako.models.Client;
 import com.capstone.kuhako.models.JoinModule.Contracts;
 import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.capstone.kuhako.models.Collector;
+import com.capstone.kuhako.models.Reseller;
 import com.capstone.kuhako.repositories.ClientRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.ContractsRepository;
 import com.capstone.kuhako.repositories.JoinModuleRepository.TransactionsRepository;
 import com.capstone.kuhako.repositories.CollectorRepository;
+import com.capstone.kuhako.repositories.ResellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class TransactionsServiceImpl implements TransactionsService {
@@ -23,19 +28,33 @@ public class TransactionsServiceImpl implements TransactionsService {
     private ContractsRepository contractsRepository;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private ResellerRepository resellerRepository;
 
     // Create Transactions
-    public void createTransactions(Long collectorId, Transactions transactions){
+    public void createTransactions(Long collectorId,Transactions transactions){
         Collector collector = collectorRepository.findById(collectorId).get();
         Contracts contracts = contractsRepository.findById(transactions.getContracts().getContracts_id()).get();
         Client client = clientRepository.findById(contracts.getClient().getClient_id()).get();
-
+        Reseller reseller = resellerRepository.findById(contracts.getReseller().getReseller_id()).get();
         transactions.setCollector(collector);
+        /*// the code that is going to fuck us over
+        try {
+            transactions.setTransactionProof(imageFile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
+
         contracts.setDebtRemaining(contracts.getDebtRemaining()-transactions.getAmountPayments());
         if (contracts.getDebtRemaining()==0){
+            client.setReseller(null);
+            client.setCollector(null);
+            reseller.getClients().remove(client);
+            collector.getClients().remove(client);
             contracts.setPaymentStatus(false);
             client.setContract(null);
         }
+
         transactionsRepository.save(transactions);
         contractsRepository.save(contracts);
     }

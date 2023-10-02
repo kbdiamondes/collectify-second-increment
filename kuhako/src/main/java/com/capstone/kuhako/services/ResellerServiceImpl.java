@@ -57,7 +57,7 @@ public class ResellerServiceImpl implements ResellerService {
             Collector collector = collectorRepository.findById(collectorId).orElse(null);
             Client client = clientRepository.findById(clientId).orElse(null);
             if (collector!=null && client!=null) {
-                if (reseller.getCollectors().contains(collector) && reseller.getClients().contains(client)){
+                if (reseller.getCollectors().contains(collector)){
                     client.getContract().setCollector(collector);
                     collector.getContracts().add(client.getContract());
                     client.setCollector(collector);
@@ -66,7 +66,7 @@ public class ResellerServiceImpl implements ResellerService {
                     clientRepository.save(client);
                     return new ResponseEntity<>("Collector assigned to Client",HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>("Collector/Client does not belong to Reseller",HttpStatus.NOT_FOUND);
+                    return new ResponseEntity<>("Collector does not belong to Reseller",HttpStatus.NOT_FOUND);
                 }
             } else {
                 return new ResponseEntity<>("Collector/Client not found",HttpStatus.NOT_FOUND);

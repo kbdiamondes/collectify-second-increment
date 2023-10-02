@@ -26,10 +26,9 @@ public class ContractsController {
     @RequestMapping(value="/contracts/{resellerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createContracts(@PathVariable Long resellerId, @RequestBody Contracts contracts) {
         Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
-        contracts.setCollector(null);
-        Client client =  clientRepository.findById(contracts.getClient().getClient_id()).orElse(null);
-        if (reseller != null && client != null) {
-            if (reseller.getClients().contains(client)){
+        Client client = clientRepository.findById(contracts.getClient().getClient_id()).orElse(null);
+        if (reseller != null) {
+            if (client != null) {
                 if (contractsService.canCreateContract(contracts)){
                     contractsService.createContract(resellerId, contracts);
                     return new ResponseEntity<>("Contracts created successfully", HttpStatus.CREATED);
@@ -37,10 +36,10 @@ public class ContractsController {
                     return new ResponseEntity<>("Invalid Contract. Clients can only hold 1 active contract", HttpStatus.NOT_FOUND);
                 }
             } else {
-                return new ResponseEntity<>("Client does not belong to Reseller", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Client does not exist", HttpStatus.NOT_FOUND);
             }
         } else {
-            return new ResponseEntity<>("Reseller/Client does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
         }
     }
 

@@ -12,7 +12,7 @@ public interface ClientService {
 //    }
 
     // Create Client
-    void createClient(Long resellerId, Client client);
+    void createClient(Client client);
     // Get Client
     Iterable<Client> getUsername();
     // Delete Client

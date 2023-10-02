@@ -23,7 +23,7 @@ public class Transactions {
     private double amountPayments;
 
     @Lob
-    @Column(name = "transaction_proof", columnDefinition="BLOB")
+    @Column(name = "transaction_proof", columnDefinition="LONGBLOB")
     private byte[] transactionProof;
 
 
