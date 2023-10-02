@@ -26,17 +26,6 @@ public class ContractsServiceImpl implements ContractsService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public boolean canCreateContract(Contracts newContract) {
-        // Check if there are existing contracts with the same client and true status
-        List<Contracts> existingContracts = contractsRepository.findByClientAndPaymentStatus(
-                newContract.getClient(), true);
-        if (!existingContracts.isEmpty()) {
-            // Contracts with the same client and true status exist, prevent creation
-            return false;
-        }
-        // No existing contracts with the same client and true status, allow creation
-        return true;
-    }
 
     // create Contracts
     public void createContract(Long resellerId, Contracts contracts){
@@ -49,7 +38,6 @@ public class ContractsServiceImpl implements ContractsService {
             reseller.getClients().add(client);
             contracts.setReseller(reseller);
             contracts.setDebtRemaining(contracts.getItemPrice());
-            contracts.setPaymentStatus(true);
             contractsRepository.save(contracts);
         }
     }

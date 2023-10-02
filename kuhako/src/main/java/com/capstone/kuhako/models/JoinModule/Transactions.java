@@ -16,11 +16,18 @@ public class Transactions {
     private Collector collector;
 
     @ManyToOne
-    @JoinColumn(name="contracts_id", nullable = false)
+    @JoinColumn(name="contracts_id")
     private Contracts contracts;
+
+    @ManyToOne
+    @JoinColumn(name="contractsHistory_id")
+    private ContractsHistory contractsHistory;
+
 
     @Column
     private double amountPayments;
+    @Column
+    private String paymentType;
 
     @Lob
     @Column(name = "transaction_proof", columnDefinition="LONGBLOB")
@@ -29,10 +36,14 @@ public class Transactions {
 
     public Transactions() {
     }
-    public Transactions(Collector collector, Contracts contracts, double amountPayments, byte[] transactionProof) {
+
+
+    public Transactions(Collector collector, Contracts contracts, ContractsHistory contractsHistory, double amountPayments, String paymentType, byte[] transactionProof) {
         this.collector = collector;
         this.contracts = contracts;
+        this.contractsHistory = contractsHistory;
         this.amountPayments = amountPayments;
+        this.paymentType = paymentType;
         this.transactionProof = transactionProof;
     }
 
@@ -68,11 +79,28 @@ public class Transactions {
         this.amountPayments = amountPayments;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public byte[] getTransactionProof() {
         return transactionProof;
     }
 
     public void setTransactionProof(byte[] transactionProof) {
         this.transactionProof = transactionProof;
+    }
+
+
+    public ContractsHistory getContractsHistory() {
+        return contractsHistory;
+    }
+
+    public void setContractsHistory(ContractsHistory contractsHistory) {
+        this.contractsHistory = contractsHistory;
     }
 }

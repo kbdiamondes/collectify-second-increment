@@ -4,7 +4,7 @@ import com.capstone.kuhako.models.JoinModule.*;
 import org.springframework.http.ResponseEntity;
 
 public interface ContractsService {
-    boolean canCreateContract(Contracts newContract);
+
 
     void createContract(Long resellerId, Contracts contracts);
 

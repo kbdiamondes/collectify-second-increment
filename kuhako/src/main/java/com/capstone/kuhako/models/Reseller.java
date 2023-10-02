@@ -1,6 +1,7 @@
 package com.capstone.kuhako.models;
 
 import com.capstone.kuhako.models.JoinModule.Contracts;
+import com.capstone.kuhako.models.JoinModule.ContractsHistory;
 import com.capstone.kuhako.models.ResellerModule.SendCollectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,12 +44,16 @@ public class Reseller {
 
     @OneToMany(mappedBy = "reseller")
     @JsonIgnore
+    private Set<ContractsHistory> contractHistories;
+
+    @OneToMany(mappedBy = "reseller")
+    @JsonIgnore
     private Set<SendCollectors> sendCollectors;
 
     public Reseller() {
     }
 
-    public Reseller(Set<Collector> collectors, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<SendCollectors> sendCollectors) {
+    public Reseller(Set<Collector> collectors, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<ContractsHistory> contractHistories, Set<SendCollectors> sendCollectors) {
         this.collectors = collectors;
         this.clients = clients;
         this.username = username;
@@ -57,6 +62,7 @@ public class Reseller {
         this.address = address;
         this.email = email;
         this.contracts = contracts;
+        this.contractHistories = contractHistories;
         this.sendCollectors = sendCollectors;
     }
 
@@ -138,5 +144,13 @@ public class Reseller {
 
     public void setContracts(Set<Contracts> contracts) {
         this.contracts = contracts;
+    }
+
+    public Set<ContractsHistory> getContractHistories() {
+        return contractHistories;
+    }
+
+    public void setContractHistories(Set<ContractsHistory> contractHistories) {
+        this.contractHistories = contractHistories;
     }
 }

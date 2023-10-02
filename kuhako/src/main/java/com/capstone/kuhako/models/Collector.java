@@ -1,6 +1,7 @@
 package com.capstone.kuhako.models;
 
 import com.capstone.kuhako.models.JoinModule.Contracts;
+import com.capstone.kuhako.models.JoinModule.ContractsHistory;
 import com.capstone.kuhako.models.JoinModule.Transactions;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,6 +44,10 @@ public class Collector {
 
     @OneToMany(mappedBy = "collector")
     @JsonIgnore
+    private Set<ContractsHistory> contractHistories;
+
+    @OneToMany(mappedBy = "collector")
+    @JsonIgnore
     private Set<Transactions> transactions;
 
  /*   @OneToMany(mappedBy = "collector")
@@ -51,7 +56,8 @@ public class Collector {
 
     public Collector() {
     }
-    public Collector(Reseller reseller, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<Transactions> transactions) {
+
+    public Collector(Reseller reseller, Set<Client> clients, String username, String password, String fullName, String address, String email, Set<Contracts> contracts, Set<ContractsHistory> contractHistories, Set<Transactions> transactions) {
         this.reseller = reseller;
         this.clients = clients;
         this.username = username;
@@ -60,6 +66,7 @@ public class Collector {
         this.address = address;
         this.email = email;
         this.contracts = contracts;
+        this.contractHistories = contractHistories;
         this.transactions = transactions;
     }
 
@@ -70,6 +77,7 @@ public class Collector {
 //    public void setCollector_id(Long collector_id) {
 //        this.collector_id = collector_id;
 //    }
+
 
     public Reseller getReseller() {
         return reseller;
@@ -141,6 +149,14 @@ public class Collector {
 
     public void setContracts(Set<Contracts> contracts) {
         this.contracts = contracts;
+    }
+
+    public Set<ContractsHistory> getContractHistories() {
+        return contractHistories;
+    }
+
+    public void setContractHistories(Set<ContractsHistory> contractHistories) {
+        this.contractHistories = contractHistories;
     }
 
     public Set<Transactions> getTransactions() {

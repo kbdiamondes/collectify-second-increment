@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class ResellerController {
     @Autowired
-
     ResellerService resellerService;
 
     // Create User

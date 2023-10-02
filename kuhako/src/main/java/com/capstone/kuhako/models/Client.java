@@ -1,9 +1,11 @@
 package com.capstone.kuhako.models;
 
 import com.capstone.kuhako.models.JoinModule.Contracts;
+import com.capstone.kuhako.models.JoinModule.ContractsHistory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -43,9 +45,14 @@ public class Client {
     @JsonIgnore
     private Contracts contract;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<ContractsHistory> contractsHistories;
+
     public Client() {
     }
-    public Client(Reseller reseller, Collector collector, String username, String password, String fullName, String address, String email, Contracts contract) {
+
+    public Client(Reseller reseller, Collector collector, String username, String password, String fullName, String address, String email, Contracts contract, Set<ContractsHistory> contractsHistories) {
         this.reseller = reseller;
         this.collector = collector;
         this.username = username;
@@ -54,6 +61,7 @@ public class Client {
         this.address = address;
         this.email = email;
         this.contract = contract;
+        this.contractsHistories = contractsHistories;
     }
 
     public Long getClient_id() {
@@ -135,5 +143,13 @@ public class Client {
 
     public void setContract(Contracts contract) {
         this.contract = contract;
+    }
+
+    public Set<ContractsHistory> getContractsHistories() {
+        return contractsHistories;
+    }
+
+    public void setContractsHistories(Set<ContractsHistory> contractsHistories) {
+        this.contractsHistories = contractsHistories;
     }
 }
