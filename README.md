@@ -4,6 +4,7 @@ _Provided by Keith Brylle Diamante_
 ## Mapping Names
 - Removed the keyword **PAGE** from each RequestMapping endpoint per entities (Client/Reseller/Collector)
 - Added GET METHOD Specifically for **Reseller/Collector by ID & Username**
+- Can now create Collector without Reseller ID
 
 ## Additions
 - FileDB (Entity)
