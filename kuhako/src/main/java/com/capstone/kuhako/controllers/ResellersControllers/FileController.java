@@ -38,7 +38,8 @@ public class FileController {
             message = "Uploaded the file successfully: " + fileName;
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
-            message = "Could not upload the file: " + fileName + "!";
+           // message = "Could not upload the file: " + fileName + "!";
+            message = e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
@@ -66,7 +67,6 @@ public class FileController {
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
-
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileDB.getType()))
