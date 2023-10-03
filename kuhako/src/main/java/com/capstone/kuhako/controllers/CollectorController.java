@@ -22,7 +22,17 @@ public class CollectorController {
     @Autowired
     private ResellerRepository resellerRepository;
 
-    // Create User
+    @RequestMapping(value = "/collector", method = RequestMethod.POST)
+    public ResponseEntity<Object> createCollector(@RequestBody Collector collector) {
+        if (collector != null) {
+            collectorService.createCollector(collector);
+            return new ResponseEntity<>("Collector Account created Successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /*
     @RequestMapping(value = "/collector/{resellerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createCollector(@PathVariable Long resellerId, @RequestBody Collector collector) {
         Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
@@ -32,7 +42,7 @@ public class CollectorController {
         } else {
             return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     //  Get all User
     @RequestMapping(value = "/collector" , method = RequestMethod.GET)

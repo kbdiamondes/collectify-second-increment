@@ -18,13 +18,11 @@ public class CollectorServiceImpl implements CollectorService{
 
     // Create a Collector
     @Override
-    public void createCollector(Long resellerId, Collector collector) {
-        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
-
-        if (reseller != null) {
-            collector.setReseller(reseller);
-            collectorRepository.save(collector);
-        }
+    public void createCollector(Collector collector) {
+        collector.setReseller(null);
+        collector.setClients(null);
+        collector.setContracts(null);
+        collectorRepository.save(collector);
     }
 
     // Get all Collector
