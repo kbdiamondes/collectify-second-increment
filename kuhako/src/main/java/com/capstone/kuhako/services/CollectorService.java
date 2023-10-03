@@ -3,6 +3,8 @@ package com.capstone.kuhako.services;
 import com.capstone.kuhako.models.Collector;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Optional;
+
 public interface CollectorService {
 
     // Create Client
@@ -18,4 +20,7 @@ public interface CollectorService {
     ResponseEntity updateCollector(Long id, Collector collector);
 
 
+    Optional<Collector> getCollectorById(Long id);
+
+    Optional<Collector> findByUsername(String username);
 }

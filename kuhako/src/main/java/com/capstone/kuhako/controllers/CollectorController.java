@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -49,6 +51,18 @@ public class CollectorController {
     public ResponseEntity<Object> getUsername() {
         return new ResponseEntity<>(collectorService.getUsername(), HttpStatus.OK);
     }
+
+    // Get Specific User by ID and by Username
+    @GetMapping("/collector/{id}")
+    public Optional<Collector> getClientById(@PathVariable Long id) {
+        return collectorService.getCollectorById(id);
+    }
+
+    @GetMapping("/collector/findByUsername")
+    public Optional<Collector> findByUsername(@RequestParam String username) {
+        return collectorService.findByUsername(username);
+    }
+
     // Delete a User
     @RequestMapping (value = "/collector/{collectorid}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteClient(@PathVariable Long collectorid){

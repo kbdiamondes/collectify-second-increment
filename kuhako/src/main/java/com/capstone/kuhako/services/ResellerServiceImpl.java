@@ -32,6 +32,17 @@ public class ResellerServiceImpl implements ResellerService {
         return resellerRepository.findAll();
     }
 
+    @Override
+    public Optional<Reseller> getResellerById(Long id) {
+        return resellerRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Reseller> findByUsername(String username) {
+        return Optional.ofNullable(resellerRepository.findByUsername(username));
+    }
+
+
     // Delete reseller
     public ResponseEntity deleteReseller(Long id){
         resellerRepository.deleteById(id);

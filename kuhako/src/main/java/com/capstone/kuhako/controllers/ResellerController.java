@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -25,6 +27,19 @@ public class ResellerController {
     public ResponseEntity<Object> getUsername() {
         return new ResponseEntity<>(resellerService.getUsername(), HttpStatus.OK);
     }
+
+    // Get Specific User by ID and by Username
+    @GetMapping("/reseller/{id}")
+    public Optional<Reseller> getResellerById(@PathVariable Long id) {
+        return resellerService.getResellerById(id);
+    }
+
+    @GetMapping("/reseller/findByUsername")
+    public Optional<Reseller> findByUsername(@RequestParam String username) {
+        return resellerService.findByUsername(username);
+    }
+
+
     // Delete a U
     @RequestMapping (value = "/reseller/{resellerId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteClient(@PathVariable Long resellerId){
