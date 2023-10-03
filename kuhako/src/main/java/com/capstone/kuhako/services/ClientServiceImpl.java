@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClientServiceImpl implements ClientService {
     @Autowired
@@ -52,5 +54,15 @@ public class ClientServiceImpl implements ClientService {
         // Saving and Updating a post
         clientRepository.save(clientForUpdate);
         return new ResponseEntity<>("Client updated Successfully",HttpStatus.OK);
+    }
+
+    @Override
+    public Optional<Client> getClientById(Long id) {
+        return clientRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Client> findByUsername(String username) {
+        return Optional.ofNullable(clientRepository.findByUsername(username));
     }
 }
