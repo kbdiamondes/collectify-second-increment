@@ -1,16 +1,13 @@
 package com.capstone.kuhako.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "files")
 public class FileDB {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -31,6 +28,7 @@ public class FileDB {
         this.type = type;
         this.data = data;
     }
+
 
     public String getId() {
         return id;
