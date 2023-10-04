@@ -16,7 +16,7 @@ public class Collector {
     private Long collector_id;
 
     @ManyToOne
-    @JoinColumn(name="reseller_id", nullable = false)
+    @JoinColumn(name="reseller_id", nullable = true)
     private Reseller reseller;
 
     @OneToMany(mappedBy = "collector", cascade = CascadeType.ALL)

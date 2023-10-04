@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CollectorServiceImpl implements CollectorService{
     @Autowired
@@ -18,21 +20,30 @@ public class CollectorServiceImpl implements CollectorService{
 
     // Create a Collector
     @Override
-    public void createCollector(Long resellerId, Collector collector) {
-        Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
-
-        if (reseller != null) {
-            collector.setReseller(reseller);
-            collectorRepository.save(collector);
-        }
+    public void createCollector(Collector collector) {
+        collector.setReseller(null);
+        collector.setClients(null);
+        collector.setContracts(null);
+        collectorRepository.save(collector);
     }
 
     // Get all Collector
     public Iterable<Collector> getUsername(){
         return collectorRepository.findAll();
     }
-    // Delete Collector
 
+    //Find specific user
+    @Override
+    public Optional<Collector> getCollectorById(Long id) {
+        return collectorRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Collector> findByUsername(String username) {
+        return Optional.ofNullable(collectorRepository.findByUsername(username));
+    }
+
+    // Delete Collector
     public ResponseEntity deleteCollector(Long id){
         collectorRepository.deleteById(id);
         return new ResponseEntity<>("Collector Deleted successfully", HttpStatus.OK);

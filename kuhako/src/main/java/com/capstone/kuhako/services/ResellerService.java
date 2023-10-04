@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import java.util.Optional;
+
+
 public interface ResellerService {
     // Create Client
     void createReseller(Reseller reseller);
@@ -20,4 +23,11 @@ public interface ResellerService {
     ResponseEntity updateReseller(Long id, Reseller reseller);
 
     ResponseEntity assignCollectorToClient(Long resellerId, Long collectorId, Long clientId);
+
+
+    Optional<Reseller> getResellerById(Long id);
+
+    Optional<Reseller> findByUsername(String username);
+
+
 }
