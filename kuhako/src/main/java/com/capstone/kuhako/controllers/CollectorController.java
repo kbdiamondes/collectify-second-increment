@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -22,7 +24,17 @@ public class CollectorController {
     @Autowired
     private ResellerRepository resellerRepository;
 
-    // Create User
+    @RequestMapping(value = "/collector", method = RequestMethod.POST)
+    public ResponseEntity<Object> createCollector(@RequestBody Collector collector) {
+        if (collector != null) {
+            collectorService.createCollector(collector);
+            return new ResponseEntity<>("Collector Account created Successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    /*
     @RequestMapping(value = "/collector/{resellerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> createCollector(@PathVariable Long resellerId, @RequestBody Collector collector) {
         Reseller reseller = resellerRepository.findById(resellerId).orElse(null);
@@ -32,13 +44,25 @@ public class CollectorController {
         } else {
             return new ResponseEntity<>("Reseller does not exist", HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     //  Get all User
     @RequestMapping(value = "/collector" , method = RequestMethod.GET)
     public ResponseEntity<Object> getUsername() {
         return new ResponseEntity<>(collectorService.getUsername(), HttpStatus.OK);
     }
+
+    // Get Specific User by ID and by Username
+    @GetMapping("/collector/{id}")
+    public Optional<Collector> getClientById(@PathVariable Long id) {
+        return collectorService.getCollectorById(id);
+    }
+
+    @GetMapping("/collector/findByUsername")
+    public Optional<Collector> findByUsername(@RequestParam String username) {
+        return collectorService.findByUsername(username);
+    }
+
     // Delete a User
     @RequestMapping (value = "/collector/{collectorid}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteClient(@PathVariable Long collectorid){

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -29,6 +31,20 @@ public class ClientController {
     public ResponseEntity<Object> getUsername() {
         return new ResponseEntity<>(clientService.getUsername(), HttpStatus.OK);
     }
+
+    // Get Specific User by ID and by Username
+    @GetMapping("/client/{id}")
+    public Optional<Client> getClientById(@PathVariable Long id) {
+        return clientService.getClientById(id);
+    }
+
+    @GetMapping("/client/findByUsername")
+    public Optional<Client> findByUsername(@RequestParam String username) {
+        return clientService.findByUsername(username);
+    }
+
+
+
     // Delete a U
     @RequestMapping (value = "/client/{clientid}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteClient(@PathVariable Long clientid){

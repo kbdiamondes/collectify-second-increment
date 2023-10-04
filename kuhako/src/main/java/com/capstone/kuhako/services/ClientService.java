@@ -19,4 +19,8 @@ public interface ClientService {
     ResponseEntity deleteClient(Long id);
     // Update a Client
     ResponseEntity updateClient(Long id, Client Client);
+
+    Optional<Client> getClientById(Long id);
+
+    Optional<Client> findByUsername(String username);
 }
